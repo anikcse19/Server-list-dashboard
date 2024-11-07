@@ -5,6 +5,7 @@ import axios from "axios";
 import baseUrl from "../../../config";
 import Cookies from "js-cookie";
 import { useNavigate, useParams } from "react-router-dom";
+import { RiDeleteBinFill } from "react-icons/ri";
 
 const UpdateUserPage = () => {
   const [fullName, setFullName] = useState("");
@@ -23,7 +24,7 @@ const UpdateUserPage = () => {
   const fetchClientsList = async () => {
     try {
       axios
-        .get(`${baseUrl}/wa-client/list`, {
+        .get(`${baseUrl}api/admin/wa-client/list`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -44,7 +45,7 @@ const UpdateUserPage = () => {
 
   useEffect(() => {
     axios
-      .get(`${baseUrl}/get-user-data/${id}`, {
+      .get(`${baseUrl}api/admin/get-user-data/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
           Accept: "application/json",
@@ -70,7 +71,7 @@ const UpdateUserPage = () => {
       };
 
       axios
-        .post(`${baseUrl}/get-user-data/${id}`, createUserData, {
+        .post(`${baseUrl}api/admin/get-user-data/${id}`, createUserData, {
           headers: {
             Authorization: `Bearer ${token}`,
             Accept: "application/json",
@@ -142,12 +143,21 @@ const UpdateUserPage = () => {
               {serverIds &&
                 serverIds.length > 0 &&
                 serverIds.map((id) => (
-                  <p
-                    className="bg-teal-200 text-teal-700 px-3 py-1 rounded"
+                  <div
+                    className="bg-teal-200 text-teal-700 px-3 py-1 rounded flex items-center gap-x-2"
                     key={id}
                   >
-                    {id}
-                  </p>
+                    <p>{id}</p>
+                    <RiDeleteBinFill
+                      onClick={() => {
+                        const updatedArray = serverIds.filter(
+                          (serverId) => serverId !== id
+                        );
+                        setServerIds(updatedArray);
+                      }}
+                      className="text-red-600 cursor-pointer"
+                    />
+                  </div>
                 ))}
             </div>
             <select

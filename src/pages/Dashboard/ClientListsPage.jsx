@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 import { Circles } from "react-loader-spinner";
 import { FaEyeSlash, FaRegEye } from "react-icons/fa";
 import { IoCopy } from "react-icons/io5";
+import { RiDeleteBinFill } from "react-icons/ri";
 
 const ClientListsPage = () => {
   const [clientsList, setClientsList] = useState([]);
@@ -44,7 +45,7 @@ const ClientListsPage = () => {
   const fetchClientsList = async () => {
     try {
       axios
-        .get(`${baseUrl}/wa-client/list?page=${pageNo}`, {
+        .get(`${baseUrl}api/admin/wa-client/list?page=${pageNo}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -88,7 +89,7 @@ const ClientListsPage = () => {
       };
 
       axios
-        .put(`${baseUrl}/wa-client/update/${id}`, updateClientData, {
+        .put(`${baseUrl}api/admin/wa-client/update/${id}`, updateClientData, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -409,7 +410,7 @@ const ClientListsPage = () => {
                 onClick={() => {
                   axios
                     .delete(
-                      `${baseUrl}/wa-client/delete/${isDeleteModalOpen.value.id}`,
+                      `${baseUrl}api/admin/wa-client/delete/${isDeleteModalOpen.value.id}`,
                       {
                         headers: {
                           Authorization: `Bearer ${token}`,
@@ -475,12 +476,21 @@ const ClientListsPage = () => {
               <p>Wa Alert No</p>
               <div className="flex items-center gap-2 flex-wrap">
                 {waAlertNo.map((wa, i) => (
-                  <p
-                    className="bg-green-200 text-green-700 px-2 py-1 rounded"
+                  <div
+                    className="bg-green-200 text-green-700 px-2 py-1 rounded flex items-center gap-x-2"
                     key={i}
                   >
-                    {wa}
-                  </p>
+                    <p>{wa}</p>
+                    <RiDeleteBinFill
+                      onClick={() => {
+                        const updatedArray = waAlertNo.filter(
+                          (no) => no !== wa
+                        );
+                        setWaAlertNo(updatedArray);
+                      }}
+                      className="text-red-600 cursor-pointer"
+                    />
+                  </div>
                 ))}
               </div>
 

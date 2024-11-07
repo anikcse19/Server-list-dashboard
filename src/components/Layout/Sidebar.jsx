@@ -97,7 +97,7 @@ const Sidebar = () => {
               Cookies.remove("token");
               Cookies.remove("role");
               axios.post(
-                `${baseUrl}/logout`,
+                `${baseUrl}api/admin/logout`,
                 {},
                 {
                   headers: {

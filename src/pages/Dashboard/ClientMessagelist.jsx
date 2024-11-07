@@ -21,7 +21,7 @@ const ClientMessageListPage = () => {
   const fetchClientsList = async () => {
     try {
       axios
-        .get(`${baseUrl}/wa-client/list-with-msg?page=${pageNo}`, {
+        .get(`${baseUrl}api/admin/wa-client/list-with-msg?page=${pageNo}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -44,23 +44,23 @@ const ClientMessageListPage = () => {
     fetchClientsList();
   }, [pageNo]);
 
-  // const formateDate = (marketDate) => {
-  //   const localDate = new Date(marketDate).toLocaleString(undefined, {
-  //     timeZoneName: "short",
-  //     year: "numeric",
-  //     month: "long",
-  //     day: "numeric",
-  //     hour: "2-digit",
-  //     minute: "2-digit",
-  //   });
+  const formateDate = (marketDate) => {
+    const localDate = new Date(marketDate).toLocaleString(undefined, {
+      timeZoneName: "short",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
 
-  //   return localDate;
-  // };
+    return localDate;
+  };
 
   return (
     <Layout>
       {/* search box */}
-      <div className="mt-5 flex items-center gap-x-2">
+      {/* <div className="mt-5 flex items-center gap-x-2">
         <p className={mode === "light" ? "text-black" : "text-white"}>
           Search:
         </p>
@@ -73,7 +73,7 @@ const ClientMessageListPage = () => {
             className="w-52 px-3 py-2 text-sm rounded-sm bg-transparent outline-none border-2 border-slate-600 focus:border-teal-500"
           />
         </div>
-      </div>
+      </div> */}
 
       {/* users table */}
       <div className="relative overflow-x-auto max-h-screen overflow-y-auto my-5">
@@ -90,14 +90,14 @@ const ClientMessageListPage = () => {
                 Sl No
               </th>
               <th scope="col" className="px-6 py-3 text-left text-xs">
-                Server Id
+                Server
               </th>
               <th scope="col" className="px-6 py-3 text-left text-xs">
                 Message
               </th>
 
               <th scope="col" className="px-6 py-3 text-left text-xs">
-                Wa Alert No
+                Created Date
               </th>
             </tr>
           </thead>
@@ -134,14 +134,12 @@ const ClientMessageListPage = () => {
                 >
                   <td className="px-6 py-4 text-left text-xs">{i + 1}</td>
                   <td className="px-6 py-4 text-left text-xs">
-                    {client?.serverId}
+                    {client?.wa_client?.server}
                   </td>
                   <td className="px-6 py-4 text-left text-xs">{client?.msg}</td>
 
                   <td className="px-6 py-4 text-left text-xs">
-                    {client?.wa_client?.waAlertNo
-                      ? client?.wa_client?.waAlertNo
-                      : "--"}
+                    {formateDate(client?.created_at)}
                   </td>
                 </tr>
               ))

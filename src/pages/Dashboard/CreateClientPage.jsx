@@ -20,7 +20,7 @@ const CreateClientPage = () => {
       };
 
       axios
-        .post(`${baseUrl}/wa-client/create`, createClientData, {
+        .post(`${baseUrl}api/admin/wa-client/create`, createClientData, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

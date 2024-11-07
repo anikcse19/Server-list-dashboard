@@ -29,7 +29,7 @@ const TrashListPage = () => {
   const fetchTrashedClientsList = async () => {
     try {
       axios
-        .get(`${baseUrl}/wa-client/trashed-clients`, {
+        .get(`${baseUrl}api/admin/wa-client/trashed-clients`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -54,7 +54,7 @@ const TrashListPage = () => {
 
   const handleRestore = async (id) => {
     axios
-      .get(`${baseUrl}/wa-client/restore-client/${id}`, {
+      .get(`${baseUrl}api/admin/wa-client/restore-client/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

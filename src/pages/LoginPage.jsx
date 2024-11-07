@@ -24,7 +24,7 @@ const LoginPage = () => {
         password,
       };
 
-      await axios.post(`${baseUrl}/login`, loginData).then((res) => {
+      await axios.post(`${baseUrl}api/admin/login`, loginData).then((res) => {
         if (res.data.status) {
           Cookies.set("token", res?.data?.data?.token);
           Cookies.set("role", res?.data?.data?.user_type);
@@ -44,14 +44,14 @@ const LoginPage = () => {
   };
   return (
     <div
-      style={{
-        backgroundImage: `url('/images/loginBg.jpg')`,
-        backgroundPosition: "center",
-        backgroundSize: "cover",
-      }}
-      className="w-full min-h-screen bg-white flex items-center justify-center"
+      // style={{
+      //   backgroundImage: `url('/images/loginBg.jpg')`,
+      //   backgroundPosition: "center",
+      //   backgroundSize: "cover",
+      // }}
+      className="w-full min-h-screen bg-[#C4DAD2] flex items-center justify-center"
     >
-      <div className="bg-slate-200 bg-opacity-5 border-4 border-white rounded-md w-[500px] h-[500px] py-10 px-5">
+      <div className="bg-[#9bddc5] bg-opacity-50 border-4 border-white rounded-md w-[500px] h-[500px] py-10 px-5">
         <div className="flex justify-center ">
           <h1 className="text-black text-2xl font-bold">Log in</h1>
         </div>

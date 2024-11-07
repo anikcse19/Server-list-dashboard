@@ -23,7 +23,7 @@ const CreateUserPage = () => {
       };
 
       axios
-        .post(`${baseUrl}/signup`, createUserData, {
+        .post(`${baseUrl}api/admin/signup`, createUserData, {
           headers: {
             Authorization: `Bearer ${token}`,
             Accept: "application/json",

@@ -51,7 +51,6 @@ const routes = createBrowserRouter([
     path: "/dashboard/user-lists",
     element: (
       <PrivateRoute>
-        {" "}
         <UsersListPage />
       </PrivateRoute>
     ),

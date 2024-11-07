@@ -26,7 +26,7 @@ const UsersListPage = () => {
   const fetchClientsList = async () => {
     try {
       axios
-        .get(`${baseUrl}/user-list`, {
+        .get(`${baseUrl}api/admin/user-list`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -63,7 +63,7 @@ const UsersListPage = () => {
   return (
     <Layout>
       {/* search box */}
-      <div className="mt-5 flex items-center gap-x-2">
+      {/* <div className="mt-5 flex items-center gap-x-2">
         <p className={mode === "light" ? "text-black" : "text-white"}>
           Search:
         </p>
@@ -76,7 +76,7 @@ const UsersListPage = () => {
             className="w-52 px-3 py-2 text-sm rounded-sm bg-transparent outline-none border-2 border-slate-600 focus:border-teal-500"
           />
         </div>
-      </div>
+      </div> */}
 
       {/* users table */}
       <div className="relative overflow-x-auto max-h-screen overflow-y-auto my-5">
@@ -189,7 +189,7 @@ const UsersListPage = () => {
                             });
                             axios
                               .post(
-                                `${baseUrl}/get-user-data/${user?.id}`,
+                                `${baseUrl}api/admin/get-user-data/${user?.id}`,
                                 {
                                   status: 0,
                                 },
@@ -219,7 +219,7 @@ const UsersListPage = () => {
                         onClick={() => {
                           axios
                             .post(
-                              `${baseUrl}/get-user-data/${user?.id}`,
+                              `${baseUrl}api/admin/get-user-data/${user?.id}`,
                               {
                                 status: 1,
                               },
