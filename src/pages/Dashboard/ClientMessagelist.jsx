@@ -77,13 +77,13 @@ const ClientMessageListPage = () => {
 
       {/* users table */}
       <div className="relative overflow-x-auto max-h-screen overflow-y-auto my-5">
-        <table className="w-full text-sm text-left rtl:text-right text-white  border-l-2 border-r-2 border-black">
+        <table className="w-full text-sm text-left rtl:text-right text-white  ">
           <thead
             className={`sticky top-0 text-xs   ${
               mode === "light"
                 ? "bg-blue-300 text-black"
                 : "bg-black text-white"
-            }  border-b-2 border-t-2 border-black rounded-md`}
+            } border-2 border-black rounded-md`}
           >
             <tr>
               <th scope="col" className="px-6 py-3 text-left text-xs">
@@ -104,7 +104,7 @@ const ClientMessageListPage = () => {
           <tbody>
             {isLoading ? (
               <tr className="text-center text-sm">
-                <td colSpan={12} align="center">
+                <td colSpan={4} align="center">
                   <div className="my-5 flex flex-col justify-center items-center">
                     <Circles
                       height="50"
@@ -116,6 +116,12 @@ const ClientMessageListPage = () => {
                       visible={true}
                     />
                   </div>
+                </td>
+              </tr>
+            ) : clientsList.length <= 0 ? (
+              <tr className="text-center text-sm">
+                <td colSpan={4} align="center">
+                  <p className="py-2 text-black">No data to show</p>
                 </td>
               </tr>
             ) : (
@@ -130,7 +136,7 @@ const ClientMessageListPage = () => {
                       : mode === "light"
                       ? "bg-blue-100 text-black"
                       : "bg-black text-white"
-                  }  text-sm cursor-pointer transition-all duration-500 ease-in  border-b-2 border-slate-700`}
+                  }  text-sm cursor-pointer transition-all duration-500 ease-in border-l-2 border-r-2   border-b-2 border-slate-700`}
                 >
                   <td className="px-6 py-4 text-left text-xs">{i + 1}</td>
                   <td className="px-6 py-4 text-left text-xs">
