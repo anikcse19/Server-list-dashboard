@@ -1,3 +1,3 @@
-const baseUrl = "https://hmstaging.1ten.live/";
+const baseUrl = "https://hmstaging.cloudysign.com/";
 
 export default baseUrl;

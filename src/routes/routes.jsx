@@ -9,6 +9,7 @@ import UsersListPage from "../pages/Dashboard/UsersListPage";
 import UpdateUserPage from "../pages/Dashboard/UpdateUserPage";
 import TrashListPage from "../pages/Dashboard/TrashListPage";
 import PrivateRoute from "./PrivateRoute";
+import ConfigsList from "../pages/Dashboard/ConfigsList";
 
 const routes = createBrowserRouter([
   {
@@ -52,6 +53,14 @@ const routes = createBrowserRouter([
     element: (
       <PrivateRoute>
         <UsersListPage />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/dashboard/all-configs",
+    element: (
+      <PrivateRoute>
+        <ConfigsList />
       </PrivateRoute>
     ),
   },

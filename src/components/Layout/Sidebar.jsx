@@ -11,6 +11,7 @@ import axios from "axios";
 import baseUrl from "../../../config";
 import useStore from "../../zustand/useStore";
 import { RiLogoutBoxRLine } from "react-icons/ri";
+import { GrDocumentConfig } from "react-icons/gr";
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -57,6 +58,12 @@ const Sidebar = () => {
           },
           {
             id: 6,
+            title: "All Config",
+            icon: GrDocumentConfig,
+            link: "/dashboard/all-configs",
+          },
+          {
+            id: 7,
             title: "Trash List",
             icon: FaTrashAlt,
             link: "/dashboard/trashlist",
