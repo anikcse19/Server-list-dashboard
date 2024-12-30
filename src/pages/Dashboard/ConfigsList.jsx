@@ -7,6 +7,8 @@ import baseUrl from "../../../config";
 import ConfigModal from "../../components/Modal/ConfigModal";
 import ConfigDetails from "../../components/Modal/ConfigDetails";
 import toast from "react-hot-toast";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import ConfigDeleteModal from "../../components/Modal/ConfigDeleteModal";
 
 const ConfigsList = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -18,8 +20,12 @@ const ConfigsList = () => {
   });
   const [openConfigDetailsModal, setOpenConfigDetailsModal] = useState({
     state: false,
-    value: "",
+    value: {},
     type: "",
+  });
+  const [openDeleteConfigModal, setOpenDeleteConfigModal] = useState({
+    state: false,
+    value: {},
   });
   // const navigate = useNavigate();
   // const { mode } = useStore();
@@ -53,7 +59,7 @@ const ConfigsList = () => {
 
   useEffect(() => {
     fetchConfigList();
-  }, [openConfigModal.type]);
+  }, [openConfigModal.type, openDeleteConfigModal]);
 
   const formateDate = (marketDate) => {
     const localDate = new Date(marketDate).toLocaleString(undefined, {
@@ -146,7 +152,10 @@ const ConfigsList = () => {
                 <th scope="col" className="px-6 py-3 text-left">
                   Created
                 </th>
-                <th scope="col" className="px-6 py-3 text-left">
+                <th scope="col" className="px-6 py-3 text-center">
+                  Info
+                </th>
+                <th scope="col" className="px-6 py-3 text-center">
                   Action
                 </th>
               </tr>
@@ -192,7 +201,7 @@ const ConfigsList = () => {
                     <td className="px-6 py-4 text-left text-xs">
                       {formateDate(config?.created_at)}
                     </td>
-                    <td className="px-6 py-4 text-left text-xs">
+                    <td className="px-6 py-4 text-center text-xs">
                       <button
                         onClick={() =>
                           setOpenConfigDetailsModal({
@@ -208,6 +217,19 @@ const ConfigsList = () => {
                         className="bg-gray-500 px-2 py-0.5 rounded-md text-white"
                       >
                         See Details
+                      </button>
+                    </td>
+                    <td className="px-6 py-4 text-center text-xs">
+                      <button
+                        onClick={() => {
+                          setOpenDeleteConfigModal({
+                            state: true,
+                            value: config,
+                          });
+                        }}
+                        className=""
+                      >
+                        <RiDeleteBin6Line className="text-xl text-red-400" />
                       </button>
                     </td>
                   </tr>
@@ -233,6 +255,15 @@ const ConfigsList = () => {
           <ConfigDetails
             openConfigDetailsModal={openConfigDetailsModal}
             setOpenConfigDetailsModal={setOpenConfigDetailsModal}
+          />
+        </div>
+      )}
+
+      {openDeleteConfigModal.state && (
+        <div className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2">
+          <ConfigDeleteModal
+            setOpenDeleteConfigModal={setOpenDeleteConfigModal}
+            openDeleteConfigModal={openDeleteConfigModal}
           />
         </div>
       )}
