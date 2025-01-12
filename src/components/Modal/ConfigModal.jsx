@@ -29,6 +29,8 @@ const ConfigModal = ({ openConfigModal, setOpenConfigModal }) => {
 
   const handleCreateConfig = async () => {
     if (openConfigModal.type === "mim") {
+      console.log("mim");
+
       const createConfigData = {
         clientId: selectedClientId,
         domain: domainName,
@@ -38,18 +40,23 @@ const ConfigModal = ({ openConfigModal, setOpenConfigModal }) => {
           MIM_SMS_SENDER_ID: smsSender,
         },
       };
-      await axios
-        .post(`${baseUrl}api/admin/client/set-mim-config`, createConfigData, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((res) => {
-          if (res?.data?.status) {
-            toast.success(res?.data?.message);
-            setOpenConfigModal({ stata: false, type: "" });
-          }
-        });
+      try {
+        await axios
+          .post(`${baseUrl}api/admin/client/set-mim-config`, createConfigData, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((res) => {
+            console.log(res, "res");
+            if (res?.data?.status) {
+              toast.success(res?.data?.message);
+              setOpenConfigModal({ stata: false, type: "" });
+            }
+          });
+      } catch (error) {
+        toast.error(error?.response?.data?.message);
+      }
     }
 
     if (openConfigModal.type === "greenweb") {
@@ -60,22 +67,28 @@ const ConfigModal = ({ openConfigModal, setOpenConfigModal }) => {
           GREENWEB_SMS_TOKEN: smsToken,
         },
       };
-      await axios
-        .post(
-          `${baseUrl}api/admin/client/set-greenweb-config`,
-          createConfigData,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        )
-        .then((res) => {
-          if (res?.data?.status) {
-            toast.success(res?.data?.message);
-            setOpenConfigModal({ stata: false, type: "" });
-          }
-        });
+      try {
+        await axios
+          .post(
+            `${baseUrl}api/admin/client/set-greenweb-config`,
+            createConfigData,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .then((res) => {
+            if (res?.data?.status) {
+              toast.success(res?.data?.message);
+              setOpenConfigModal({ stata: false, type: "" });
+            } else {
+              toast.error(res?.data?.message);
+            }
+          });
+      } catch (error) {
+        toast.error(error?.response?.data?.message);
+      }
     }
 
     if (openConfigModal.type === "ssl") {
@@ -87,27 +100,32 @@ const ConfigModal = ({ openConfigModal, setOpenConfigModal }) => {
           SSL_SMS_SID: smsSender,
         },
       };
-      await axios
-        .post(
-          `${baseUrl}api/admin/client/set-sslsms-config`,
-          createConfigData,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        )
-        .then((res) => {
-          if (res?.data?.status) {
-            toast.success(res?.data?.message);
-            setOpenConfigModal({ stata: false, type: "" });
-          }
-        });
+      try {
+        await axios
+          .post(
+            `${baseUrl}api/admin/client/set-sslsms-config`,
+            createConfigData,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .then((res) => {
+            if (res?.data?.status) {
+              toast.success(res?.data?.message);
+              setOpenConfigModal({ stata: false, type: "" });
+            } else {
+              toast.error(res?.data?.message);
+            }
+          });
+      } catch (error) {
+        toast.error(error?.response?.data?.message);
+      }
     }
   };
 
   const fetchSignleDomainData = async () => {
-    console.log("blur click");
     if (openConfigModal.type === "mim") {
       await axios
         .post(
@@ -129,6 +147,8 @@ const ConfigModal = ({ openConfigModal, setOpenConfigModal }) => {
             setSmsToken(res?.data?.data?.MIM_SMS_TOKEN);
             setSmsUser(res?.data?.data?.MIM_SMS_USER);
             setSmsSender(res?.data?.data?.MIM_SMS_SENDER_ID);
+          } else {
+            toast.error(res?.data?.message);
           }
         });
     }
@@ -152,6 +172,8 @@ const ConfigModal = ({ openConfigModal, setOpenConfigModal }) => {
         .then((res) => {
           if (res?.data?.status) {
             setSmsToken(res?.data?.data?.GREENWEB_SMS_TOKEN);
+          } else {
+            toast.error(res?.data?.message);
           }
         });
     }
@@ -176,6 +198,8 @@ const ConfigModal = ({ openConfigModal, setOpenConfigModal }) => {
           if (res?.data?.status) {
             setSmsToken(res?.data?.data?.SSL_SMS_TOKEN);
             setSmsSender(res?.data?.data?.SSL_SMS_SID);
+          } else {
+            toast.error(res?.data?.message);
           }
         });
     }
