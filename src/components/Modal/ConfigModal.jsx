@@ -125,85 +125,85 @@ const ConfigModal = ({ openConfigModal, setOpenConfigModal }) => {
     }
   };
 
-  const fetchSignleDomainData = async () => {
-    if (openConfigModal.type === "mim") {
-      await axios
-        .post(
-          `${baseUrl}api/admin/client/get-mim-config`,
-          {
-            clientId: selectedClientId,
-            domain: domainName,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-              Accept: "application/json",
-            },
-          }
-        )
-        .then((res) => {
-          if (res?.data?.status) {
-            setSmsToken(res?.data?.data?.MIM_SMS_TOKEN);
-            setSmsUser(res?.data?.data?.MIM_SMS_USER);
-            setSmsSender(res?.data?.data?.MIM_SMS_SENDER_ID);
-          } else {
-            toast.error(res?.data?.message);
-          }
-        });
-    }
+  // const fetchSignleDomainData = async () => {
+  //   if (openConfigModal.type === "mim") {
+  //     await axios
+  //       .post(
+  //         `${baseUrl}api/admin/client/get-mim-config`,
+  //         {
+  //           clientId: selectedClientId,
+  //           domain: domainName,
+  //         },
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${token}`,
+  //             "Content-Type": "application/json",
+  //             Accept: "application/json",
+  //           },
+  //         }
+  //       )
+  //       .then((res) => {
+  //         if (res?.data?.status) {
+  //           setSmsToken(res?.data?.data?.MIM_SMS_TOKEN);
+  //           setSmsUser(res?.data?.data?.MIM_SMS_USER);
+  //           setSmsSender(res?.data?.data?.MIM_SMS_SENDER_ID);
+  //         } else {
+  //           toast.error(res?.data?.message);
+  //         }
+  //       });
+  //   }
 
-    if (openConfigModal.type === "greenweb") {
-      await axios
-        .post(
-          `${baseUrl}api/admin/client/get-greenweb-config`,
-          {
-            clientId: selectedClientId,
-            domain: domainName,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-              Accept: "application/json",
-            },
-          }
-        )
-        .then((res) => {
-          if (res?.data?.status) {
-            setSmsToken(res?.data?.data?.GREENWEB_SMS_TOKEN);
-          } else {
-            toast.error(res?.data?.message);
-          }
-        });
-    }
+  //   if (openConfigModal.type === "greenweb") {
+  //     await axios
+  //       .post(
+  //         `${baseUrl}api/admin/client/get-greenweb-config`,
+  //         {
+  //           clientId: selectedClientId,
+  //           domain: domainName,
+  //         },
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${token}`,
+  //             "Content-Type": "application/json",
+  //             Accept: "application/json",
+  //           },
+  //         }
+  //       )
+  //       .then((res) => {
+  //         if (res?.data?.status) {
+  //           setSmsToken(res?.data?.data?.GREENWEB_SMS_TOKEN);
+  //         } else {
+  //           toast.error(res?.data?.message);
+  //         }
+  //       });
+  //   }
 
-    if (openConfigModal.type === "ssl") {
-      await axios
-        .post(
-          `${baseUrl}api/admin/client/get-sslsms-config`,
-          {
-            clientId: selectedClientId,
-            domain: domainName,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-              Accept: "application/json",
-            },
-          }
-        )
-        .then((res) => {
-          if (res?.data?.status) {
-            setSmsToken(res?.data?.data?.SSL_SMS_TOKEN);
-            setSmsSender(res?.data?.data?.SSL_SMS_SID);
-          } else {
-            toast.error(res?.data?.message);
-          }
-        });
-    }
-  };
+  //   if (openConfigModal.type === "ssl") {
+  //     await axios
+  //       .post(
+  //         `${baseUrl}api/admin/client/get-sslsms-config`,
+  //         {
+  //           clientId: selectedClientId,
+  //           domain: domainName,
+  //         },
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${token}`,
+  //             "Content-Type": "application/json",
+  //             Accept: "application/json",
+  //           },
+  //         }
+  //       )
+  //       .then((res) => {
+  //         if (res?.data?.status) {
+  //           setSmsToken(res?.data?.data?.SSL_SMS_TOKEN);
+  //           setSmsSender(res?.data?.data?.SSL_SMS_SID);
+  //         } else {
+  //           toast.error(res?.data?.message);
+  //         }
+  //       });
+  //   }
+  // };
 
   return (
     <div
@@ -232,7 +232,6 @@ const ConfigModal = ({ openConfigModal, setOpenConfigModal }) => {
             id=""
             onChange={(e) => {
               setSelectedClientId(e.target.value);
-              fetchSignleDomainData();
             }}
             className="p-2 outline-none border border-black cursor-pointer rounded"
           >
@@ -247,7 +246,7 @@ const ConfigModal = ({ openConfigModal, setOpenConfigModal }) => {
         <div className="flex flex-col gap-y-1">
           <input
             onChange={(e) => setDomainName(e.target.value)}
-            onBlur={fetchSignleDomainData}
+            // onBlur={fetchSignleDomainData}
             type="text"
             name=""
             id=""
