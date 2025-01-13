@@ -10,6 +10,8 @@ import UpdateUserPage from "../pages/Dashboard/UpdateUserPage";
 import TrashListPage from "../pages/Dashboard/TrashListPage";
 import PrivateRoute from "./PrivateRoute";
 import ConfigsList from "../pages/Dashboard/ConfigsList";
+import SubClientPage from "../pages/Dashboard/SubClientPage";
+import CreateSubClientPage from "../pages/Dashboard/CreateSubClient";
 
 const routes = createBrowserRouter([
   {
@@ -21,6 +23,14 @@ const routes = createBrowserRouter([
     element: (
       <PrivateRoute>
         <ClientListsPage />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/dashboard/sub-client-lists",
+    element: (
+      <PrivateRoute>
+        <SubClientPage />
       </PrivateRoute>
     ),
   },
@@ -37,6 +47,14 @@ const routes = createBrowserRouter([
     element: (
       <PrivateRoute>
         <CreateClientPage />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/dashboard/create-sub-client",
+    element: (
+      <PrivateRoute>
+        <CreateSubClientPage />
       </PrivateRoute>
     ),
   },

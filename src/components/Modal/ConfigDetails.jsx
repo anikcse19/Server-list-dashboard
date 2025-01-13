@@ -12,8 +12,6 @@ const ConfigDetails = ({
   const [details, setDetails] = useState([]);
   const token = Cookies.get("token");
 
-  console.log(openConfigDetailsModal.type, "type");
-
   useEffect(() => {
     if (openConfigDetailsModal?.type === "mim") {
       axios
@@ -84,12 +82,6 @@ const ConfigDetails = ({
         });
     }
   }, []);
-
-  console.log(details, "det");
-
-  Object.keys(details).forEach((key) => {
-    console.log(`Key: ${key}, Value: ${details[key]}`);
-  });
 
   return (
     <div

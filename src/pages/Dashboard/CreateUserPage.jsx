@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Layout from "../../components/Layout/Layout";
 import toast from "react-hot-toast";
 import axios from "axios";
@@ -10,6 +10,7 @@ const CreateUserPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
+  const [adminRoleList, setAdminRoleList] = useState([]);
 
   const token = Cookies.get("token");
 
@@ -45,6 +46,28 @@ const CreateUserPage = () => {
       setRole("");
     }
   };
+
+  const fetchAllRoleList = async () => {
+    await axios
+      .get(`${baseUrl}api/admin/role-list`, {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        if (res?.data?.status) {
+          setAdminRoleList(res?.data?.data);
+        }
+      });
+  };
+
+  useEffect(() => {
+    fetchAllRoleList();
+  }, []);
+
+  console.log(adminRoleList, "list");
+
   return (
     <Layout>
       <div className="w-full h-screen flex justify-center mt-20 ">
@@ -97,8 +120,11 @@ const CreateUserPage = () => {
               className="w-[90%] py-3 px-3 rounded-md outline-none border-2 border-black"
             >
               <option value="">Select Role---</option>
-              <option value="1">Administrator</option>
-              <option value="2">Editor</option>
+              {Object.keys(adminRoleList).map((key) => (
+                <option key={key} value={key}>
+                  {adminRoleList[key]}
+                </option>
+              ))}
             </select>
           </div>
           <div className="flex justify-center mt-6">

@@ -12,10 +12,10 @@ import { useNavigate } from "react-router-dom";
 const UsersListPage = () => {
   const [usersList, setUsersList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [isUpdateStatusLoading, setIsUpdateStatusLoading] = useState({
-    id: "",
-    state: false,
-  });
+  // const [isUpdateStatusLoading, setIsUpdateStatusLoading] = useState({
+  //   id: "",
+  //   state: false,
+  // });
 
   const navigate = useNavigate();
   const { mode } = useStore();
@@ -102,7 +102,10 @@ const UsersListPage = () => {
                 User Type
               </th>
               <th scope="col" className="px-6 py-3 text-left">
-                Server Ids
+                Client Ids
+              </th>
+              <th scope="col" className="px-6 py-3 text-left">
+                Sub Client Ids
               </th>
               <th scope="col" className="px-6 py-3 text-left">
                 Created Date
@@ -150,7 +153,15 @@ const UsersListPage = () => {
                   <td className="px-6 py-4 text-left text-xs">{user?.name}</td>
                   <td className="px-6 py-4 text-left text-xs">{user?.email}</td>
                   <td className="px-6 py-4 text-left text-xs">
-                    {user?.user_type === 1 ? "Administrator" : "Editor"}
+                    {user?.user_type === 1
+                      ? "Administrator"
+                      : user?.user_type === 2
+                      ? "Sub Admin"
+                      : user?.user_type === 3
+                      ? "Client"
+                      : user?.user_type === 4
+                      ? "Sub Client"
+                      : "Co Sub Client"}
                   </td>
                   <td className="px-6 py-4 text-left text-xs">
                     <div className="flex items-center gap-2">
@@ -158,6 +169,20 @@ const UsersListPage = () => {
                         ? user.serverIds.map((id) => (
                             <p
                               className="bg-green-200 text-green-700 px-2 py-1 rounded"
+                              key={id}
+                            >
+                              {id}
+                            </p>
+                          ))
+                        : "--"}
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 text-left text-xs">
+                    <div className="flex items-center gap-2">
+                      {user.subClientIds !== null
+                        ? user.subClientIds.map((id) => (
+                            <p
+                              className="bg-red-200 text-red-700 px-2 py-1 rounded"
                               key={id}
                             >
                               {id}
@@ -183,10 +208,10 @@ const UsersListPage = () => {
                       <div
                         onClick={() => {
                           try {
-                            setIsUpdateStatusLoading({
-                              id: user.id,
-                              state: true,
-                            });
+                            // setIsUpdateStatusLoading({
+                            //   id: user.id,
+                            //   state: true,
+                            // });
                             axios
                               .post(
                                 `${baseUrl}api/admin/get-user-data/${user?.id}`,

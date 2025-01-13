@@ -25,12 +25,8 @@ const ConfigModal = ({ openConfigModal, setOpenConfigModal }) => {
       .then((res) => setClientList(res?.data?.data));
   }, []);
 
-  console.log(clientList, "lis");
-
   const handleCreateConfig = async () => {
     if (openConfigModal.type === "mim") {
-      console.log("mim");
-
       const createConfigData = {
         clientId: selectedClientId,
         domain: domainName,
@@ -48,7 +44,6 @@ const ConfigModal = ({ openConfigModal, setOpenConfigModal }) => {
             },
           })
           .then((res) => {
-            console.log(res, "res");
             if (res?.data?.status) {
               toast.success(res?.data?.message);
               setOpenConfigModal({ stata: false, type: "" });

@@ -24,46 +24,57 @@ const Sidebar = () => {
   const { isOpenSidebar } = useStore();
 
   const navs = [
+    ...(parseInt(role) === 1
+      ? [
+          {
+            id: 1,
+            title: "User List",
+            icon: FaUsersRectangle,
+            link: "/dashboard/user-lists",
+          },
+        ]
+      : []),
     {
-      id: 1,
+      id: 2,
       title: "Clients List",
       icon: FaUsers,
       link: "/dashboard/client-lists",
     },
+    {
+      id: 3,
+      title: "Sub Clients List",
+      icon: FaUsers,
+      link: "/dashboard/sub-client-lists",
+    },
     ...(parseInt(role) === 1
       ? [
           {
-            id: 2,
+            id: 4,
             title: "Clients Message",
             icon: TbMessage2Code,
             link: "/dashboard/client-list-message",
           },
           {
-            id: 3,
+            id: 5,
             title: "Create Client",
             icon: MdAddModerator,
             link: "/dashboard/create-client",
           },
           {
-            id: 4,
+            id: 6,
             title: "Create User",
             icon: FaHospitalUser,
             link: "/dashboard/create-user",
           },
+
           {
-            id: 5,
-            title: "User List",
-            icon: FaUsersRectangle,
-            link: "/dashboard/user-lists",
-          },
-          {
-            id: 6,
+            id: 7,
             title: "All Config",
             icon: GrDocumentConfig,
             link: "/dashboard/all-configs",
           },
           {
-            id: 7,
+            id: 8,
             title: "Trash List",
             icon: FaTrashAlt,
             link: "/dashboard/trashlist",

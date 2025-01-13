@@ -13,7 +13,10 @@ const UpdateUserPage = () => {
   // const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
   const [serverIds, setServerIds] = useState([]);
+  const [subClientIds, setSubClientIds] = useState([]);
   const [clientsList, setClientsList] = useState([]);
+  const [subClientsList, setSubClientsList] = useState([]);
+  const [adminRoleList, setAdminRoleList] = useState([]);
 
   const navigate = useNavigate();
   const params = useParams();
@@ -39,8 +42,43 @@ const UpdateUserPage = () => {
     }
   };
 
+  const fetchSubClientsList = async () => {
+    try {
+      axios
+        .get(`${baseUrl}api/admin/sub-client/list`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          if (res?.data?.status) {
+            setSubClientsList(res?.data?.data);
+          }
+        });
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    }
+  };
+
+  const fetchAllRoleList = async () => {
+    await axios
+      .get(`${baseUrl}api/admin/role-list`, {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        if (res?.data?.status) {
+          setAdminRoleList(res?.data?.data);
+        }
+      });
+  };
+
   useEffect(() => {
     fetchClientsList();
+    fetchSubClientsList();
+    fetchAllRoleList();
   }, []);
 
   useEffect(() => {
@@ -68,6 +106,7 @@ const UpdateUserPage = () => {
         full_name: fullName,
         role_type: parseInt(role),
         serverIds: serverIds,
+        subClientIds: subClientIds,
       };
 
       axios
@@ -137,12 +176,68 @@ const UpdateUserPage = () => {
             />
           </div> */}
 
+          {(role === 1 || role === 2 || role === 3) && (
+            <div className="flex flex-col gap-y-2">
+              <label htmlFor="server_ids">Client Ids</label>
+              <div className="flex items-center flex-wrap gap-2">
+                {serverIds &&
+                  serverIds.length > 0 &&
+                  serverIds.map((id) => (
+                    <div
+                      className="bg-teal-200 text-teal-700 px-3 py-1 rounded flex items-center gap-x-2"
+                      key={id}
+                    >
+                      <p>{id}</p>
+                      <RiDeleteBinFill
+                        onClick={() => {
+                          const updatedArray = serverIds.filter(
+                            (serverId) => serverId !== id
+                          );
+                          setServerIds(updatedArray);
+                        }}
+                        className="text-red-600 cursor-pointer"
+                      />
+                    </div>
+                  ))}
+              </div>
+              <select
+                onChange={(e) => {
+                  if (!serverIds || serverIds.length <= 0) {
+                    setServerIds([e.target.value]);
+                  } else {
+                    if (
+                      serverIds &&
+                      serverIds.length > 0 &&
+                      !serverIds.includes(parseInt(e.target.value))
+                    ) {
+                      setServerIds((prev) => [
+                        ...prev,
+                        parseInt(e.target.value),
+                      ]);
+                    } else {
+                      toast.error("Already Exists");
+                    }
+                  }
+                }}
+                name=""
+                id="server_ids"
+                className="w-[90%] py-3 px-3 rounded-md outline-none border-2 border-black"
+              >
+                <option value="">Select---</option>
+                {clientsList.map((client) => (
+                  <option key={client?.id} value={client?.id}>
+                    {client?.server}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
           <div className="flex flex-col gap-y-2">
-            <label htmlFor="server_ids">Server Ids</label>
+            <label htmlFor="server_ids">Sub Client Ids</label>
             <div className="flex items-center flex-wrap gap-2">
-              {serverIds &&
-                serverIds.length > 0 &&
-                serverIds.map((id) => (
+              {subClientIds &&
+                subClientIds.length > 0 &&
+                subClientIds.map((id) => (
                   <div
                     className="bg-teal-200 text-teal-700 px-3 py-1 rounded flex items-center gap-x-2"
                     key={id}
@@ -150,10 +245,10 @@ const UpdateUserPage = () => {
                     <p>{id}</p>
                     <RiDeleteBinFill
                       onClick={() => {
-                        const updatedArray = serverIds.filter(
-                          (serverId) => serverId !== id
+                        const updatedArray = subClientIds.filter(
+                          (subclientId) => subclientId !== id
                         );
-                        setServerIds(updatedArray);
+                        setSubClientIds(updatedArray);
                       }}
                       className="text-red-600 cursor-pointer"
                     />
@@ -162,28 +257,31 @@ const UpdateUserPage = () => {
             </div>
             <select
               onChange={(e) => {
-                if (!serverIds || serverIds.length <= 0) {
-                  setServerIds([e.target.value]);
+                if (!subClientIds || subClientIds.length <= 0) {
+                  setSubClientIds([e.target.value]);
                 } else {
                   if (
-                    serverIds &&
-                    serverIds.length > 0 &&
-                    !serverIds.includes(parseInt(e.target.value))
+                    subClientIds &&
+                    subClientIds.length > 0 &&
+                    !subClientIds.includes(parseInt(e.target.value))
                   ) {
-                    setServerIds((prev) => [...prev, parseInt(e.target.value)]);
+                    setSubClientIds((prev) => [
+                      ...prev,
+                      parseInt(e.target.value),
+                    ]);
                   } else {
                     toast.error("Already Exists");
                   }
                 }
               }}
               name=""
-              id="server_ids"
+              id="sub_client_ids"
               className="w-[90%] py-3 px-3 rounded-md outline-none border-2 border-black"
             >
-              <option value="">Select Server id---</option>
-              {clientsList.map((client) => (
-                <option key={client?.id} value={client?.id}>
-                  {client?.server}
+              <option value="">Select---</option>
+              {subClientsList.map((subClient) => (
+                <option key={subClient?.id} value={subClient?.id}>
+                  {subClient?.domain}
                 </option>
               ))}
             </select>
@@ -199,8 +297,11 @@ const UpdateUserPage = () => {
               className="w-[90%] py-3 px-3 rounded-md outline-none border-2 border-black"
             >
               <option value="">Select Role---</option>
-              <option value="1">Administrator</option>
-              <option value="2">Editor</option>
+              {Object.keys(adminRoleList).map((key) => (
+                <option key={key} value={key}>
+                  {adminRoleList[key]}
+                </option>
+              ))}
             </select>
           </div>
           <div className="flex justify-center mt-6">
