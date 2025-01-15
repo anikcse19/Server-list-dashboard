@@ -6,7 +6,6 @@ import axios from "axios";
 import baseUrl from "../../../config";
 import ConfigModal from "../../components/Modal/ConfigModal";
 import ConfigDetails from "../../components/Modal/ConfigDetails";
-import toast from "react-hot-toast";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import ConfigDeleteModal from "../../components/Modal/ConfigDeleteModal";
 

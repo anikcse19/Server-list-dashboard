@@ -1,17 +1,13 @@
 // import { useState } from "react";
-import { FaAngleDown, FaTrashAlt, FaUsers } from "react-icons/fa";
+import { FaAngleDown, FaUsers } from "react-icons/fa";
 import { TbMessage2Code } from "react-icons/tb";
-import { MdAddModerator } from "react-icons/md";
-import { FaHospitalUser } from "react-icons/fa6";
 import { FaUsersRectangle } from "react-icons/fa6";
 import Cookies from "js-cookie";
-
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import baseUrl from "../../../config";
 import useStore from "../../zustand/useStore";
 import { RiLogoutBoxRLine } from "react-icons/ri";
-import { GrDocumentConfig } from "react-icons/gr";
 import { useState } from "react";
 
 const Sidebar = () => {
@@ -23,10 +19,6 @@ const Sidebar = () => {
     state: true,
     id: "",
   });
-
-  const [activeMenu, setActiveMenu] = useState("User List");
-  const [activeSubmenu1, setActiveSubmenu1] = useState("");
-  const [activeSubmenu2, setActiveSubmenu2] = useState("");
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -161,7 +153,6 @@ const Sidebar = () => {
               <div
                 onClick={() => {
                   navigate(nav?.link);
-                  setActiveMenu(nav.title);
                 }}
                 className={` py-3 px-2 rounded-md cursor-pointer flex items-center justify-between  ${
                   nav?.label?.includes(pathname) &&
@@ -200,9 +191,6 @@ const Sidebar = () => {
                     <div key={menu1.id}>
                       <div
                         onClick={() => {
-                          console.log("hello", menu1);
-
-                          setActiveSubmenu1(menu1.title);
                           navigate(menu1.link);
                         }}
                         className={`flex justify-between items-center py-2 cursor-pointer ${
@@ -247,7 +235,6 @@ const Sidebar = () => {
                             <div
                               key={menu2.id}
                               onClick={() => {
-                                setActiveSubmenu2(menu2.title);
                                 navigate(menu2.link);
                               }}
                               className={`flex justify-between items-center py-2 cursor-pointer ${
