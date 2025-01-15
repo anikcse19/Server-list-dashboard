@@ -4,7 +4,7 @@ import baseUrl from "../../../config";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 
-const ConfigDeleteModal = ({
+const GeneralConfigDeleteModal = ({
   openDeleteConfigModal,
   setOpenDeleteConfigModal,
 }) => {
@@ -13,7 +13,7 @@ const ConfigDeleteModal = ({
   const handleDeleteConfig = async () => {
     await axios
       .delete(
-        `${baseUrl}api/admin/client/config-profile/sms/delete-sms-config/${openDeleteConfigModal.value.id}`,
+        `${baseUrl}api/admin/client/config-profile/general/delete/${openDeleteConfigModal.value.id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -56,4 +56,4 @@ const ConfigDeleteModal = ({
   );
 };
 
-export default ConfigDeleteModal;
+export default GeneralConfigDeleteModal;

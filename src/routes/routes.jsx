@@ -12,6 +12,9 @@ import PrivateRoute from "./PrivateRoute";
 import ConfigsList from "../pages/Dashboard/ConfigsList";
 import SubClientPage from "../pages/Dashboard/SubClientPage";
 import CreateSubClientPage from "../pages/Dashboard/CreateSubClient";
+import SubClientTrashPage from "../pages/Dashboard/SubClientTrashPage";
+import GeneralConfigList from "../pages/Dashboard/GeneralConfigList";
+import SMSSetting from "../pages/Dashboard/Settings/SMSSetting";
 
 const routes = createBrowserRouter([
   {
@@ -75,10 +78,26 @@ const routes = createBrowserRouter([
     ),
   },
   {
-    path: "/dashboard/all-configs",
+    path: "/dashboard/client/config-profile/sms-config",
     element: (
       <PrivateRoute>
         <ConfigsList />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/dashboard/client/config-profile/general-config",
+    element: (
+      <PrivateRoute>
+        <GeneralConfigList />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/dashboard/sub-client/settings/sms-setting",
+    element: (
+      <PrivateRoute>
+        <SMSSetting />
       </PrivateRoute>
     ),
   },
@@ -87,6 +106,14 @@ const routes = createBrowserRouter([
     element: (
       <PrivateRoute>
         <TrashListPage />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/dashboard/trashlist/sub-client",
+    element: (
+      <PrivateRoute>
+        <SubClientTrashPage />
       </PrivateRoute>
     ),
   },

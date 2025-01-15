@@ -4,25 +4,18 @@ import { Circles } from "react-loader-spinner";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import baseUrl from "../../../config";
-import ConfigModal from "../../components/Modal/ConfigModal";
-import ConfigDetails from "../../components/Modal/ConfigDetails";
-import toast from "react-hot-toast";
-import { RiDeleteBin6Line } from "react-icons/ri";
-import ConfigDeleteModal from "../../components/Modal/ConfigDeleteModal";
 
-const ConfigsList = () => {
+import { RiDeleteBin6Line } from "react-icons/ri";
+
+import GeneralConfigModal from "../../components/Modal/GeneralConfigModal";
+import GeneralConfigDeleteModal from "../../components/Modal/GeneralConfigDeleteModal";
+
+const GeneralConfigList = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [configList, setConfigList] = useState([]);
   // const [domainList, setDomainList] = useState([]);
-  const [openConfigModal, setOpenConfigModal] = useState({
-    state: false,
-    type: "",
-  });
-  const [openConfigDetailsModal, setOpenConfigDetailsModal] = useState({
-    state: false,
-    value: {},
-    type: "",
-  });
+  const [openConfigModal, setOpenConfigModal] = useState(false);
+
   const [openDeleteConfigModal, setOpenDeleteConfigModal] = useState({
     state: false,
     value: {},
@@ -38,7 +31,7 @@ const ConfigsList = () => {
     try {
       await axios
         .get(
-          `${baseUrl}api/admin/client/config-profile/sms/get-allsms-configs`,
+          `${baseUrl}api/admin/client/config-profile/general/all-configs`,
 
           {
             headers: {
@@ -59,7 +52,7 @@ const ConfigsList = () => {
 
   useEffect(() => {
     fetchConfigList();
-  }, [openConfigModal.type, openDeleteConfigModal]);
+  }, [openConfigModal, openDeleteConfigModal]);
 
   const formateDate = (marketDate) => {
     const localDate = new Date(marketDate).toLocaleString(undefined, {
@@ -88,7 +81,9 @@ const ConfigsList = () => {
       >
         <div className="flex items-center justify-between px-3">
           <div>
-            <p className="text-xl font-bold text-gray-600">SMS Config List</p>
+            <p className="text-xl font-bold text-gray-600">
+              General Config List
+            </p>
           </div>
           <div className="flex items-center gap-4 my-5">
             <button
@@ -97,35 +92,11 @@ const ConfigsList = () => {
                   "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px",
               }}
               onClick={() => {
-                setOpenConfigModal({ state: true, type: "mim" });
+                setOpenConfigModal(true);
               }}
               className="bg-teal-100 text-teal-700 px-5 py-1 rounded-md"
             >
-              Create MIM SMS Config
-            </button>
-            <button
-              style={{
-                boxShadow:
-                  "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px",
-              }}
-              onClick={() => {
-                setOpenConfigModal({ state: true, type: "greenweb" });
-              }}
-              className="bg-rose-100 text-rose-700 px-5 py-1 rounded-md"
-            >
-              Create GREENWEB SMS Config
-            </button>{" "}
-            <button
-              style={{
-                boxShadow:
-                  "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px",
-              }}
-              onClick={() => {
-                setOpenConfigModal({ state: true, type: "ssl" });
-              }}
-              className="bg-purple-100 text-purple-700 px-5 py-1 rounded-md"
-            >
-              Create SSL SMS Config
+              Create Basic Config
             </button>
           </div>
         </div>
@@ -134,27 +105,23 @@ const ConfigsList = () => {
         <div className="relative overflow-x-auto max-h-screen overflow-y-auto my-5">
           <table className="w-full text-sm text-left rtl:text-right text-white  ">
             <thead
-              className={`sticky top-0 text-xs  uppercase ${"bg-blue-100 text-black"}   rounded-md`}
+              className={`sticky top-0 text-xs  uppercase ${"bg-red-100 text-black"}   rounded-md`}
             >
               <tr>
                 <th scope="col" className="px-6 py-3 text-left">
                   SL No
                 </th>
                 <th scope="col" className="px-6 py-3 text-left">
-                  Client
+                  Client Id
                 </th>
-                <th scope="col" className="px-6 py-3 text-left">
-                  Sender Id
-                </th>
+
                 <th scope="col" className="px-6 py-3 text-left">
                   Name
                 </th>
                 <th scope="col" className="px-6 py-3 text-left">
                   Created
                 </th>
-                <th scope="col" className="px-6 py-3 text-center">
-                  Info
-                </th>
+
                 <th scope="col" className="px-6 py-3 text-center">
                   Action
                 </th>
@@ -195,11 +162,9 @@ const ConfigsList = () => {
                   >
                     <td className="px-6 py-4 text-left text-xs">{i + 1}</td>
                     <td className="px-6 py-4 text-left text-xs">
-                      {config?.client?.server}
+                      {config?.clientId}
                     </td>
-                    <td className="px-6 py-4 text-left text-xs">
-                      {config?.sender_id}
-                    </td>
+
                     <td className="px-6 py-4 text-left text-xs">
                       {config?.name}
                     </td>
@@ -207,24 +172,7 @@ const ConfigsList = () => {
                     <td className="px-6 py-4 text-left text-xs">
                       {formateDate(config?.created_at)}
                     </td>
-                    <td className="px-6 py-4 text-center text-xs">
-                      <button
-                        onClick={() =>
-                          setOpenConfigDetailsModal({
-                            state: true,
-                            value: config,
-                            type: config?.name.toLowerCase()?.includes("mim")
-                              ? "mim"
-                              : config?.name.toLowerCase()?.includes("greenweb")
-                              ? "greenweb"
-                              : "ssl",
-                          })
-                        }
-                        className="bg-gray-500 px-2 py-0.5 rounded-md text-white"
-                      >
-                        See Details
-                      </button>
-                    </td>
+
                     <td className="px-6 py-4 text-center text-xs">
                       <button
                         onClick={() => {
@@ -247,27 +195,18 @@ const ConfigsList = () => {
       </div>
 
       {/* modal */}
-      {openConfigModal.state && (
+      {openConfigModal && (
         <div className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 ">
-          <ConfigModal
+          <GeneralConfigModal
             openConfigModal={openConfigModal}
             setOpenConfigModal={setOpenConfigModal}
           />
         </div>
       )}
 
-      {openConfigDetailsModal.state && (
-        <div className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 ">
-          <ConfigDetails
-            openConfigDetailsModal={openConfigDetailsModal}
-            setOpenConfigDetailsModal={setOpenConfigDetailsModal}
-          />
-        </div>
-      )}
-
       {openDeleteConfigModal.state && (
         <div className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2">
-          <ConfigDeleteModal
+          <GeneralConfigDeleteModal
             setOpenDeleteConfigModal={setOpenDeleteConfigModal}
             openDeleteConfigModal={openDeleteConfigModal}
           />
@@ -277,4 +216,4 @@ const ConfigsList = () => {
   );
 };
 
-export default ConfigsList;
+export default GeneralConfigList;

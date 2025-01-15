@@ -17,7 +17,7 @@ const CreateSubClientPage = () => {
 
   useEffect(() => {
     axios
-      .get(`${baseUrl}api/admin/wa-client/list?drop_downlist=1`, {
+      .get(`${baseUrl}api/admin/client/list?drop_downlist=1`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -28,7 +28,7 @@ const CreateSubClientPage = () => {
   const handleCreateSubClient = async () => {
     try {
       const createSubClientData = {
-        clientId: clientId,
+        client_id: clientId,
         domain: domainName,
       };
 

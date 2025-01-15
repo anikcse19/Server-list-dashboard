@@ -10,6 +10,8 @@ import { Circles } from "react-loader-spinner";
 import { FaEyeSlash, FaRegEye } from "react-icons/fa";
 import { IoCopy } from "react-icons/io5";
 import { RiDeleteBinFill } from "react-icons/ri";
+import { CiSquarePlus } from "react-icons/ci";
+import { useNavigate } from "react-router-dom";
 
 const ClientListsPage = () => {
   const [clientsList, setClientsList] = useState([]);
@@ -36,6 +38,8 @@ const ClientListsPage = () => {
     status: false,
     id: "",
   });
+
+  const navigate = useNavigate();
   const { mode } = useStore();
 
   // get cookies value
@@ -45,7 +49,7 @@ const ClientListsPage = () => {
   const fetchClientsList = async () => {
     try {
       axios
-        .get(`${baseUrl}api/admin/wa-client/list?page=${pageNo}`, {
+        .get(`${baseUrl}api/admin/client/list?page=${pageNo}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -89,7 +93,7 @@ const ClientListsPage = () => {
       };
 
       axios
-        .put(`${baseUrl}api/admin/wa-client/update/${id}`, updateClientData, {
+        .put(`${baseUrl}api/admin/client/update/${id}`, updateClientData, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -141,261 +145,286 @@ const ClientListsPage = () => {
   };
   return (
     <Layout>
-      {/* search box */}
-      <div className="mt-5 flex items-center gap-x-2">
-        <p className={mode === "light" ? "text-black" : "text-white"}>
-          Search:
-        </p>
-        <div className="flex items-center gap-x-4">
-          <input
-            // onChange={(e) => setSearchEventName(e.target.value)}
-            // value={searchEventName}
-            type="text"
-            placeholder="Search Client"
-            className="w-52 px-3 py-2 text-sm rounded-sm bg-transparent outline-none border-2 border-slate-600 focus:border-teal-500"
-          />
+      <div>
+        <h1 className="font-bold text-xl font-serif">All Client List</h1>
+        <div className="mt-10">
+          <button
+            onClick={() => navigate("/dashboard/create-client")}
+            style={{
+              boxShadow: " rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset",
+            }}
+            className="flex items-center gap-x-2 bg-orange-200 hover:bg-orange-300 transition-all duration-300 ease-out text-orange-700 py-2 px-5 rounded-md"
+          >
+            <CiSquarePlus className="text-xl" />
+            <p>Create New Client</p>
+          </button>
         </div>
       </div>
+      <div
+        style={{
+          boxShadow:
+            "rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px",
+        }}
+        className="w-full h-fit bg-white mt-10 py-3 rounded-md"
+      >
+        {/* search box */}
+        <div className="m-5 flex items-center gap-x-2">
+          <div className="flex items-center gap-x-4">
+            <input
+              // onChange={(e) => setSearchEventName(e.target.value)}
+              // value={searchEventName}
+              type="text"
+              placeholder="Search Client"
+              className="w-52 px-3 py-2 text-sm rounded bg-blue-50 outline-none italic border-b-2 border-slate-600 focus:border-teal-500"
+            />
+          </div>
+        </div>
 
-      {/* users table */}
-      <div className="relative overflow-x-auto max-h-screen overflow-y-auto my-5">
-        <table className="w-full text-sm text-left rtl:text-right text-white  border-l-2 border-r-2 border-black">
-          <thead
-            className={`sticky top-0 text-xs  uppercase ${
-              mode === "light"
-                ? "bg-blue-300 text-black"
-                : "bg-black text-white"
-            }  border-b-2 border-t-2 border-black rounded-md`}
-          >
-            <tr>
-              <th scope="col" className="px-6 py-3 text-left">
-                Client Id
-              </th>
-              <th scope="col" className="px-6 py-3 text-left">
-                Client Secret
-              </th>
-              <th scope="col" className="px-6 py-3 text-left">
-                Server
-              </th>
-              <th scope="col" className="px-6 py-3 text-left">
-                Wa Alert No
-              </th>
-              <th scope="col" className="px-6 py-3 text-left">
-                Created Date
-              </th>
-              {role === 1 && (
-                <th scope="col" className="px-6 py-3 text-center">
-                  Action
+        {/* users table */}
+        <div className="relative overflow-x-auto max-h-screen overflow-y-auto my-5">
+          <table className="w-full text-sm text-left rtl:text-right text-white  ">
+            <thead
+              className={`sticky top-0 text-xs  uppercase ${
+                mode === "light"
+                  ? "bg-blue-200 text-black"
+                  : "bg-black text-white"
+              }   rounded-md`}
+            >
+              <tr>
+                <th scope="col" className="px-6 py-3 text-left">
+                  Client Id
                 </th>
-              )}
-            </tr>
-          </thead>
-          <tbody>
-            {isLoading ? (
-              <tr className="text-center text-sm">
-                <td colSpan={12} align="center">
-                  <div className="my-5 flex flex-col justify-center items-center">
-                    <Circles
-                      height="50"
-                      width="50"
-                      color="#4fa94d"
-                      ariaLabel="circles-loading"
-                      wrapperStyle={{}}
-                      wrapperClass=""
-                      visible={true}
-                    />
-                  </div>
-                </td>
+                <th scope="col" className="px-6 py-3 text-left">
+                  Client Secret
+                </th>
+                <th scope="col" className="px-6 py-3 text-left">
+                  Server
+                </th>
+                <th scope="col" className="px-6 py-3 text-left">
+                  Wa Alert No
+                </th>
+                <th scope="col" className="px-6 py-3 text-left">
+                  Created Date
+                </th>
+                {role === 1 && (
+                  <th scope="col" className="px-6 py-3 text-center">
+                    Action
+                  </th>
+                )}
               </tr>
-            ) : (
-              clientsList.map((client, i) => (
-                <tr
-                  key={client.id}
-                  className={`${
-                    i % 2 == 0
-                      ? mode === "light"
+            </thead>
+            <tbody>
+              {isLoading ? (
+                <tr className="text-center text-sm">
+                  <td colSpan={12} align="center">
+                    <div className="my-5 flex flex-col justify-center items-center">
+                      <Circles
+                        height="50"
+                        width="50"
+                        color="#4fa94d"
+                        ariaLabel="circles-loading"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                        visible={true}
+                      />
+                    </div>
+                  </td>
+                </tr>
+              ) : (
+                clientsList.map((client) => (
+                  <tr
+                    key={client.id}
+                    className={`${
+                      mode === "light"
                         ? "bg-white text-black"
                         : "bg-transparent text-white"
-                      : mode === "light"
-                      ? "bg-blue-100 text-black"
-                      : "bg-black text-white"
-                  }  text-sm  transition-all duration-500 ease-in  border-b-2 border-slate-700`}
-                >
-                  <td className="px-6 py-4 text-left text-xs ">
-                    <p id="textToCopy" className="inline mr-2">
-                      {showedClientId.status && showedClientId.id === client?.id
-                        ? client?.clientId
-                        : maskString(client?.clientId)}
-                    </p>
-                    {showedClientId.status &&
-                    showedClientId.id === client.id ? (
-                      <FaRegEye
-                        onClick={() =>
-                          setShowedClientId({
-                            status: false,
-                            id: "",
-                          })
-                        }
-                        className="text-lg cursor-pointer inline mr-3"
-                      />
-                    ) : (
-                      <FaEyeSlash
-                        onClick={() =>
-                          setShowedClientId({
-                            status: true,
-                            id: client?.id,
-                          })
-                        }
-                        className="text-lg cursor-pointer inline mr-3"
-                      />
-                    )}
-                    {showedClientId.status &&
-                      showedClientId.id === client.id && (
-                        <IoCopy
-                          onClick={() => {
-                            copyText(client?.clientId);
-                          }}
-                          className="inline text-base cursor-pointer"
+                    }  text-sm cursor-pointer transition-all duration-500 ease-in  border-b-2 border-blue-100`}
+                  >
+                    <td className="px-6 py-4 text-left text-xs ">
+                      <p id="textToCopy" className="inline mr-2">
+                        {showedClientId.status &&
+                        showedClientId.id === client?.id
+                          ? client?.clientId
+                          : maskString(client?.clientId)}
+                      </p>
+                      {showedClientId.status &&
+                      showedClientId.id === client.id ? (
+                        <FaRegEye
+                          onClick={() =>
+                            setShowedClientId({
+                              status: false,
+                              id: "",
+                            })
+                          }
+                          className="text-lg cursor-pointer inline mr-3"
+                        />
+                      ) : (
+                        <FaEyeSlash
+                          onClick={() =>
+                            setShowedClientId({
+                              status: true,
+                              id: client?.id,
+                            })
+                          }
+                          className="text-lg cursor-pointer inline mr-3"
                         />
                       )}
-                  </td>
-                  <td className="px-6 py-4 text-left text-xs ">
-                    <p className="inline mr-2">
-                      {showedClientSecret.status &&
-                      showedClientSecret.id === client?.id
-                        ? client?.clientSecret
-                        : maskString(client?.clientSecret)}
-                    </p>
-                    {showedClientSecret.status &&
-                    showedClientSecret.id === client.id ? (
-                      <FaRegEye
-                        onClick={() =>
-                          setShowedClientSecret({
-                            status: false,
-                            id: "",
-                          })
-                        }
-                        className="text-lg cursor-pointer inline mr-3"
-                      />
-                    ) : (
-                      <FaEyeSlash
-                        onClick={() =>
-                          setShowedClientSecret({
-                            status: true,
-                            id: client?.id,
-                          })
-                        }
-                        className="text-lg cursor-pointer inline mr-3"
-                      />
-                    )}
-                    {showedClientSecret.status &&
-                      showedClientSecret.id === client.id && (
-                        <IoCopy
-                          onClick={() => {
-                            copyText(client?.clientSecret);
-                          }}
-                          className="inline text-base cursor-pointer"
-                        />
-                      )}
-                  </td>
-                  <td className="px-6 py-4 text-left text-xs">
-                    {client?.server}
-                  </td>
-                  <td className="px-6 py-4 text-left text-xs">
-                    {client?.waAlertNo ? client?.waAlertNo : "--"}
-                  </td>
-                  <td className="px-6 py-4 text-left text-xs">
-                    {formateDate(client?.created_at)}
-                  </td>
-
-                  {role === 1 && (
-                    <td className="px-6 py-4 text-left text-xs flex items-center gap-x-3 justify-center">
-                      <p
-                        onClick={() => {
-                          setIsUpdateModalOpen({ status: true, value: client });
-                          setServerName(client?.server);
-                          setWaAlertNo(client.waAlertNo.split(","));
-                        }}
-                        className="bg-teal-200 hover:bg-teal-300 transition-all duration-100 ease-in text-green-800 px-5 py-2 rounded-md cursor-pointer"
-                      >
-                        Update
-                      </p>
-                      <p
-                        onClick={() =>
-                          setIsDeleteModalOpen({ status: true, value: client })
-                        }
-                        className="bg-rose-200 hover:bg-rose-300 transition-all duration-100 ease-in text-red-800 px-5 py-2 rounded-md cursor-pointer"
-                      >
-                        Delete
-                      </p>
+                      {showedClientId.status &&
+                        showedClientId.id === client.id && (
+                          <IoCopy
+                            onClick={() => {
+                              copyText(client?.clientId);
+                            }}
+                            className="inline text-base cursor-pointer"
+                          />
+                        )}
                     </td>
-                  )}
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
-      </div>
+                    <td className="px-6 py-4 text-left text-xs ">
+                      <p className="inline mr-2">
+                        {showedClientSecret.status &&
+                        showedClientSecret.id === client?.id
+                          ? client?.clientSecret
+                          : maskString(client?.clientSecret)}
+                      </p>
+                      {showedClientSecret.status &&
+                      showedClientSecret.id === client.id ? (
+                        <FaRegEye
+                          onClick={() =>
+                            setShowedClientSecret({
+                              status: false,
+                              id: "",
+                            })
+                          }
+                          className="text-lg cursor-pointer inline mr-3"
+                        />
+                      ) : (
+                        <FaEyeSlash
+                          onClick={() =>
+                            setShowedClientSecret({
+                              status: true,
+                              id: client?.id,
+                            })
+                          }
+                          className="text-lg cursor-pointer inline mr-3"
+                        />
+                      )}
+                      {showedClientSecret.status &&
+                        showedClientSecret.id === client.id && (
+                          <IoCopy
+                            onClick={() => {
+                              copyText(client?.clientSecret);
+                            }}
+                            className="inline text-base cursor-pointer"
+                          />
+                        )}
+                    </td>
+                    <td className="px-6 py-4 text-left text-xs">
+                      {client?.server}
+                    </td>
+                    <td className="px-6 py-4 text-left text-xs">
+                      {client?.waAlertNo ? client?.waAlertNo : "--"}
+                    </td>
+                    <td className="px-6 py-4 text-left text-xs">
+                      {formateDate(client?.created_at)}
+                    </td>
 
-      {/* pagination */}
-      <div className="mt-5 flex items-center justify-center gap-x-3">
-        {parseInt(pageNo) !== 1 && (
-          <p
-            onClick={() => {
-              if (pages[0]?.url !== null) {
-                const pN = parseInt(pages[0]?.url.split("=")[1]);
-                setPagNo(pN);
-              }
-            }}
-            className={`border-2  px-2 rounded-md cursor-pointer ${
-              mode === "light"
-                ? "border-black text-black"
-                : "border-white  text-white"
-            }`}
-          >
-            Prev
-          </p>
-        )}
-        <div className="flex items-center gap-3">
-          {pages.slice(1, -1).map((page, i) => {
-            return (
-              <p
-                className={`border-2  px-2 rounded-md cursor-pointer ${
-                  pageNo == page?.label
-                    ? mode === "light"
-                      ? "bg-black text-white border-white shadow-2xl scale-105"
-                      : "bg-slate-300 text-black border-slate-200 shadow-2xl scale-105"
-                    : mode === "light"
-                    ? "text-black border-black"
-                    : "text-white"
-                }`}
-                onClick={() => {
-                  setPagNo(parseInt(page?.label));
-                }}
-                key={i}
-              >
-                {page?.label}
-              </p>
-            );
-          })}
+                    {role === 1 && (
+                      <td className="px-6 py-4 text-left text-xs flex items-center gap-x-3 justify-center">
+                        <p
+                          onClick={() => {
+                            setIsUpdateModalOpen({
+                              status: true,
+                              value: client,
+                            });
+                            setServerName(client?.server);
+                            setWaAlertNo(client.waAlertNo.split(","));
+                          }}
+                          className="bg-teal-200 hover:bg-teal-300 transition-all duration-100 ease-in text-green-800 px-5 py-2 rounded-md cursor-pointer"
+                        >
+                          Update
+                        </p>
+                        <p
+                          onClick={() =>
+                            setIsDeleteModalOpen({
+                              status: true,
+                              value: client,
+                            })
+                          }
+                          className="bg-rose-200 hover:bg-rose-300 transition-all duration-100 ease-in text-red-800 px-5 py-2 rounded-md cursor-pointer"
+                        >
+                          Delete
+                        </p>
+                      </td>
+                    )}
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
         </div>
-        {parseInt(pageNo) !== lastPage && (
-          <p
-            onClick={() => {
-              if (pages[pages.length - 1]?.url !== null) {
-                const pN = parseInt(pages[pages.length - 1]?.url.split("=")[1]);
-                setPagNo(pN);
-              }
-            }}
-            className={`border-2  px-2 rounded-md cursor-pointer ${
-              mode === "light"
-                ? "border-black text-black"
-                : "border-white  text-white"
-            }`}
-          >
-            Next
-          </p>
-        )}
+
+        {/* pagination */}
+        <div className="m-5 flex items-center justify-center gap-x-3">
+          {parseInt(pageNo) !== 1 && (
+            <p
+              onClick={() => {
+                if (pages[0]?.url !== null) {
+                  const pN = parseInt(pages[0]?.url.split("=")[1]);
+                  setPagNo(pN);
+                }
+              }}
+              className={`border-2  px-2 rounded-md cursor-pointer ${
+                mode === "light"
+                  ? "border-black text-black"
+                  : "border-white  text-white"
+              }`}
+            >
+              Prev
+            </p>
+          )}
+          <div className="flex items-center gap-3">
+            {pages.slice(1, -1).map((page, i) => {
+              return (
+                <p
+                  className={`border-2  px-2 rounded-md cursor-pointer ${
+                    pageNo == page?.label
+                      ? mode === "light"
+                        ? "bg-black text-white border-white shadow-2xl scale-105"
+                        : "bg-slate-300 text-black border-slate-200 shadow-2xl scale-105"
+                      : mode === "light"
+                      ? "text-black border-black"
+                      : "text-white"
+                  }`}
+                  onClick={() => {
+                    setPagNo(parseInt(page?.label));
+                  }}
+                  key={i}
+                >
+                  {page?.label}
+                </p>
+              );
+            })}
+          </div>
+          {parseInt(pageNo) !== lastPage && (
+            <p
+              onClick={() => {
+                if (pages[pages.length - 1]?.url !== null) {
+                  const pN = parseInt(
+                    pages[pages.length - 1]?.url.split("=")[1]
+                  );
+                  setPagNo(pN);
+                }
+              }}
+              className={`border-2  px-2 rounded-md cursor-pointer ${
+                mode === "light"
+                  ? "border-black text-black"
+                  : "border-white  text-white"
+              }`}
+            >
+              Next
+            </p>
+          )}
+        </div>
       </div>
 
       {/* delete modal */}
@@ -410,7 +439,7 @@ const ClientListsPage = () => {
                 onClick={() => {
                   axios
                     .delete(
-                      `${baseUrl}api/admin/wa-client/delete/${isDeleteModalOpen.value.id}`,
+                      `${baseUrl}api/admin/client/delete/${isDeleteModalOpen.value.id}`,
                       {
                         headers: {
                           Authorization: `Bearer ${token}`,

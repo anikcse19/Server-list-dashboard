@@ -16,10 +16,10 @@ const ConfigDetails = ({
     if (openConfigDetailsModal?.type === "mim") {
       axios
         .post(
-          `${baseUrl}api/admin/client/get-mim-config`,
+          `${baseUrl}api/admin/client/config-profile/sms/get-mim-config`,
           {
             clientId: openConfigDetailsModal?.value?.clientId.toString(),
-            domain: openConfigDetailsModal?.value?.domain,
+            sender_id: openConfigDetailsModal?.value?.sender_id,
           },
           {
             headers: {
@@ -39,10 +39,10 @@ const ConfigDetails = ({
     if (openConfigDetailsModal?.type === "greenweb") {
       axios
         .post(
-          `${baseUrl}api/admin/client/get-greenweb-config`,
+          `${baseUrl}api/admin/client/config-profile/sms/get-greenweb-config`,
           {
             clientId: openConfigDetailsModal?.value?.clientId.toString(),
-            domain: openConfigDetailsModal?.value?.domain,
+            sender_id: openConfigDetailsModal?.value?.sender_id,
           },
           {
             headers: {
@@ -62,10 +62,10 @@ const ConfigDetails = ({
     if (openConfigDetailsModal?.type === "ssl") {
       axios
         .post(
-          `${baseUrl}api/admin/client/get-sslsms-config`,
+          `${baseUrl}api/admin/client/config-profile/sms/get-sslsms-config`,
           {
             clientId: openConfigDetailsModal?.value?.clientId.toString(),
-            domain: openConfigDetailsModal?.value?.domain,
+            sender_id: openConfigDetailsModal?.value?.sender_id,
           },
           {
             headers: {

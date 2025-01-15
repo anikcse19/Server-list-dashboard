@@ -1,5 +1,5 @@
 // import { useState } from "react";
-import { FaTrashAlt, FaUsers } from "react-icons/fa";
+import { FaAngleDown, FaTrashAlt, FaUsers } from "react-icons/fa";
 import { TbMessage2Code } from "react-icons/tb";
 import { MdAddModerator } from "react-icons/md";
 import { FaHospitalUser } from "react-icons/fa6";
@@ -12,8 +12,22 @@ import baseUrl from "../../../config";
 import useStore from "../../zustand/useStore";
 import { RiLogoutBoxRLine } from "react-icons/ri";
 import { GrDocumentConfig } from "react-icons/gr";
+import { useState } from "react";
 
 const Sidebar = () => {
+  const [isOpenFirstSubmenu, setIsOpenFirstSubmenu] = useState({
+    state: true,
+    id: "",
+  });
+  const [isOpenSecondSubmenu, setIsOpenSecondSubmenu] = useState({
+    state: true,
+    id: "",
+  });
+
+  const [activeMenu, setActiveMenu] = useState("User List");
+  const [activeSubmenu1, setActiveSubmenu1] = useState("");
+  const [activeSubmenu2, setActiveSubmenu2] = useState("");
+
   const navigate = useNavigate();
   const location = useLocation();
   const { pathname } = location;
@@ -31,56 +45,109 @@ const Sidebar = () => {
             title: "User List",
             icon: FaUsersRectangle,
             link: "/dashboard/user-lists",
+            label: ["/dashboard/user-lists"],
+          },
+          {
+            id: 2,
+            title: "Client",
+            icon: FaUsers,
+            // link: "/dashboard/client-lists",
+            label: [
+              "/dashboard/client-lists",
+              "/dashboard/client/config-profile/sms-config",
+              "/dashboard/client/config-profile/general-config",
+            ],
+            subMenu: [
+              {
+                id: 1,
+                title: "List",
+                icon: FaUsers,
+                link: "/dashboard/client-lists",
+                label: ["/dashboard/client-lists"],
+              },
+              {
+                id: 2,
+                title: "Config Profile",
+                icon: FaUsers,
+                // link: "/dashboard/client/config-profile/sms-config",
+                label: [
+                  "/dashboard/client/config-profile/sms-config",
+                  "/dashboard/client/config-profile/general-config",
+                ],
+                subMenu: [
+                  {
+                    id: 1,
+                    title: "SMS Config",
+                    icon: FaUsers,
+                    link: "/dashboard/client/config-profile/sms-config",
+                    label: ["/dashboard/client/config-profile/sms-config"],
+                  },
+                  {
+                    id: 2,
+                    title: "General Config",
+                    icon: FaUsers,
+                    link: "/dashboard/client/config-profile/general-config",
+                    label: ["/dashboard/client/config-profile/general-config"],
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: 3,
+            title: "Sub Client",
+            icon: FaUsers,
+            // link: "/dashboard/sub-client-lists",
+            label: [
+              "/dashboard/sub-client-lists",
+              "/dashboard/sub-client/settings/sms-setting",
+            ],
+            subMenu: [
+              {
+                id: 1,
+                title: "List",
+                icon: FaUsers,
+                link: "/dashboard/sub-client-lists",
+                label: ["/dashboard/sub-client-lists"],
+              },
+              {
+                id: 2,
+                title: "Settings",
+                icon: FaUsers,
+                // link: "/dashboard/sub-client/settings/sms-setting",
+                label: [
+                  "/dashboard/sub-client/settings/sms-setting",
+                  "/dashboard/sub-client/settings/general-setting",
+                  "/dashboard/sub-client/settings/general-setting",
+                ],
+                subMenu: [
+                  {
+                    id: 1,
+                    title: "SMS Setting",
+                    icon: FaUsers,
+                    link: "/dashboard/sub-client/settings/sms-setting",
+                    label: ["/dashboard/sub-client/settings/sms-setting"],
+                  },
+                  {
+                    id: 2,
+                    title: "General Setting",
+                    icon: FaUsers,
+                    link: "/dashboard/sub-client/settings/general-setting",
+                    label: ["/dashboard/sub-client/settings/general-setting"],
+                  },
+                ],
+              },
+            ],
           },
         ]
       : []),
-    {
-      id: 2,
-      title: "Clients List",
-      icon: FaUsers,
-      link: "/dashboard/client-lists",
-    },
-    {
-      id: 3,
-      title: "Sub Clients List",
-      icon: FaUsers,
-      link: "/dashboard/sub-client-lists",
-    },
-    ...(parseInt(role) === 1
-      ? [
-          {
-            id: 4,
-            title: "Clients Message",
-            icon: TbMessage2Code,
-            link: "/dashboard/client-list-message",
-          },
-          {
-            id: 5,
-            title: "Create Client",
-            icon: MdAddModerator,
-            link: "/dashboard/create-client",
-          },
-          {
-            id: 6,
-            title: "Create User",
-            icon: FaHospitalUser,
-            link: "/dashboard/create-user",
-          },
 
-          {
-            id: 7,
-            title: "All Config",
-            icon: GrDocumentConfig,
-            link: "/dashboard/all-configs",
-          },
-          {
-            id: 8,
-            title: "Trash List",
-            icon: FaTrashAlt,
-            link: "/dashboard/trashlist",
-          },
-        ]
-      : []),
+    {
+      id: 4,
+      title: "Clients Message",
+      icon: TbMessage2Code,
+      link: "/dashboard/client-list-message",
+    },
   ];
 
   return (
@@ -90,18 +157,142 @@ const Sidebar = () => {
         <p className="text-gray-600">Menu</p>
         <div className="my-3 flex flex-col gap-y-3">
           {navs.map((nav) => (
-            <div
-              onClick={() => {
-                navigate(nav.link);
-              }}
-              key={nav.id}
-              className={` py-3 px-2 rounded-md cursor-pointer flex items-center gap-x-2   ${
-                pathname.includes(nav.link) &&
-                "bg-blue-100 border-l-4 border-blue-700 text-blue-700"
-              }`}
-            >
-              <nav.icon className="text-xl" />
-              {isOpenSidebar && <p>{nav.title}</p>}
+            <div key={nav.id}>
+              <div
+                onClick={() => {
+                  navigate(nav?.link);
+                  setActiveMenu(nav.title);
+                }}
+                className={` py-3 px-2 rounded-md cursor-pointer flex items-center justify-between  ${
+                  nav?.label?.includes(pathname) &&
+                  "bg-blue-100 border-l-4 border-blue-700 text-blue-700"
+                }`}
+              >
+                <div className="flex items-center gap-x-2">
+                  {" "}
+                  <nav.icon className="text-xl" />
+                  {isOpenSidebar && <p>{nav.title}</p>}
+                </div>
+                {nav.subMenu && (
+                  <div>
+                    {isOpenFirstSubmenu.state &&
+                    isOpenFirstSubmenu.id === nav.id ? (
+                      <FaAngleDown
+                        className="rotate-180"
+                        onClick={() =>
+                          setIsOpenFirstSubmenu({ state: false, id: "" })
+                        }
+                      />
+                    ) : (
+                      <FaAngleDown
+                        onClick={() =>
+                          setIsOpenFirstSubmenu({ state: true, id: nav.id })
+                        }
+                      />
+                    )}
+                  </div>
+                )}
+              </div>
+              {/* first submenu */}
+              {nav?.subMenu && isOpenFirstSubmenu.state && (
+                <div className="ml-4 mt-2 px-2 flex flex-col gap-y-2 border-l-2 border-gray-400">
+                  {nav.subMenu.map((menu1) => (
+                    <div key={menu1.id}>
+                      <div
+                        onClick={() => {
+                          console.log("hello", menu1);
+
+                          setActiveSubmenu1(menu1.title);
+                          navigate(menu1.link);
+                        }}
+                        className={`flex justify-between items-center py-2 cursor-pointer ${
+                          menu1?.label?.includes(pathname) && "text-blue-500"
+                        } `}
+                      >
+                        <div className="flex items-center gap-x-2">
+                          <menu1.icon className="text-xl" />
+                          {isOpenSidebar && <p>{menu1.title}</p>}
+                        </div>
+                        {menu1.subMenu && (
+                          <div>
+                            {isOpenSecondSubmenu.state &&
+                            isOpenSecondSubmenu.id === menu1.id ? (
+                              <FaAngleDown
+                                className="rotate-180 cursor-pointer"
+                                onClick={() =>
+                                  setIsOpenSecondSubmenu({
+                                    state: false,
+                                    id: "",
+                                  })
+                                }
+                              />
+                            ) : (
+                              <FaAngleDown
+                                className="cursor-pointer"
+                                onClick={() =>
+                                  setIsOpenSecondSubmenu({
+                                    state: true,
+                                    id: menu1.id,
+                                  })
+                                }
+                              />
+                            )}
+                          </div>
+                        )}
+                      </div>
+                      {/* second submenu */}
+                      {menu1?.subMenu && isOpenSecondSubmenu.state && (
+                        <div className="ml-4 mt-2 px-2 flex flex-col gap-y-2 border-l-2 border-gray-400">
+                          {menu1.subMenu.map((menu2) => (
+                            <div
+                              key={menu2.id}
+                              onClick={() => {
+                                setActiveSubmenu2(menu2.title);
+                                navigate(menu2.link);
+                              }}
+                              className={`flex justify-between items-center py-2 cursor-pointer ${
+                                menu2?.label?.includes(pathname) &&
+                                "text-blue-700"
+                              }`}
+                            >
+                              <div className="flex items-center gap-x-2">
+                                <menu2.icon className="text-xl" />
+                                {isOpenSidebar && <p>{menu2.title}</p>}
+                              </div>
+                              {menu2.subMenu && (
+                                <div>
+                                  {isOpenSecondSubmenu.state &&
+                                  isOpenSecondSubmenu.id === menu2.id ? (
+                                    <FaAngleDown
+                                      className="rotate-180 cursor-pointer"
+                                      onClick={() =>
+                                        setIsOpenSecondSubmenu({
+                                          state: false,
+                                          id: "",
+                                        })
+                                      }
+                                    />
+                                  ) : (
+                                    <FaAngleDown
+                                      className="cursor-pointer"
+                                      onClick={() =>
+                                        setIsOpenSecondSubmenu({
+                                          state: true,
+                                          id: menu2.id,
+                                        })
+                                      }
+                                    />
+                                  )}
+                                </div>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           ))}
         </div>

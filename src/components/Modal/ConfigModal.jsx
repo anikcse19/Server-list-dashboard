@@ -8,16 +8,19 @@ import toast from "react-hot-toast";
 const ConfigModal = ({ openConfigModal, setOpenConfigModal }) => {
   const [clientList, setClientList] = useState([]);
   const [selectedClientId, setSelectedClientId] = useState("");
-  const [domainName, setDomainName] = useState("");
+  const [senderId, setSenderId] = useState("");
   const [smsToken, setSmsToken] = useState("");
   const [smsUser, setSmsUser] = useState("");
   const [smsSender, setSmsSender] = useState("");
+  const [isChargable, setIsChargeable] = useState("");
+  const [chargeAmount, setChargeAmount] = useState("");
 
   const token = Cookies.get("token");
 
+  // get all client list
   useEffect(() => {
     axios
-      .get(`${baseUrl}api/admin/wa-client/list?drop_downlist=1`, {
+      .get(`${baseUrl}api/admin/client/list?drop_downlist=1`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -25,24 +28,32 @@ const ConfigModal = ({ openConfigModal, setOpenConfigModal }) => {
       .then((res) => setClientList(res?.data?.data));
   }, []);
 
+  // create all sms config
   const handleCreateConfig = async () => {
+    // create mim sms
     if (openConfigModal.type === "mim") {
       const createConfigData = {
         clientId: selectedClientId,
-        domain: domainName,
+        sender_id: senderId,
         values: {
           MIM_SMS_TOKEN: smsToken,
           MIM_SMS_USER: smsUser,
           MIM_SMS_SENDER_ID: smsSender,
+          is_chargeable: isChargable,
+          charge_amount: chargeAmount,
         },
       };
       try {
         await axios
-          .post(`${baseUrl}api/admin/client/set-mim-config`, createConfigData, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          })
+          .post(
+            `${baseUrl}api/admin/client/config-profile/sms/set-mim-config`,
+            createConfigData,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          )
           .then((res) => {
             if (res?.data?.status) {
               toast.success(res?.data?.message);
@@ -54,18 +65,21 @@ const ConfigModal = ({ openConfigModal, setOpenConfigModal }) => {
       }
     }
 
+    // create greenweb sms
     if (openConfigModal.type === "greenweb") {
       const createConfigData = {
         clientId: selectedClientId,
-        domain: domainName,
+        sender_id: senderId,
         values: {
           GREENWEB_SMS_TOKEN: smsToken,
+          is_chargeable: isChargable,
+          charge_amount: chargeAmount,
         },
       };
       try {
         await axios
           .post(
-            `${baseUrl}api/admin/client/set-greenweb-config`,
+            `${baseUrl}api/admin/client/config-profile/sms/set-greenweb-config`,
             createConfigData,
             {
               headers: {
@@ -86,19 +100,22 @@ const ConfigModal = ({ openConfigModal, setOpenConfigModal }) => {
       }
     }
 
+    // create ssl sms
     if (openConfigModal.type === "ssl") {
       const createConfigData = {
         clientId: selectedClientId,
-        domain: domainName,
+        sender_id: senderId,
         values: {
           SSL_SMS_TOKEN: smsToken,
           SSL_SMS_SID: smsSender,
+          is_chargeable: isChargable,
+          charge_amount: chargeAmount,
         },
       };
       try {
         await axios
           .post(
-            `${baseUrl}api/admin/client/set-sslsms-config`,
+            `${baseUrl}api/admin/client/config-profile/sms/set-sslsms-config`,
             createConfigData,
             {
               headers: {
@@ -240,12 +257,12 @@ const ConfigModal = ({ openConfigModal, setOpenConfigModal }) => {
         </div>
         <div className="flex flex-col gap-y-1">
           <input
-            onChange={(e) => setDomainName(e.target.value)}
+            onChange={(e) => setSenderId(e.target.value)}
             // onBlur={fetchSignleDomainData}
             type="text"
             name=""
             id=""
-            placeholder="Type Domain Name"
+            placeholder="Type sender id"
             className="p-2 outline-none border border-black cursor-pointer rounded"
           />
         </div>
@@ -288,6 +305,31 @@ const ConfigModal = ({ openConfigModal, setOpenConfigModal }) => {
             />
           </div>
         )}
+
+        <div className="flex flex-col gap-y-1">
+          <select
+            onChange={(e) => setIsChargeable(e.target.value)}
+            value={isChargable}
+            className="p-2 outline-none border border-black cursor-pointer rounded"
+          >
+            <option value="">Select Is It Chargable</option>
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+          </select>
+        </div>
+
+        <div className="flex flex-col gap-y-1">
+          <input
+            onChange={(e) => setChargeAmount(e.target.value)}
+            value={chargeAmount}
+            type="text"
+            name=""
+            id=""
+            placeholder="Enter Charge Amount"
+            className="p-2 outline-none border border-black cursor-pointer rounded"
+          />
+        </div>
+
         <div className="flex justify-center items-center">
           <button
             onClick={handleCreateConfig}

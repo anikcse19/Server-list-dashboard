@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import baseUrl from "../../../config";
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 const CreateClientPage = () => {
   const [serverName, setServerName] = useState("");
@@ -11,6 +12,7 @@ const CreateClientPage = () => {
   const [waAlertNo, setWaAlertNo] = useState([]);
 
   const token = Cookies.get("token");
+  const navigate = useNavigate();
 
   const handleCreateClient = async () => {
     try {
@@ -20,7 +22,7 @@ const CreateClientPage = () => {
       };
 
       axios
-        .post(`${baseUrl}api/admin/wa-client/create`, createClientData, {
+        .post(`${baseUrl}api/admin/client/create`, createClientData, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -28,6 +30,7 @@ const CreateClientPage = () => {
         .then((res) => {
           if (res?.data?.status) {
             toast.success(res?.data?.message);
+            navigate("/dashboard/client-lists");
           } else {
             toast.error(res?.data?.message);
           }

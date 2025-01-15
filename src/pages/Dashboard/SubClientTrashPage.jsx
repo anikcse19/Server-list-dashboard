@@ -10,7 +10,7 @@ import { Circles } from "react-loader-spinner";
 
 import { useNavigate } from "react-router-dom";
 
-const SubClientListsPage = () => {
+const SubClientTrashListsPage = () => {
   const [subClientsList, setSubClientsList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -37,7 +37,7 @@ const SubClientListsPage = () => {
 
   useEffect(() => {
     axios
-      .get(`${baseUrl}api/admin/client/list?drop_downlist=1`, {
+      .get(`${baseUrl}api/admin/wa-client/list?drop_downlist=1`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -48,7 +48,7 @@ const SubClientListsPage = () => {
   const fetchSubClientsList = async () => {
     try {
       axios
-        .get(`${baseUrl}api/admin/sub-client/list`, {
+        .get(`${baseUrl}api/admin/sub-client/trashed-clients`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -116,7 +116,7 @@ const SubClientListsPage = () => {
   return (
     <Layout>
       <div>
-        <h1 className="text-xl font-bold">Sub Client Details</h1>
+        <h1 className="text-xl font-bold">Trash List - Sub Client</h1>
       </div>
       <div
         style={{
@@ -147,23 +147,11 @@ const SubClientListsPage = () => {
                   "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px",
               }}
               onClick={() => {
-                navigate("/dashboard/create-sub-client");
-              }}
-              className="bg-teal-100 text-teal-700 px-5 py-1 rounded-md"
-            >
-              Create Sub Client
-            </button>
-            <button
-              style={{
-                boxShadow:
-                  "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px",
-              }}
-              onClick={() => {
-                navigate("/dashboard/trashlist/sub-client");
+                navigate("/dashboard/sub-client-lists");
               }}
               className="bg-rose-100 text-rose-700 px-5 py-1 rounded-md"
             >
-              See Trash List
+              See Sub Client List
             </button>{" "}
           </div>
         </div>
@@ -180,7 +168,7 @@ const SubClientListsPage = () => {
             >
               <tr>
                 <th scope="col" className="px-6 py-3 text-left">
-                  SL
+                  Client Id
                 </th>
                 <th scope="col" className="px-6 py-3 text-left">
                   Domain
@@ -222,7 +210,7 @@ const SubClientListsPage = () => {
                   </td>
                 </tr>
               ) : (
-                subClientsList.map((client, i) => (
+                subClientsList.map((client) => (
                   <tr
                     key={client.id}
                     className={`${
@@ -231,7 +219,9 @@ const SubClientListsPage = () => {
                         : "bg-transparent text-white"
                     }  text-sm cursor-pointer transition-all duration-500 ease-in  border-b-2 border-blue-100`}
                   >
-                    <td className="px-6 py-4 text-left text-xs ">{i + 1}</td>
+                    <td className="px-6 py-4 text-left text-xs ">
+                      {client?.client_id}
+                    </td>
                     <td className="px-6 py-4 text-left text-xs ">
                       {client?.domain}
                     </td>
@@ -247,16 +237,25 @@ const SubClientListsPage = () => {
                       <td className="px-6 py-4 text-left text-xs flex items-center gap-x-3 justify-center">
                         <p
                           onClick={() => {
-                            setIsUpdateModalOpen({
-                              status: true,
-                              value: client,
-                            });
-                            setClientId(client?.client_id);
-                            setDomainName(client?.domain);
+                            axios
+                              .get(
+                                `${baseUrl}api/admin/sub-client/restore-client/${client?.id}`,
+                                {
+                                  headers: {
+                                    Authorization: `Bearer ${token}`,
+                                  },
+                                }
+                              )
+                              .then((res) => {
+                                if (res?.data?.status) {
+                                  toast.success("Successfully Restored");
+                                  fetchSubClientsList();
+                                }
+                              });
                           }}
-                          className="bg-teal-200 hover:bg-teal-300 transition-all duration-100 ease-in text-green-800 px-5 py-2 rounded-md cursor-pointer"
+                          className="bg-orange-200 hover:bg-orange-300 transition-all duration-100 ease-in text-orange-800 px-5 py-2 rounded-md cursor-pointer"
                         >
-                          Update
+                          Restore
                         </p>
                         <p
                           onClick={() =>
@@ -267,7 +266,7 @@ const SubClientListsPage = () => {
                           }
                           className="bg-rose-200 hover:bg-rose-300 transition-all duration-100 ease-in text-red-800 px-5 py-2 rounded-md cursor-pointer"
                         >
-                          Delete
+                          Delete Forever
                         </p>
                       </td>
                     )}
@@ -392,4 +391,4 @@ const SubClientListsPage = () => {
   );
 };
 
-export default SubClientListsPage;
+export default SubClientTrashListsPage;
