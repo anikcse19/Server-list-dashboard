@@ -37,7 +37,10 @@ const Sidebar = () => {
             title: "User List",
             icon: FaUsersRectangle,
             link: "/dashboard/user-lists",
-            label: ["/dashboard/user-lists"],
+            label: [
+              "/dashboard/user-lists",
+              "/dashboard/transaction-history/:id",
+            ],
           },
           {
             id: 2,

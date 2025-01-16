@@ -1,4 +1,3 @@
-import { AiFillEdit } from "react-icons/ai";
 import Layout from "../../components/Layout/Layout";
 import useStore from "../../zustand/useStore";
 import { useEffect, useState } from "react";
@@ -8,6 +7,7 @@ import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 import { Circles } from "react-loader-spinner";
 import { useNavigate } from "react-router-dom";
+import { CiSquarePlus } from "react-icons/ci";
 
 const UsersListPage = () => {
   const [usersList, setUsersList] = useState([]);
@@ -62,6 +62,22 @@ const UsersListPage = () => {
 
   return (
     <Layout>
+      <div>
+        <h1 className="text-xl font-bold font-serif">All Admin List</h1>
+
+        <div className="my-16">
+          <button
+            onClick={() => navigate("/dashboard/create-user")}
+            style={{
+              boxShadow: " rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset",
+            }}
+            className="flex items-center gap-x-2 bg-orange-200 hover:bg-orange-300 transition-all duration-300 ease-out text-orange-700 py-2 px-5 rounded-md"
+          >
+            <CiSquarePlus className="text-xl" />
+            <p>Create New Admin</p>
+          </button>
+        </div>
+      </div>
       {/* search box */}
       {/* <div className="mt-5 flex items-center gap-x-2">
         <p className={mode === "light" ? "text-black" : "text-white"}>
@@ -102,6 +118,9 @@ const UsersListPage = () => {
                 User Type
               </th>
               <th scope="col" className="px-6 py-3 text-left">
+                Amount
+              </th>
+              <th scope="col" className="px-6 py-3 text-left">
                 Client Ids
               </th>
               <th scope="col" className="px-6 py-3 text-left">
@@ -110,12 +129,12 @@ const UsersListPage = () => {
               <th scope="col" className="px-6 py-3 text-left">
                 Created Date
               </th>
-              <th scope="col" className="px-6 py-3 text-left">
-                Update
+              <th scope="col" className="px-6 py-3 text-center">
+                Action
               </th>
-              <th scope="col" className="px-6 py-3 text-left">
+              {/* <th scope="col" className="px-6 py-3 text-left">
                 Status
-              </th>
+              </th> */}
             </tr>
           </thead>
           <tbody>
@@ -164,6 +183,9 @@ const UsersListPage = () => {
                       : "Co Sub Client"}
                   </td>
                   <td className="px-6 py-4 text-left text-xs">
+                    {user?.wallet_balance}
+                  </td>
+                  <td className="px-6 py-4 text-left text-xs">
                     <div className="flex items-center gap-2">
                       {user.serverIds !== null
                         ? user.serverIds.map((id) => (
@@ -195,15 +217,27 @@ const UsersListPage = () => {
                     {formateDate(user?.created_at)}
                   </td>
 
-                  <td className="px-6 py-4 text-left text-xl">
-                    <AiFillEdit
-                      onClick={() => {
-                        navigate(`/dashboard/user/${user?.id}`);
-                      }}
-                      className=""
-                    />
+                  <td className="px-6 py-4 text-left text-xs">
+                    <div className="flex items-center justify-between">
+                      <button
+                        onClick={() => {
+                          navigate(`/dashboard/user/${user?.id}`);
+                        }}
+                        className="bg-teal-100 text-teal-600 px-3 py-1 rounded"
+                      >
+                        Update
+                      </button>
+                      <button
+                        onClick={() =>
+                          navigate(`/dashboard/transaction-history/${user?.id}`)
+                        }
+                        className="bg-orange-100 text-orange-600 px-3 py-1 rounded"
+                      >
+                        View History
+                      </button>
+                    </div>
                   </td>
-                  <td className="px-6 py-4 text-center text-xl">
+                  {/* <td className="px-6 py-4 text-center text-xl">
                     {user?.status === 1 ? (
                       <div
                         onClick={() => {
@@ -267,7 +301,7 @@ const UsersListPage = () => {
                         <div className="w-3 h-3 bg-white rounded-full absolute left-0.5 top-[50%] -translate-y-1/2"></div>
                       </div>
                     )}
-                  </td>
+                  </td> */}
                 </tr>
               ))
             )}

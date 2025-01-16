@@ -10,6 +10,8 @@ const SubClientSMSSettingModal = ({ setOpenConfigModal }) => {
   const [selectedClientId, setSelectedClientId] = useState("");
   const [configList, setConfigList] = useState([]);
   const [selectedConfigId, setSelectedConfigId] = useState("");
+  const [adminList, setAdminList] = useState([]);
+  const [selectedAdminId, setSelectedAdminId] = useState("");
 
   const token = Cookies.get("token");
 
@@ -32,6 +34,25 @@ const SubClientSMSSettingModal = ({ setOpenConfigModal }) => {
         },
       })
       .then((res) => setConfigList(res?.data?.data));
+
+    // get all admin with user type 3,4,5
+    axios
+      .get(`${baseUrl}api/admin/user-list`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        if (res?.data?.status) {
+          const filteredAdmin = res?.data?.data.filter(
+            (user) =>
+              user?.user_type === 3 ||
+              user?.user_type === 4 ||
+              user?.user_type === 5
+          );
+          setAdminList(filteredAdmin);
+        }
+      });
   }, []);
 
   // create all sms config
@@ -39,6 +60,7 @@ const SubClientSMSSettingModal = ({ setOpenConfigModal }) => {
     const createGeneralConfigData = {
       sub_client_id: selectedClientId,
       config_id: selectedConfigId,
+      wallet_admin_id: selectedAdminId,
     };
     try {
       await axios
@@ -115,6 +137,23 @@ const SubClientSMSSettingModal = ({ setOpenConfigModal }) => {
             {configList?.map((key) => (
               <option value={key?.id} key={key.id}>
                 {key?.name}---{key?.sender_id}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="flex flex-col gap-y-1">
+          <select
+            name=""
+            id=""
+            onChange={(e) => {
+              setSelectedAdminId(e.target.value);
+            }}
+            className="p-2 outline-none border border-black cursor-pointer rounded"
+          >
+            <option value="">Select Wallet Admin</option>
+            {adminList?.map((admin) => (
+              <option value={admin?.id} key={admin.id}>
+                {admin?.name}
               </option>
             ))}
           </select>

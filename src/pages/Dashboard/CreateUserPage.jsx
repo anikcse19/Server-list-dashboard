@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import baseUrl from "../../../config";
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 const CreateUserPage = () => {
   const [fullName, setFullName] = useState("");
@@ -13,6 +14,7 @@ const CreateUserPage = () => {
   const [adminRoleList, setAdminRoleList] = useState([]);
 
   const token = Cookies.get("token");
+  const navigate = useNavigate();
 
   const handleCreateUser = async () => {
     try {
@@ -33,6 +35,7 @@ const CreateUserPage = () => {
         .then((res) => {
           if (res?.data?.status) {
             toast.success(res?.data?.message);
+            navigate("/dashboard/user-lists");
           } else {
             toast.error(res?.data?.message);
           }

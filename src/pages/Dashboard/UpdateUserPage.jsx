@@ -27,7 +27,7 @@ const UpdateUserPage = () => {
   const fetchClientsList = async () => {
     try {
       axios
-        .get(`${baseUrl}api/admin/wa-client/list`, {
+        .get(`${baseUrl}api/admin/client/list`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -95,6 +95,7 @@ const UpdateUserPage = () => {
           setEmail(res?.data?.data?.email);
           setRole(res?.data?.data?.user_type);
           setServerIds(res?.data?.data?.serverIds);
+          setSubClientIds(res?.data?.data?.subClientIds);
         }
       });
   }, []);
@@ -133,6 +134,8 @@ const UpdateUserPage = () => {
       setRole("");
     }
   };
+
+  console.log(role, "role");
 
   return (
     <Layout>

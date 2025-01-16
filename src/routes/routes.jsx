@@ -15,6 +15,7 @@ import CreateSubClientPage from "../pages/Dashboard/CreateSubClient";
 import SubClientTrashPage from "../pages/Dashboard/SubClientTrashPage";
 import GeneralConfigList from "../pages/Dashboard/GeneralConfigList";
 import SMSSetting from "../pages/Dashboard/Settings/SMSSetting";
+import TransactionHistoryPage from "../pages/Dashboard/TransactionHistory/TransactionHistoryPage";
 
 const routes = createBrowserRouter([
   {
@@ -114,6 +115,14 @@ const routes = createBrowserRouter([
     element: (
       <PrivateRoute>
         <SubClientTrashPage />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/dashboard/transaction-history/:id",
+    element: (
+      <PrivateRoute>
+        <TransactionHistoryPage />
       </PrivateRoute>
     ),
   },
