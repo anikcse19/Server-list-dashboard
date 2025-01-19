@@ -127,7 +127,7 @@ const Sidebar = () => {
                     id: 2,
                     title: "General Setting",
                     icon: FaUsers,
-                    link: "/dashboard/sub-client/settings/general-setting",
+                    // link: "/dashboard/sub-client/settings/general-setting",
                     label: ["/dashboard/sub-client/settings/general-setting"],
                   },
                 ],

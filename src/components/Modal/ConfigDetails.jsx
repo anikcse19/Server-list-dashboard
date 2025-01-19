@@ -83,6 +83,8 @@ const ConfigDetails = ({
     }
   }, []);
 
+  console.log(details, "det");
+
   return (
     <div
       style={{

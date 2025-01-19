@@ -38,7 +38,7 @@ const ConfigModal = ({ openConfigModal, setOpenConfigModal }) => {
         values: {
           MIM_SMS_TOKEN: smsToken,
           MIM_SMS_USER: smsUser,
-          MIM_SMS_SENDER_ID: smsSender,
+          MIM_SMS_SENDER_ID: senderId,
           is_chargeable: isChargable,
           charge_amount: chargeAmount,
         },
@@ -107,7 +107,7 @@ const ConfigModal = ({ openConfigModal, setOpenConfigModal }) => {
         sender_id: senderId,
         values: {
           SSL_SMS_TOKEN: smsToken,
-          SSL_SMS_SID: smsSender,
+          SSL_SMS_SID: senderId,
           is_chargeable: isChargable,
           charge_amount: chargeAmount,
         },
@@ -292,11 +292,11 @@ const ConfigModal = ({ openConfigModal, setOpenConfigModal }) => {
             />
           </div>
         )}
-        {(openConfigModal.type === "mim" || openConfigModal.type === "ssl") && (
+        {/* {(openConfigModal.type === "mim" || openConfigModal.type === "ssl") && (
           <div className="flex flex-col gap-y-1">
             <input
-              onChange={(e) => setSmsSender(e.target.value)}
-              value={smsSender}
+              onChange={(e) => setSenderId(e.target.value)}
+              value={senderId}
               type="text"
               name=""
               id=""
@@ -304,7 +304,7 @@ const ConfigModal = ({ openConfigModal, setOpenConfigModal }) => {
               className="p-2 outline-none border border-black cursor-pointer rounded"
             />
           </div>
-        )}
+        )} */}
 
         <div className="flex flex-col gap-y-1">
           <select

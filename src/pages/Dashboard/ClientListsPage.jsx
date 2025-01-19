@@ -147,7 +147,25 @@ const ClientListsPage = () => {
     <Layout>
       <div>
         <h1 className="font-bold text-xl font-serif">All Client List</h1>
-        <div className="mt-10">
+      </div>
+      <div
+        style={{
+          boxShadow:
+            "rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px",
+        }}
+        className="w-full h-fit bg-white mt-10 py-3 rounded-md"
+      >
+        {/* search box */}
+        <div className="m-5 flex items-center justify-between">
+          <div className="flex items-center gap-x-4">
+            <input
+              // onChange={(e) => setSearchEventName(e.target.value)}
+              // value={searchEventName}
+              type="text"
+              placeholder="Search Client"
+              className="w-52 px-3 py-2 text-sm rounded bg-blue-50 outline-none italic border-b-2 border-slate-600 focus:border-teal-500"
+            />
+          </div>
           <button
             onClick={() => navigate("/dashboard/create-client")}
             style={{
@@ -158,26 +176,6 @@ const ClientListsPage = () => {
             <CiSquarePlus className="text-xl" />
             <p>Create New Client</p>
           </button>
-        </div>
-      </div>
-      <div
-        style={{
-          boxShadow:
-            "rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px",
-        }}
-        className="w-full h-fit bg-white mt-10 py-3 rounded-md"
-      >
-        {/* search box */}
-        <div className="m-5 flex items-center gap-x-2">
-          <div className="flex items-center gap-x-4">
-            <input
-              // onChange={(e) => setSearchEventName(e.target.value)}
-              // value={searchEventName}
-              type="text"
-              placeholder="Search Client"
-              className="w-52 px-3 py-2 text-sm rounded bg-blue-50 outline-none italic border-b-2 border-slate-600 focus:border-teal-500"
-            />
-          </div>
         </div>
 
         {/* users table */}

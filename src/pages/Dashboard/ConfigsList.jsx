@@ -83,7 +83,7 @@ const ConfigsList = () => {
           boxShadow:
             "rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px",
         }}
-        className="w-full min-h-96 h-fit bg-white mt-20 py-3 rounded-md"
+        className="w-full min-h-96 h-fit bg-white mt-10 py-3 rounded-md"
       >
         <div className="flex items-center justify-between px-3">
           <div>

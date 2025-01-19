@@ -120,6 +120,9 @@ const SMSSetting = () => {
                   Name
                 </th>
                 <th scope="col" className="px-6 py-3 text-left">
+                  Responsible Admin
+                </th>
+                <th scope="col" className="px-6 py-3 text-left">
                   Created
                 </th>
 
@@ -171,7 +174,9 @@ const SMSSetting = () => {
                     <td className="px-6 py-4 text-left text-xs">
                       {config?.name}
                     </td>
-
+                    <td className="px-6 py-4 text-left text-xs">
+                      {config?.admin?.name}
+                    </td>
                     <td className="px-6 py-4 text-left text-xs">
                       {formateDate(config?.created_at)}
                     </td>
