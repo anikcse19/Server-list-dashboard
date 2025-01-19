@@ -51,6 +51,7 @@ const Sidebar = () => {
               "/dashboard/client-lists",
               "/dashboard/client/config-profile/sms-config",
               "/dashboard/client/config-profile/general-config",
+              "/dashboard/create-client",
             ],
             subMenu: [
               {
@@ -58,7 +59,7 @@ const Sidebar = () => {
                 title: "List",
                 icon: FaUsers,
                 link: "/dashboard/client-lists",
-                label: ["/dashboard/client-lists"],
+                label: ["/dashboard/client-lists", "/dashboard/create-client"],
               },
               {
                 id: 2,
@@ -95,7 +96,9 @@ const Sidebar = () => {
             // link: "/dashboard/sub-client-lists",
             label: [
               "/dashboard/sub-client-lists",
+              "dashboard/create-sub-client",
               "/dashboard/sub-client/settings/sms-setting",
+              "/dashboard/sub-client/sms/set-wa-alert",
             ],
             subMenu: [
               {
@@ -103,10 +106,29 @@ const Sidebar = () => {
                 title: "List",
                 icon: FaUsers,
                 link: "/dashboard/sub-client-lists",
-                label: ["/dashboard/sub-client-lists"],
+                label: [
+                  "/dashboard/sub-client-lists",
+                  "dashboard/create-sub-client",
+                ],
               },
               {
                 id: 2,
+                title: "SMS",
+                icon: FaUsers,
+                // link: "/dashboard/sub-client/settings/sms-setting",
+                label: ["/dashboard/sub-client/sms/set-wa-alert"],
+                subMenu: [
+                  {
+                    id: 1,
+                    title: "Set WA Alert",
+                    icon: FaUsers,
+                    link: "/dashboard/sub-client/sms/set-wa-alert",
+                    label: ["/dashboard/sub-client/sms/set-wa-alert"],
+                  },
+                ],
+              },
+              {
+                id: 3,
                 title: "Settings",
                 icon: FaUsers,
                 // link: "/dashboard/sub-client/settings/sms-setting",

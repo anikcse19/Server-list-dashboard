@@ -11,7 +11,7 @@ const ConfigModal = ({ openConfigModal, setOpenConfigModal }) => {
   const [senderId, setSenderId] = useState("");
   const [smsToken, setSmsToken] = useState("");
   const [smsUser, setSmsUser] = useState("");
-  const [smsSender, setSmsSender] = useState("");
+  // const [smsSender, setSmsSender] = useState("");
   const [isChargable, setIsChargeable] = useState("");
   const [chargeAmount, setChargeAmount] = useState("");
 

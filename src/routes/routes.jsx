@@ -16,6 +16,7 @@ import SubClientTrashPage from "../pages/Dashboard/SubClientTrashPage";
 import GeneralConfigList from "../pages/Dashboard/GeneralConfigList";
 import SMSSetting from "../pages/Dashboard/Settings/SMSSetting";
 import TransactionHistoryPage from "../pages/Dashboard/TransactionHistory/TransactionHistoryPage";
+import SendSMSWAAlert from "../pages/Dashboard/SMS/SendSMSWAAlert";
 
 const routes = createBrowserRouter([
   {
@@ -115,6 +116,14 @@ const routes = createBrowserRouter([
     element: (
       <PrivateRoute>
         <SubClientTrashPage />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/dashboard/sub-client/sms/set-wa-alert",
+    element: (
+      <PrivateRoute>
+        <SendSMSWAAlert />
       </PrivateRoute>
     ),
   },
