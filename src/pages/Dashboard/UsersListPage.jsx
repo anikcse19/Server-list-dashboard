@@ -65,7 +65,7 @@ const UsersListPage = () => {
       <div>
         <h1 className="text-xl font-bold font-serif">All Admin List</h1>
 
-        <div className="my-16">
+        <div className="my-5">
           <button
             onClick={() => navigate("/dashboard/create-user")}
             style={{
@@ -105,34 +105,34 @@ const UsersListPage = () => {
             }  border-b-2 border-t-2 border-black rounded-md`}
           >
             <tr>
-              <th scope="col" className="px-6 py-3 text-left">
+              <th scope="col" className="px-2 py-2 text-left whitespace-nowrap">
                 SL No
               </th>
-              <th scope="col" className="px-6 py-3 text-left">
+              <th scope="col" className="px-2 py-2 text-left">
                 Name
               </th>
-              <th scope="col" className="px-6 py-3 text-left">
+              <th scope="col" className="px-2 py-2 text-left">
                 Email
               </th>
-              <th scope="col" className="px-6 py-3 text-left">
+              <th scope="col" className="px-2 py-2 text-left whitespace-nowrap">
                 User Type
               </th>
-              <th scope="col" className="px-6 py-3 text-left">
+              <th scope="col" className="px-2 py-2 text-left">
                 Amount
               </th>
-              <th scope="col" className="px-6 py-3 text-left">
+              <th scope="col" className="px-2 py-2 text-left whitespace-nowrap">
                 Client Ids
               </th>
-              <th scope="col" className="px-6 py-3 text-left">
+              <th scope="col" className="px-2 py-2 text-left whitespace-nowrap">
                 Sub Client Ids
               </th>
-              <th scope="col" className="px-6 py-3 text-left">
+              <th scope="col" className="px-2 py-2 text-left whitespace-nowrap">
                 Created Date
               </th>
-              <th scope="col" className="px-6 py-3 text-center">
+              <th scope="col" className="px-2 py-2 text-center">
                 Action
               </th>
-              {/* <th scope="col" className="px-6 py-3 text-left">
+              {/* <th scope="col" className="px-2 py-2 text-left">
                 Status
               </th> */}
             </tr>
@@ -168,10 +168,14 @@ const UsersListPage = () => {
                       : "bg-black text-white"
                   }  text-sm cursor-pointer transition-all duration-500 ease-in  border-b-2 border-slate-700`}
                 >
-                  <td className="px-6 py-4 text-left text-xs">{i + 1}</td>
-                  <td className="px-6 py-4 text-left text-xs">{user?.name}</td>
-                  <td className="px-6 py-4 text-left text-xs">{user?.email}</td>
-                  <td className="px-6 py-4 text-left text-xs">
+                  <td className="px-2 py-2 text-left text-xs">{i + 1}</td>
+                  <td className="px-2 py-2 text-left text-xs whitespace-nowrap">
+                    {user?.name}
+                  </td>
+                  <td className="px-2 py-2 text-left text-xs whitespace-nowrap">
+                    {user?.email}
+                  </td>
+                  <td className="px-2 py-2 text-left text-xs whitespace-nowrap">
                     {user?.user_type === 1
                       ? "Administrator"
                       : user?.user_type === 2
@@ -182,11 +186,11 @@ const UsersListPage = () => {
                       ? "Sub Client"
                       : "Co Sub Client"}
                   </td>
-                  <td className="px-6 py-4 text-left text-xs">
+                  <td className="px-2 py-2 text-left text-xs whitespace-nowrap">
                     {user?.wallet_balance}
                   </td>
-                  <td className="px-6 py-4 text-left text-xs">
-                    <div className="flex items-center gap-2">
+                  <td className="px-2 py-2 text-left text-xs">
+                    <div className="flex items-center gap-2 whitespace-nowrap">
                       {user.serverIds !== null
                         ? user.serverIds.map((id) => (
                             <p
@@ -199,8 +203,8 @@ const UsersListPage = () => {
                         : "--"}
                     </div>
                   </td>
-                  <td className="px-6 py-4 text-left text-xs">
-                    <div className="flex items-center gap-2">
+                  <td className="px-2 py-2 text-left text-xs whitespace-nowrap">
+                    <div className="flex items-center gap-2 whitespace-nowrap">
                       {user.subClientIds !== null
                         ? user.subClientIds.map((id) => (
                             <p
@@ -213,12 +217,12 @@ const UsersListPage = () => {
                         : "--"}
                     </div>
                   </td>
-                  <td className="px-6 py-4 text-left text-xs">
+                  <td className="px-2 py-2 text-left text-xs whitespace-nowrap">
                     {formateDate(user?.created_at)}
                   </td>
 
-                  <td className="px-6 py-4 text-left text-xs">
-                    <div className="flex items-center justify-between">
+                  <td className="px-2 py-2 text-left text-xs">
+                    <div className="flex items-center gap-x-2">
                       <button
                         onClick={() => {
                           navigate(`/dashboard/user/${user?.id}`);
@@ -231,13 +235,13 @@ const UsersListPage = () => {
                         onClick={() =>
                           navigate(`/dashboard/transaction-history/${user?.id}`)
                         }
-                        className="bg-orange-100 text-orange-600 px-3 py-1 rounded"
+                        className="bg-rose-100 text-rose-600 px-3 py-1 rounded whitespace-nowrap"
                       >
                         View History
                       </button>
                     </div>
                   </td>
-                  {/* <td className="px-6 py-4 text-center text-xl">
+                  {/* <td className="px-2 py-2 text-center text-xl">
                     {user?.status === 1 ? (
                       <div
                         onClick={() => {

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import baseUrl from "../../../../config";
 import Layout from "../../../components/Layout/Layout";
 
@@ -16,7 +16,7 @@ const SendSMSWAAlert = () => {
   const [selectedAdminId, setSelectedAdminId] = useState("");
 
   const token = Cookies.get("token");
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     // get all sub client

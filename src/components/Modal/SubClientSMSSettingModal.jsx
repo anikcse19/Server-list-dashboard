@@ -17,7 +17,7 @@ const SubClientSMSSettingModal = ({ setOpenConfigModal }) => {
 
   // get all client list
   useEffect(() => {
-    // get all client
+    // get all sub client
     axios
       .get(`${baseUrl}api/admin/sub-client/list`, {
         headers: {
