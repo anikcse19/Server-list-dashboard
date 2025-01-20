@@ -111,31 +111,16 @@ const Sidebar = () => {
                   "dashboard/create-sub-client",
                 ],
               },
+
               {
                 id: 2,
-                title: "SMS",
-                icon: FaUsers,
-                // link: "/dashboard/sub-client/settings/sms-setting",
-                label: ["/dashboard/sub-client/sms/set-wa-alert"],
-                subMenu: [
-                  {
-                    id: 1,
-                    title: "Set WA Alert",
-                    icon: FaUsers,
-                    link: "/dashboard/sub-client/sms/set-wa-alert",
-                    label: ["/dashboard/sub-client/sms/set-wa-alert"],
-                  },
-                ],
-              },
-              {
-                id: 3,
                 title: "Settings",
                 icon: FaUsers,
                 // link: "/dashboard/sub-client/settings/sms-setting",
                 label: [
                   "/dashboard/sub-client/settings/sms-setting",
                   "/dashboard/sub-client/settings/general-setting",
-                  "/dashboard/sub-client/settings/general-setting",
+                  "/dashboard/sub-client/sms/set-wa-alert",
                 ],
                 subMenu: [
                   {
@@ -151,6 +136,13 @@ const Sidebar = () => {
                     icon: FaUsers,
                     // link: "/dashboard/sub-client/settings/general-setting",
                     label: ["/dashboard/sub-client/settings/general-setting"],
+                  },
+                  {
+                    id: 3,
+                    title: "Set WA Alert",
+                    icon: FaUsers,
+                    link: "/dashboard/sub-client/sms/set-wa-alert",
+                    label: ["/dashboard/sub-client/sms/set-wa-alert"],
                   },
                 ],
               },
