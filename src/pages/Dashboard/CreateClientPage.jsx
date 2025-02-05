@@ -50,7 +50,7 @@ const CreateClientPage = () => {
           style={{
             boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
           }}
-          className=" flex flex-col gap-y-5 border-2 border-black h-fit p-10 rounded-md bg-white"
+          className=" flex flex-col gap-y-5 border-2 border-black h-fit p-4 lg:p-10 rounded-md bg-white"
         >
           <div className="flex justify-center">
             <h1 className="font-bold">Create Client</h1>
@@ -61,7 +61,7 @@ const CreateClientPage = () => {
               onChange={(e) => setServerName(e.target.value)}
               value={serverName}
               type="text"
-              className="w-[300px] py-3 px-3 rounded-md outline-none border-2 border-black"
+              className="w-full lg:w-[300px] py-3 px-3 rounded-md outline-none border-2 border-black"
             />
           </div>
 
@@ -83,7 +83,7 @@ const CreateClientPage = () => {
                 onChange={(e) => setAlertNo(e.target.value)}
                 value={alertNo}
                 type="text"
-                className="w-[300px] py-3 px-3 rounded-md outline-none border-2 border-black"
+                className="w-full lg:w-[300px] py-3 px-3 rounded-md outline-none border-2 border-black"
                 placeholder="Add Alert No"
               />
               <div className="flex justify-end">

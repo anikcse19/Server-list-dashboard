@@ -85,9 +85,11 @@ const ConfigsList = () => {
         }}
         className="w-full min-h-96 h-fit bg-white mt-10 py-3 rounded-md"
       >
-        <div className="flex items-center justify-between px-3">
+        <div className="flex flex-col xl:flex-row xl:items-center xl:justify-between px-3">
           <div>
-            <p className="text-xl font-bold text-gray-600">SMS Config List</p>
+            <p className="text-base md:text-xl font-bold text-gray-600">
+              SMS Config List
+            </p>
           </div>
           <div className="flex items-center gap-4 my-5">
             <button
@@ -98,7 +100,7 @@ const ConfigsList = () => {
               onClick={() => {
                 setOpenConfigModal({ state: true, type: "mim" });
               }}
-              className="bg-teal-100 text-teal-700 px-5 py-1 rounded-md"
+              className="bg-teal-100 text-teal-700 px-2 md:px-5 py-1 rounded-md text-xs md:text-sm"
             >
               Create MIM SMS Config
             </button>
@@ -110,7 +112,7 @@ const ConfigsList = () => {
               onClick={() => {
                 setOpenConfigModal({ state: true, type: "greenweb" });
               }}
-              className="bg-rose-100 text-rose-700 px-5 py-1 rounded-md"
+              className="bg-rose-100 text-rose-700 px-2 md:px-5 py-1 rounded-md text-xs md:text-sm"
             >
               Create GREENWEB SMS Config
             </button>{" "}
@@ -122,7 +124,7 @@ const ConfigsList = () => {
               onClick={() => {
                 setOpenConfigModal({ state: true, type: "ssl" });
               }}
-              className="bg-purple-100 text-purple-700 px-5 py-1 rounded-md"
+              className="bg-purple-100 text-purple-700 px-2 md:px-5 py-1 rounded-md text-xs md:text-sm"
             >
               Create SSL SMS Config
             </button>
@@ -130,7 +132,7 @@ const ConfigsList = () => {
         </div>
 
         {/* table */}
-        <div className="relative overflow-x-auto max-h-screen overflow-y-auto my-5">
+        <div className="relative overflow-x-auto max-h-screen overflow-y-auto my-5 w-[calc(100vw-32px)] lg:w-[calc(100vw-320px)]">
           <table className="w-full text-sm text-left rtl:text-right text-white  ">
             <thead
               className={`sticky top-0 text-xs  uppercase ${"bg-blue-100 text-black"}   rounded-md`}
@@ -247,7 +249,7 @@ const ConfigsList = () => {
 
       {/* modal */}
       {openConfigModal.state && (
-        <div className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 ">
+        <div className="fixed top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-full">
           <ConfigModal
             openConfigModal={openConfigModal}
             setOpenConfigModal={setOpenConfigModal}
@@ -256,7 +258,7 @@ const ConfigsList = () => {
       )}
 
       {openConfigDetailsModal.state && (
-        <div className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 ">
+        <div className="fixed top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-full">
           <ConfigDetails
             openConfigDetailsModal={openConfigDetailsModal}
             setOpenConfigDetailsModal={setOpenConfigDetailsModal}
@@ -265,7 +267,7 @@ const ConfigsList = () => {
       )}
 
       {openDeleteConfigModal.state && (
-        <div className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2">
+        <div className="fixed top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-full">
           <ConfigDeleteModal
             setOpenDeleteConfigModal={setOpenDeleteConfigModal}
             openDeleteConfigModal={openDeleteConfigModal}

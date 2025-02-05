@@ -33,7 +33,7 @@ const ConfigDeleteModal = ({
         boxShadow:
           "rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px",
       }}
-      className="w-[500px] h-fit bg-blue-100 px-5 py-10 rounded-md"
+      className="w-[90%] mx-auto lg:w-[500px] h-fit bg-blue-100 px-5 py-10 rounded-md"
     >
       <h1 className="text-center text-2xl font-bold text-gray-800">
         Are you confirm?

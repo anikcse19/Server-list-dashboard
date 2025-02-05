@@ -12,7 +12,7 @@ const Layout = ({ children }) => {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
 
   return (
-    <div className="w-full flex">
+    <div className="w-full flex overflow-hidden">
       {/* sidebar */}
       <div
         className={`${
@@ -37,7 +37,7 @@ const Layout = ({ children }) => {
       </div>
       {/* children */}
       <div
-        className={`flex-grow bg-blue-50 min-h-screen relative ${
+        className={`flex-grow bg-blue-50 min-h-screen relative w-full ${
           isOpenSidebar ? "lg:ml-[250px]" : "lg:ml-[100px]"
         }`}
       >
@@ -49,7 +49,7 @@ const Layout = ({ children }) => {
           />
         </button>
 
-        <div className="p-4 lg:p-10">{children}</div>
+        <div className="p-4 lg:p-10 w-full">{children}</div>
       </div>
 
       {/* mobile nav */}

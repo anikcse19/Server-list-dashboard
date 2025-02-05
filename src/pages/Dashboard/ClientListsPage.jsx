@@ -156,14 +156,14 @@ const ClientListsPage = () => {
         className="w-full h-fit bg-white mt-10 py-3 rounded-md"
       >
         {/* search box */}
-        <div className="m-5 flex items-center justify-between">
-          <div className="flex items-center gap-x-4">
+        <div className="m-2 md:m-5 flex items-center justify-between gap-x-2">
+          <div className="flex items-center  gap-x-4">
             <input
               // onChange={(e) => setSearchEventName(e.target.value)}
               // value={searchEventName}
               type="text"
               placeholder="Search Client"
-              className="w-52 px-3 py-2 text-sm rounded bg-blue-50 outline-none italic border-b-2 border-slate-600 focus:border-teal-500"
+              className="w-28 sm:w-52 px-3 py-2 text-sm rounded bg-blue-50 outline-none italic border-b-2 border-slate-600 focus:border-teal-500"
             />
           </div>
           <button
@@ -171,7 +171,7 @@ const ClientListsPage = () => {
             style={{
               boxShadow: " rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset",
             }}
-            className="flex items-center gap-x-2 bg-orange-200 hover:bg-orange-300 transition-all duration-300 ease-out text-orange-700 py-2 px-5 rounded-md"
+            className="flex items-center gap-x-2 text-xs md:text-base bg-orange-200 hover:bg-orange-300 transition-all duration-300 ease-out text-orange-700 py-2 px-2 md:px-5 rounded-md"
           >
             <CiSquarePlus className="text-xl" />
             <p>Create New Client</p>
@@ -179,7 +179,7 @@ const ClientListsPage = () => {
         </div>
 
         {/* users table */}
-        <div className="relative overflow-x-auto max-h-screen overflow-y-auto my-5">
+        <div className="relative overflow-x-auto max-h-screen overflow-y-auto my-5 w-[calc(100vw-32px)] lg:w-[calc(100vw-320px)]">
           <table className="w-full text-sm text-left rtl:text-right text-white  ">
             <thead
               className={`sticky top-0 text-xs  uppercase ${

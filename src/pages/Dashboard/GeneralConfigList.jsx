@@ -94,7 +94,7 @@ const GeneralConfigList = () => {
               onClick={() => {
                 setOpenConfigModal(true);
               }}
-              className="bg-teal-100 text-teal-700 px-5 py-1 rounded-md"
+              className="bg-teal-100 text-teal-700 px-2 md:px-5 py-1 rounded-md text-xs md:text-sm"
             >
               Create Basic Config
             </button>
@@ -102,7 +102,7 @@ const GeneralConfigList = () => {
         </div>
 
         {/* table */}
-        <div className="relative overflow-x-auto max-h-screen overflow-y-auto my-5">
+        <div className="relative overflow-x-auto max-h-screen overflow-y-auto my-5 w-[calc(100vw-32px)] lg:w-[calc(100vw-320px)]">
           <table className="w-full text-sm text-left rtl:text-right text-white  ">
             <thead
               className={`sticky top-0 text-xs  uppercase ${"bg-red-100 text-black"}   rounded-md`}
@@ -196,7 +196,7 @@ const GeneralConfigList = () => {
 
       {/* modal */}
       {openConfigModal && (
-        <div className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 ">
+        <div className="fixed top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-full ">
           <GeneralConfigModal
             openConfigModal={openConfigModal}
             setOpenConfigModal={setOpenConfigModal}
@@ -205,7 +205,7 @@ const GeneralConfigList = () => {
       )}
 
       {openDeleteConfigModal.state && (
-        <div className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2">
+        <div className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-full">
           <GeneralConfigDeleteModal
             setOpenDeleteConfigModal={setOpenDeleteConfigModal}
             openDeleteConfigModal={openDeleteConfigModal}

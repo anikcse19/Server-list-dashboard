@@ -91,7 +91,7 @@ const ConfigDetails = ({
         boxShadow:
           "rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px",
       }}
-      className="w-[500px] h-fit bg-blue-100 px-5 py-10 rounded-md"
+      className="w-[90%] mx-auto lg:w-[500px] h-fit bg-blue-100 px-5 py-10 rounded-md"
     >
       <div className="flex items-center justify-between">
         <p className="text-gray-600 font-bold text-base">Config Details</p>
@@ -105,10 +105,10 @@ const ConfigDetails = ({
         </button>
       </div>
       {/* body */}
-      <div className="flex flex-col gap-y-4 mt-10">
+      <div className="flex flex-col gap-4 mt-10">
         {Object.keys(details).map((key) => (
-          <div className="flex items-center justify-between" key={key}>
-            <p>{key}</p>
+          <div className="flex items-center justify-between gap-x-2" key={key}>
+            <p className="text-xs lg:text-sm">{key}</p>
             <p className="text-xs text-gray-700">{details[key]}</p>
           </div>
         ))}

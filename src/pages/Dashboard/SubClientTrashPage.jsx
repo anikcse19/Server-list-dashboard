@@ -134,7 +134,7 @@ const SubClientTrashListsPage = () => {
                 // value={searchEventName}
                 type="text"
                 placeholder="Search Sub Client"
-                className="w-52 px-3 py-2 text-sm rounded italic bg-blue-50 outline-none border-b-2 border-slate-600 focus:border-teal-500"
+                className="w-32 sm:w-52 px-3 py-2 text-sm rounded italic bg-blue-50 outline-none border-b-2 border-slate-600 focus:border-teal-500"
               />
             </div>
           </div>
@@ -149,7 +149,7 @@ const SubClientTrashListsPage = () => {
               onClick={() => {
                 navigate("/dashboard/sub-client-lists");
               }}
-              className="bg-rose-100 text-rose-700 px-5 py-1 rounded-md"
+              className="bg-rose-100 text-rose-700 px-2 lg:px-5 py-1 rounded-md text-xs lg:text-sm"
             >
               See Sub Client List
             </button>{" "}
@@ -157,7 +157,7 @@ const SubClientTrashListsPage = () => {
         </div>
 
         {/* users table */}
-        <div className="relative overflow-x-auto max-h-screen overflow-y-auto my-5">
+        <div className="relative overflow-x-auto max-h-screen overflow-y-auto my-5 w-[calc(100vw-32px)] lg:w-[calc(100vw-320px)]">
           <table className="w-full text-sm text-left rtl:text-right text-white  ">
             <thead
               className={`sticky top-0 text-xs  uppercase ${

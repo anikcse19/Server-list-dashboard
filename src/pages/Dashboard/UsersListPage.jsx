@@ -80,7 +80,7 @@ const UsersListPage = () => {
       </div>
 
       {/* users table */}
-      <div className="relative overflow-x-auto max-h-screen overflow-y-auto my-5 w-full">
+      <div className="relative overflow-x-auto max-h-screen overflow-y-auto my-5 w-[calc(100vw-32px)] lg:w-[calc(100vw-320px)]">
         <table className="w-full text-sm text-left rtl:text-right text-white  border-l-2 border-r-2 border-black">
           <thead
             className={`sticky top-0 text-xs  uppercase ${

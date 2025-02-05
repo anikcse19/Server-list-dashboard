@@ -78,7 +78,7 @@ const CreateUserPage = () => {
           style={{
             boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
           }}
-          className=" flex flex-col gap-y-5 border-2 border-black h-fit p-10 rounded-md bg-white w-[500px]"
+          className=" flex flex-col gap-y-5 border-2 border-black h-fit p-4 lg:p-10 rounded-md bg-white w-full lg:w-[500px]"
         >
           <div className="flex justify-center">
             <h1 className="font-bold">Create User</h1>
@@ -89,7 +89,7 @@ const CreateUserPage = () => {
               onChange={(e) => setFullName(e.target.value)}
               value={fullName}
               type="text"
-              className="w-[90%] py-3 px-3 rounded-md outline-none border-2 border-black"
+              className="w-full lg:w-[90%] py-3 px-3 rounded-md outline-none border-2 border-black"
             />
           </div>
 
@@ -99,7 +99,7 @@ const CreateUserPage = () => {
               onChange={(e) => setEmail(e.target.value)}
               value={email}
               type="email"
-              className="w-[90%] py-3 px-3 rounded-md outline-none border-2 border-black"
+              className="w-full lg:w-[90%] py-3 px-3 rounded-md outline-none border-2 border-black"
             />
           </div>
 
@@ -109,7 +109,7 @@ const CreateUserPage = () => {
               onChange={(e) => setPassword(e.target.value)}
               value={password}
               type="password"
-              className="w-[90%] py-3 px-3 rounded-md outline-none border-2 border-black"
+              className="w-full lg:w-[90%] py-3 px-3 rounded-md outline-none border-2 border-black"
             />
           </div>
 
@@ -120,7 +120,7 @@ const CreateUserPage = () => {
               value={role}
               name=""
               id="role"
-              className="w-[90%] py-3 px-3 rounded-md outline-none border-2 border-black"
+              className="w-full lg:w-[90%] py-3 px-3 rounded-md outline-none border-2 border-black"
             >
               <option value="">Select Role---</option>
               {Object.keys(adminRoleList).map((key) => (

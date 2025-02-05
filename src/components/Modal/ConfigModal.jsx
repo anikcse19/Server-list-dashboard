@@ -223,21 +223,23 @@ const ConfigModal = ({ openConfigModal, setOpenConfigModal }) => {
         boxShadow:
           "rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px",
       }}
-      className="w-[500px] h-fit bg-blue-100 px-5 py-10 rounded-md"
+      className="w-[90%] mx-auto lg:w-[500px] h-fit bg-blue-100 px-5 py-10 rounded-md"
     >
       <div className="flex items-center justify-between">
-        <p className="text-gray-600 font-bold text-xl">Create New Config</p>
+        <p className="text-gray-600 font-bold text-sm lg:text-xl">
+          Create New Config
+        </p>
         <button
           onClick={() => {
             setOpenConfigModal({ state: false, type: "" });
           }}
-          className="bg-rose-600 text-white px-5 py-2 rounded-md"
+          className="bg-rose-600 text-white px-2 lg:px-5 py-2 text-xs lg:text-base rounded-md"
         >
           Close
         </button>
       </div>
       {/* form */}
-      <div className="flex flex-col gap-5 mt-8 px-5">
+      <div className="flex flex-col gap-5 mt-8 px-2 lg:px-5">
         <div className="flex flex-col gap-y-1">
           <select
             name=""
@@ -333,7 +335,7 @@ const ConfigModal = ({ openConfigModal, setOpenConfigModal }) => {
         <div className="flex justify-center items-center">
           <button
             onClick={handleCreateConfig}
-            className="bg-teal-400 text-black px-5 py-2 rounded-md"
+            className="bg-teal-400 text-black px-5 py-2 rounded-md text-xs lg:text-base"
           >
             Create{" "}
             {openConfigModal.type === "mim"

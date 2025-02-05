@@ -80,7 +80,7 @@ const SMSSetting = () => {
       >
         <div className="flex items-center justify-between px-3">
           <div>
-            <p className="text-xl font-bold text-gray-600">
+            <p className="text-base md:text-xl font-bold text-gray-600">
               Sub Client SMS List
             </p>
           </div>
@@ -101,7 +101,7 @@ const SMSSetting = () => {
         </div>
 
         {/* table */}
-        <div className="relative overflow-x-auto max-h-screen overflow-y-auto my-5">
+        <div className="relative overflow-x-auto max-h-screen overflow-y-auto my-5 w-[calc(100vw-32px)] lg:w-[calc(100vw-320px)]">
           <table className="w-full text-sm text-left rtl:text-right text-white  ">
             <thead
               className={`sticky top-0 text-xs  uppercase ${"bg-red-100 text-black"}   rounded-md`}
@@ -204,7 +204,7 @@ const SMSSetting = () => {
 
       {/* modal */}
       {openConfigModal && (
-        <div className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 ">
+        <div className="fixed top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-full">
           <SubClientSMSSettingModal
             openConfigModal={openConfigModal}
             setOpenConfigModal={setOpenConfigModal}
@@ -213,7 +213,7 @@ const SMSSetting = () => {
       )}
 
       {openDeleteConfigModal.state && (
-        <div className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2">
+        <div className="fixed top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-full">
           <SubClientSMSDeleteModal
             setOpenDeleteConfigModal={setOpenDeleteConfigModal}
             openDeleteConfigModal={openDeleteConfigModal}

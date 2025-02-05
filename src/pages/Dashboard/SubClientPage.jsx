@@ -125,9 +125,9 @@ const SubClientListsPage = () => {
         }}
         className="w-full h-fit bg-white mt-20 py-3 rounded-md"
       >
-        <div className="flex justify-between items-center px-3">
+        <div className="flex flex-col md:flex-row md:justify-between md:items-center px-3">
           {/* search box */}
-          <div className="mt-5 flex items-center gap-x-2">
+          <div className="mt-5 flex items-center gap-x-2 order-2 md:order-1">
             <div className="flex items-center gap-x-4">
               <input
                 // onChange={(e) => setSearchEventName(e.target.value)}
@@ -140,7 +140,7 @@ const SubClientListsPage = () => {
           </div>
 
           {/* create and trash button */}
-          <div className="flex items-center gap-4 my-5">
+          <div className="flex items-center gap-4 my-5 order-1 md:order-2">
             <button
               style={{
                 boxShadow:
@@ -169,7 +169,7 @@ const SubClientListsPage = () => {
         </div>
 
         {/* users table */}
-        <div className="relative overflow-x-auto max-h-screen overflow-y-auto my-5">
+        <div className="relative overflow-x-auto max-h-screen overflow-y-auto my-5 w-[calc(100vw-32px)] lg:w-[calc(100vw-320px)]">
           <table className="w-full text-sm text-left rtl:text-right text-white  ">
             <thead
               className={`sticky top-0 text-xs  uppercase ${
@@ -281,7 +281,7 @@ const SubClientListsPage = () => {
 
       {/* delete modal */}
       {isDeleteModalOpen.status && (
-        <div className=" bg-blue-100 shadow-2xl absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-[400px] h-[200px] p-10 rounded border-2 border-black flex flex-col justify-between">
+        <div className=" bg-blue-100 shadow-2xl absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-[90%] mx-auto lg:w-[400px] h-[200px] p-10 rounded border-2 border-black flex flex-col justify-between">
           <div className="flex justify-center">
             <p className="text-2xl font-bold">Are you Sure?</p>
           </div>
@@ -329,7 +329,7 @@ const SubClientListsPage = () => {
           style={{
             boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
           }}
-          className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-[400px] border-2 border-black h-fit p-1 rounded-md bg-white"
+          className="w-[90%] mx-auto fixed top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 lg:w-[400px] border-2 border-black h-fit p-1 rounded-md bg-white"
         >
           <div className="flex justify-end">
             <AiFillCloseSquare
