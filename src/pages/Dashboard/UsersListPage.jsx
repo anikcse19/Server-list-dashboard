@@ -78,24 +78,9 @@ const UsersListPage = () => {
           </button>
         </div>
       </div>
-      {/* search box */}
-      {/* <div className="mt-5 flex items-center gap-x-2">
-        <p className={mode === "light" ? "text-black" : "text-white"}>
-          Search:
-        </p>
-        <div className="flex items-center gap-x-4">
-          <input
-            // onChange={(e) => setSearchEventName(e.target.value)}
-            // value={searchEventName}
-            type="text"
-            placeholder="Search Client"
-            className="w-52 px-3 py-2 text-sm rounded-sm bg-transparent outline-none border-2 border-slate-600 focus:border-teal-500"
-          />
-        </div>
-      </div> */}
 
       {/* users table */}
-      <div className="relative overflow-x-auto max-h-screen overflow-y-auto my-5">
+      <div className="relative overflow-x-auto max-h-screen overflow-y-auto my-5 w-full">
         <table className="w-full text-sm text-left rtl:text-right text-white  border-l-2 border-r-2 border-black">
           <thead
             className={`sticky top-0 text-xs  uppercase ${
