@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
 import { Circles } from "react-loader-spinner";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 
 import { RiDeleteBin6Line } from "react-icons/ri";
@@ -12,6 +12,9 @@ import SubClientSMSDeleteModal from "../../../components/Modal/SubClientSMSDelet
 const SMSSetting = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [configList, setConfigList] = useState([]);
+  const [filteredConfigList, setFilteredConfigList] = useState([]);
+  const [pageNo, setPageNo] = useState(1);
+
   // const [domainList, setDomainList] = useState([]);
   const [openConfigModal, setOpenConfigModal] = useState(false);
 
@@ -19,6 +22,9 @@ const SMSSetting = () => {
     state: false,
     value: {},
   });
+  // Items per page
+  const ITEMS_PER_PAGE = 10;
+
   // const navigate = useNavigate();
   // const { mode } = useStore();
   const mode = "light";
@@ -40,6 +46,7 @@ const SMSSetting = () => {
         )
         .then((res) => {
           setConfigList(res?.data?.data);
+          setFilteredConfigList(res?.data?.data);
           // setDomainList(res?.data?.data?.configDomains);
         });
     } catch (error) {
@@ -65,6 +72,36 @@ const SMSSetting = () => {
 
     return localDate;
   };
+
+  const handleSearch = (e) => {
+    const searchValue = e.target.value.toLowerCase();
+
+    const filteredBets = configList.filter(
+      (config) =>
+        config?.name.toLowerCase().includes(searchValue) ||
+        config?.domain.toLowerCase().includes(searchValue) ||
+        config?.client.server.toLowerCase().includes(searchValue) ||
+        config?.admin.name.toLowerCase().includes(searchValue)
+    );
+    setFilteredConfigList(filteredBets);
+    setPageNo(1); // Reset to the first page on new search
+  };
+
+  const totalPages = useMemo(
+    () => Math.ceil(filteredConfigList.length / ITEMS_PER_PAGE),
+    [filteredConfigList]
+  );
+
+  const paginatedResults = useMemo(
+    () =>
+      filteredConfigList.length > 0
+        ? filteredConfigList.slice(
+            (pageNo - 1) * ITEMS_PER_PAGE,
+            pageNo * ITEMS_PER_PAGE
+          )
+        : [],
+    [filteredConfigList, pageNo]
+  );
   return (
     <Layout>
       <div>
@@ -98,6 +135,17 @@ const SMSSetting = () => {
               Create New
             </button>
           </div>
+        </div>
+        {/* search box */}
+        <div className="px-3 my-2">
+          <input
+            onChange={handleSearch}
+            className="outline-none border-b-2 border-slate-600 bg-slate-100 rounded px-5 py-1 italic"
+            type="text"
+            name=""
+            id=""
+            placeholder="Search"
+          />
         </div>
 
         {/* table */}
@@ -148,14 +196,14 @@ const SMSSetting = () => {
                     </div>
                   </td>
                 </tr>
-              ) : configList?.length <= 0 ? (
+              ) : paginatedResults?.length <= 0 ? (
                 <tr className="text-center text-sm">
                   <td colSpan={12} align="center">
                     <p className="text-red-500 py-2">No data found.</p>
                   </td>
                 </tr>
               ) : (
-                configList.map((config, i) => (
+                paginatedResults.map((config, i) => (
                   <tr
                     key={config.id}
                     className={`${
@@ -200,6 +248,79 @@ const SMSSetting = () => {
             </tbody>
           </table>
         </div>
+
+        {/* Pagination */}
+        {totalPages > 1 && (
+          <div className="mt-5 flex flex-wrap items-center gap-3 justify-center self-center">
+            {/* Previous button */}
+            {pageNo > 1 && (
+              <p
+                onClick={() => setPageNo(pageNo - 1)}
+                className={`border-2 px-2 rounded-md cursor-pointer ${
+                  mode === "light"
+                    ? "border-black text-black"
+                    : "border-white text-white"
+                }`}
+              >
+                Prev
+              </p>
+            )}
+
+            {/* Page numbers */}
+            {(() => {
+              // Determine the range of page numbers to display
+              let startPage = Math.max(1, pageNo - 5);
+              let endPage = Math.min(totalPages, pageNo + 4);
+
+              // Adjust start and end pages to always show 10 pages when possible
+              if (endPage - startPage < 9) {
+                if (startPage === 1) {
+                  endPage = Math.min(totalPages, startPage + 9);
+                } else if (endPage === totalPages) {
+                  startPage = Math.max(1, endPage - 9);
+                }
+              }
+
+              return Array.from(
+                { length: endPage - startPage + 1 },
+                (_, index) => {
+                  const page = startPage + index;
+                  return (
+                    <p
+                      key={page}
+                      onClick={() => setPageNo(page)}
+                      className={`border-2 px-2 rounded-md cursor-pointer ${
+                        pageNo === page
+                          ? mode === "light"
+                            ? "bg-black text-white"
+                            : "bg-slate-300 text-black"
+                          : mode === "light"
+                          ? "text-black border-black"
+                          : "text-white"
+                      }`}
+                    >
+                      {page}
+                    </p>
+                  );
+                }
+              );
+            })()}
+
+            {/* Next button */}
+            {pageNo < totalPages && (
+              <p
+                onClick={() => setPageNo(pageNo + 1)}
+                className={`border-2 px-2 rounded-md cursor-pointer ${
+                  mode === "light"
+                    ? "border-black text-black"
+                    : "border-white text-white"
+                }`}
+              >
+                Next
+              </p>
+            )}
+          </div>
+        )}
       </div>
 
       {/* modal */}
