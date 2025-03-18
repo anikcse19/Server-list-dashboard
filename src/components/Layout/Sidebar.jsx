@@ -52,6 +52,7 @@ const Sidebar = () => {
               "/dashboard/client/config-profile/sms-config",
               "/dashboard/client/config-profile/general-config",
               "/dashboard/create-client",
+              "/dashboard/client/config-profile/whatsapp-config",
             ],
             subMenu: [
               {
@@ -69,6 +70,7 @@ const Sidebar = () => {
                 label: [
                   "/dashboard/client/config-profile/sms-config",
                   "/dashboard/client/config-profile/general-config",
+                  "/dashboard/client/config-profile/whatsapp-config",
                 ],
                 subMenu: [
                   {
@@ -84,6 +86,13 @@ const Sidebar = () => {
                     icon: FaUsers,
                     link: "/dashboard/client/config-profile/general-config",
                     label: ["/dashboard/client/config-profile/general-config"],
+                  },
+                  {
+                    id: 3,
+                    title: "Whatsapp Config",
+                    icon: FaUsers,
+                    link: "/dashboard/client/config-profile/whatsapp-config",
+                    label: ["/dashboard/client/config-profile/whatsapp-config"],
                   },
                 ],
               },

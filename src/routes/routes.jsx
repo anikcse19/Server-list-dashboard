@@ -17,6 +17,7 @@ import GeneralConfigList from "../pages/Dashboard/GeneralConfigList";
 import SMSSetting from "../pages/Dashboard/Settings/SMSSetting";
 import TransactionHistoryPage from "../pages/Dashboard/TransactionHistory/TransactionHistoryPage";
 import SendSMSWAAlert from "../pages/Dashboard/SMS/SendSMSWAAlert";
+import WhatsappConfigList from "../pages/Dashboard/WhatsappConfigList";
 
 const routes = createBrowserRouter([
   {
@@ -92,6 +93,14 @@ const routes = createBrowserRouter([
     element: (
       <PrivateRoute>
         <GeneralConfigList />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/dashboard/client/config-profile/whatsapp-config",
+    element: (
+      <PrivateRoute>
+        <WhatsappConfigList />
       </PrivateRoute>
     ),
   },
