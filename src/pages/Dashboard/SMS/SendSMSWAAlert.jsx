@@ -10,7 +10,9 @@ const SendSMSWAAlert = () => {
   const [alertNo, setAlertNo] = useState("");
   const [waAlertNo, setWaAlertNo] = useState([]);
   const [clientList, setClientList] = useState([]);
+  const [waConfigList, setWaConfigConfigList] = useState([]);
   const [selectedClientId, setSelectedClientId] = useState("");
+  const [selectedWaProfileId, setSelectedWaProfileId] = useState("");
 
   const [adminList, setAdminList] = useState([]);
   const [selectedAdminId, setSelectedAdminId] = useState("");
@@ -27,6 +29,15 @@ const SendSMSWAAlert = () => {
         },
       })
       .then((res) => setClientList(res?.data?.data));
+
+    // get all wa configs
+    axios
+      .get(`${baseUrl}api/admin/client/config-profile/wa/list-wa-profile`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => setWaConfigConfigList(res?.data?.data));
 
     // get all admin with user type 3,4,5
     axios
@@ -53,6 +64,7 @@ const SendSMSWAAlert = () => {
       const createWAAlertData = {
         wallet_admin_id: selectedAdminId,
         sub_client_id: selectedClientId,
+        wa_sender_profile_id: selectedWaProfileId,
         wa_no: waAlertNo.join(","),
       };
 
@@ -79,6 +91,7 @@ const SendSMSWAAlert = () => {
     } finally {
       setSelectedAdminId("");
       setSelectedClientId("");
+      setSelectedWaProfileId("");
       setAlertNo("");
       setWaAlertNo([]);
     }
@@ -126,19 +139,24 @@ const SendSMSWAAlert = () => {
             </select>
           </div>
 
-          <div className="flex flex-col gap-y-2 w-[300px]">
-            {/* <p>Wa Alert No</p> */}
-            <div className="flex items-center gap-2 flex-wrap">
-              {waAlertNo.map((wa, i) => (
-                <p
-                  className="bg-green-200 text-green-700 px-2 py-1 rounded"
-                  key={i}
-                >
-                  {wa}
-                </p>
+          <div className="flex flex-col gap-y-2 mt-5">
+            <select
+              onChange={(e) => setSelectedWaProfileId(e.target.value)}
+              value={selectedWaProfileId}
+              type="text"
+              className="w-[300px] py-3 px-3 rounded-md outline-none border-2 border-black"
+            >
+              <option value="">Select Whatsapp Profile</option>
+              {waConfigList?.map((profile) => (
+                <option key={profile?.id} value={profile?.id}>
+                  {profile?.sender_name}
+                </option>
               ))}
-            </div>
+            </select>
+          </div>
 
+          <div className="flex flex-col gap-y-2 w-[300px] mt-5">
+            {/* <p>Wa Alert No</p> */}
             <div className="flex flex-col gap-y-2">
               <input
                 onChange={(e) => setAlertNo(e.target.value)}
@@ -160,6 +178,17 @@ const SendSMSWAAlert = () => {
                   Add
                 </p>
               </div>
+            </div>
+
+            <div className="flex items-center gap-2 flex-wrap">
+              {waAlertNo.map((wa, i) => (
+                <p
+                  className="bg-green-200 text-green-700 px-2 py-1 rounded"
+                  key={i}
+                >
+                  {wa}
+                </p>
+              ))}
             </div>
           </div>
           <div className="flex justify-center mt-6">
