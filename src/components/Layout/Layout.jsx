@@ -5,11 +5,16 @@ import Sidebar from "./Sidebar";
 import useStore from "../../zustand/useStore";
 import { RiMenuUnfold2Fill } from "react-icons/ri";
 import { useState } from "react";
+import Cookies from "js-cookie";
 import MobileSidebar from "./MobileSidebar";
 
 const Layout = ({ children }) => {
   const { isOpenSidebar, setIsOpenSidebar } = useStore();
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+
+  const role = Cookies.get("role");
+
+  console.log(role, "role");
 
   return (
     <div className="w-full flex overflow-hidden">

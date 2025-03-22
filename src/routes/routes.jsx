@@ -18,6 +18,10 @@ import SMSSetting from "../pages/Dashboard/Settings/SMSSetting";
 import TransactionHistoryPage from "../pages/Dashboard/TransactionHistory/TransactionHistoryPage";
 import SendSMSWAAlert from "../pages/Dashboard/SMS/SendSMSWAAlert";
 import WhatsappConfigList from "../pages/Dashboard/WhatsappConfigList";
+import LoginPageSubClient from "../pages/LoginPageSubClient";
+import ClientConfigPage from "../pages/Dashboard/ClientConfig/ClientConfigPage";
+import SetPrivateConfigPage from "../pages/Dashboard/ClientConfig/SetPrivateConfigPage";
+import SetGroupConfigPage from "../pages/Dashboard/ClientConfig/SetGroupConfigPage";
 
 const routes = createBrowserRouter([
   {
@@ -153,7 +157,35 @@ const routes = createBrowserRouter([
     ),
   },
   {
+    path: "/dashboard/client/configs",
+    element: (
+      <PrivateRoute>
+        <ClientConfigPage />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/dashboard/client/private-config",
+    element: (
+      <PrivateRoute>
+        <SetPrivateConfigPage />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/dashboard/client/group-config",
+    element: (
+      <PrivateRoute>
+        <SetGroupConfigPage />
+      </PrivateRoute>
+    ),
+  },
+  {
     path: "/login",
+    element: <LoginPageSubClient />,
+  },
+  {
+    path: "/admin/login",
     element: <LoginPage />,
   },
 ]);

@@ -1,7 +1,5 @@
 // import { useState } from "react";
 import { FaAngleDown, FaUsers } from "react-icons/fa";
-import { TbMessage2Code } from "react-icons/tb";
-import { FaUsersRectangle } from "react-icons/fa6";
 import Cookies from "js-cookie";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -10,7 +8,7 @@ import useStore from "../../zustand/useStore";
 import { RiLogoutBoxRLine } from "react-icons/ri";
 import { useState } from "react";
 
-const Sidebar = () => {
+const Sidebar2 = () => {
   const [isOpenFirstSubmenu, setIsOpenFirstSubmenu] = useState({
     state: true,
     id: "",
@@ -30,141 +28,6 @@ const Sidebar = () => {
   const { isOpenSidebar } = useStore();
 
   const navs = [
-    ...(parseInt(role) === 1
-      ? [
-          {
-            id: 0,
-            title: "Clients Message",
-            icon: TbMessage2Code,
-            link: "/dashboard/client-list-message",
-          },
-          {
-            id: 1,
-            title: "User List",
-            icon: FaUsersRectangle,
-            link: "/dashboard/user-lists",
-            label: [
-              "/dashboard/user-lists",
-              "/dashboard/transaction-history/:id",
-            ],
-          },
-          {
-            id: 2,
-            title: "Client",
-            icon: FaUsers,
-            // link: "/dashboard/client-lists",
-            label: [
-              "/dashboard/client-lists",
-              "/dashboard/client/config-profile/sms-config",
-              "/dashboard/client/config-profile/general-config",
-              "/dashboard/create-client",
-              "/dashboard/client/config-profile/whatsapp-config",
-            ],
-            subMenu: [
-              {
-                id: 1,
-                title: "List",
-                icon: FaUsers,
-                link: "/dashboard/client-lists",
-                label: ["/dashboard/client-lists", "/dashboard/create-client"],
-              },
-              {
-                id: 2,
-                title: "Config Profile",
-                icon: FaUsers,
-                // link: "/dashboard/client/config-profile/sms-config",
-                label: [
-                  "/dashboard/client/config-profile/sms-config",
-                  "/dashboard/client/config-profile/general-config",
-                  "/dashboard/client/config-profile/whatsapp-config",
-                ],
-                subMenu: [
-                  {
-                    id: 1,
-                    title: "SMS Config",
-                    icon: FaUsers,
-                    link: "/dashboard/client/config-profile/sms-config",
-                    label: ["/dashboard/client/config-profile/sms-config"],
-                  },
-                  {
-                    id: 2,
-                    title: "General Config",
-                    icon: FaUsers,
-                    link: "/dashboard/client/config-profile/general-config",
-                    label: ["/dashboard/client/config-profile/general-config"],
-                  },
-                  {
-                    id: 3,
-                    title: "Whatsapp Config",
-                    icon: FaUsers,
-                    link: "/dashboard/client/config-profile/whatsapp-config",
-                    label: ["/dashboard/client/config-profile/whatsapp-config"],
-                  },
-                ],
-              },
-            ],
-          },
-          {
-            id: 3,
-            title: "Sub Client",
-            icon: FaUsers,
-            // link: "/dashboard/sub-client-lists",
-            label: [
-              "/dashboard/sub-client-lists",
-              "dashboard/create-sub-client",
-              "/dashboard/sub-client/settings/sms-setting",
-              "/dashboard/sub-client/sms/set-wa-alert",
-            ],
-            subMenu: [
-              {
-                id: 1,
-                title: "List",
-                icon: FaUsers,
-                link: "/dashboard/sub-client-lists",
-                label: [
-                  "/dashboard/sub-client-lists",
-                  "dashboard/create-sub-client",
-                ],
-              },
-
-              {
-                id: 2,
-                title: "Settings",
-                icon: FaUsers,
-                // link: "/dashboard/sub-client/settings/sms-setting",
-                label: [
-                  "/dashboard/sub-client/settings/sms-setting",
-                  "/dashboard/sub-client/settings/general-setting",
-                  "/dashboard/sub-client/sms/set-wa-alert",
-                ],
-                subMenu: [
-                  {
-                    id: 1,
-                    title: "SMS Setting",
-                    icon: FaUsers,
-                    link: "/dashboard/sub-client/settings/sms-setting",
-                    label: ["/dashboard/sub-client/settings/sms-setting"],
-                  },
-                  {
-                    id: 2,
-                    title: "General Setting",
-                    icon: FaUsers,
-                    // link: "/dashboard/sub-client/settings/general-setting",
-                    label: ["/dashboard/sub-client/settings/general-setting"],
-                  },
-                  {
-                    id: 3,
-                    title: "Set WA Alert",
-                    icon: FaUsers,
-                    link: "/dashboard/sub-client/sms/set-wa-alert",
-                    label: ["/dashboard/sub-client/sms/set-wa-alert"],
-                  },
-                ],
-              },
-            ],
-          },
-        ]
-      : []),
     ...(parseInt(role) === 3
       ? [
           {
@@ -172,7 +35,6 @@ const Sidebar = () => {
             title: "Profile",
             icon: FaUsers,
             link: "/dashboard/client/configs",
-            label: ["/dashboard/client/configs"],
           },
           {
             id: 102,
@@ -188,14 +50,12 @@ const Sidebar = () => {
                 title: "Private Config",
                 icon: FaUsers,
                 link: "/dashboard/client/private-config",
-                label: ["/dashboard/client/private-config"],
               },
               {
                 id: 2,
                 title: "Group Config",
                 icon: FaUsers,
                 link: "/dashboard/client/group-config",
-                label: ["/dashboard/client/group-config"],
               },
             ],
           },
@@ -375,4 +235,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default Sidebar2;

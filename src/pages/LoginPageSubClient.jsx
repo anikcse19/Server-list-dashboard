@@ -7,7 +7,7 @@ import baseUrl from "../../config";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
-const LoginPage = () => {
+const LoginPageSubClient = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,16 +24,18 @@ const LoginPage = () => {
         password,
       };
 
-      await axios.post(`${baseUrl}api/admin/login`, loginData).then((res) => {
-        if (res.data.status) {
-          Cookies.set("token", res?.data?.data?.token);
-          Cookies.set("role", res?.data?.data?.user_type);
-          toast.success("Successfully Login");
-          navigate("/dashboard/client-lists");
-        } else {
-          toast.error(res?.data?.message);
-        }
-      });
+      await axios
+        .post(`${baseUrl}api/sub-client-area/login`, loginData)
+        .then((res) => {
+          if (res.data.status) {
+            Cookies.set("token", res?.data?.data?.token);
+            Cookies.set("role", res?.data?.data?.user_type);
+            toast.success("Successfully Login");
+            navigate("/dashboard/client/configs");
+          } else {
+            toast.error(res?.data?.message);
+          }
+        });
     } catch (error) {
       toast.error(error.response.data.message);
     } finally {
@@ -53,7 +55,7 @@ const LoginPage = () => {
     >
       <div className="bg-[#9bddc5] bg-opacity-50 border-4 border-white rounded-md w-[500px] h-[500px] py-10 px-5">
         <div className="flex justify-center ">
-          <h1 className="text-black text-2xl font-bold">Admin Log in</h1>
+          <h1 className="text-black text-2xl font-bold">Log in</h1>
         </div>
 
         <div className="w-full my-12 flex flex-col items-center gap-y-12 ">
@@ -116,4 +118,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default LoginPageSubClient;
