@@ -185,17 +185,28 @@ const Sidebar = () => {
             subMenu: [
               {
                 id: 1,
-                title: "Private Config",
+                title: "Telegram",
                 icon: FaUsers,
-                link: "/dashboard/client/private-config",
-                label: ["/dashboard/client/private-config"],
-              },
-              {
-                id: 2,
-                title: "Group Config",
-                icon: FaUsers,
-                link: "/dashboard/client/group-config",
-                label: ["/dashboard/client/group-config"],
+                label: [
+                  "/dashboard/client/private-config",
+                  "/dashboard/client/group-config",
+                ],
+                subMenu: [
+                  {
+                    id: 1,
+                    title: "Private Config",
+                    icon: FaUsers,
+                    link: "/dashboard/client/private-config",
+                    label: ["/dashboard/client/private-config"],
+                  },
+                  {
+                    id: 2,
+                    title: "Group Config",
+                    icon: FaUsers,
+                    link: "/dashboard/client/group-config",
+                    label: ["/dashboard/client/group-config"],
+                  },
+                ],
               },
             ],
           },
