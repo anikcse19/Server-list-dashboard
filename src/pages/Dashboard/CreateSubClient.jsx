@@ -5,6 +5,7 @@ import axios from "axios";
 import baseUrl from "../../../config";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import useStore from "../../zustand/useStore";
 
 const CreateSubClientPage = () => {
   const [clientId, setClientId] = useState("");
@@ -14,6 +15,7 @@ const CreateSubClientPage = () => {
   const navigate = useNavigate();
 
   const token = Cookies.get("token");
+  const { mode } = useStore();
 
   useEffect(() => {
     axios
@@ -60,13 +62,23 @@ const CreateSubClientPage = () => {
           style={{
             boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
           }}
-          className=" flex flex-col gap-y-5 border-2 border-black h-fit p-10 rounded-md bg-white"
+          className={`${
+            mode === "light" ? "bg-white" : "bg-gray-900"
+          } flex flex-col gap-y-5 border-2 border-black h-fit p-4 lg:p-10 rounded-md bg-white`}
         >
           <div className="flex justify-center">
-            <h1 className="font-bold">Create Sub Client</h1>
+            <h1
+              className={` ${
+                mode === "light" ? "text-black" : "text-white"
+              } font-bold`}
+            >
+              Create Sub Client
+            </h1>
           </div>
           <div className="flex flex-col gap-y-1">
-            <p>Client Id</p>
+            <p className={mode === "light" ? "text-black" : "text-white"}>
+              Client Id
+            </p>
             <select
               name=""
               id=""
@@ -74,7 +86,9 @@ const CreateSubClientPage = () => {
                 setClientId(e.target.value);
               }}
               value={clientId}
-              className="w-[300px] py-3 px-3 rounded-md outline-none border-2 border-black"
+              className={`${
+                mode === "light" ? "bg-white" : "bg-gray-600 text-white"
+              } w-full lg:w-[300px] py-3 px-3 rounded-md outline-none border-2 border-black`}
             >
               <option value="">Select --</option>
               {Object.keys(clientList)?.map((key) => (
@@ -86,13 +100,17 @@ const CreateSubClientPage = () => {
           </div>
 
           <div className="flex flex-col gap-y-1 w-[300px]">
-            <p>Domain</p>
+            <p className={mode === "light" ? "text-black" : "text-white"}>
+              Domain
+            </p>
             <div className="flex flex-col gap-y-2">
               <input
                 onChange={(e) => setDomainName(e.target.value)}
                 value={domainName}
                 type="text"
-                className="w-[300px] py-3 px-3 rounded-md outline-none border-2 border-black"
+                className={`${
+                  mode === "light" ? "bg-white" : "bg-gray-600 text-white"
+                } w-full lg:w-[300px] py-3 px-3 rounded-md outline-none border-2 border-black`}
                 placeholder="Enter Domain Name"
               />
             </div>

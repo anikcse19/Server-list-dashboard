@@ -5,6 +5,7 @@ import axios from "axios";
 import baseUrl from "../../../config";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import useStore from "../../zustand/useStore";
 
 const CreateClientPage = () => {
   const [serverName, setServerName] = useState("");
@@ -12,6 +13,7 @@ const CreateClientPage = () => {
   const [waAlertNo, setWaAlertNo] = useState([]);
 
   const token = Cookies.get("token");
+  const { mode } = useStore();
   const navigate = useNavigate();
 
   const handleCreateClient = async () => {
@@ -50,23 +52,40 @@ const CreateClientPage = () => {
           style={{
             boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
           }}
-          className=" flex flex-col gap-y-5 border-2 border-black h-fit p-4 lg:p-10 rounded-md bg-white"
+          className={`${
+            mode === "light" ? "bg-white" : "bg-gray-900"
+          } flex flex-col gap-y-5 border-2 border-black h-fit p-4 lg:p-10 rounded-md bg-white`}
         >
           <div className="flex justify-center">
-            <h1 className="font-bold">Create Client</h1>
+            <h1
+              className={` ${
+                mode === "light" ? "text-black" : "text-white"
+              } font-bold`}
+            >
+              Create Client
+            </h1>
           </div>
           <div className="flex flex-col gap-y-2 mt-5">
-            <label htmlFor="server_name">Server Name</label>
+            <label
+              className={mode === "light" ? "text-black" : "text-white"}
+              htmlFor="server_name"
+            >
+              Server Name
+            </label>
             <input
               onChange={(e) => setServerName(e.target.value)}
               value={serverName}
               type="text"
-              className="w-full lg:w-[300px] py-3 px-3 rounded-md outline-none border-2 border-black"
+              className={`${
+                mode === "light" ? "bg-white" : "bg-gray-600 text-white"
+              } w-full lg:w-[300px] py-3 px-3 rounded-md outline-none border-2 border-black`}
             />
           </div>
 
           <div className="flex flex-col gap-y-2 w-[300px]">
-            <p>Wa Alert No</p>
+            <p className={mode === "light" ? "text-black" : "text-white"}>
+              Wa Alert No
+            </p>
             <div className="flex items-center gap-2 flex-wrap">
               {waAlertNo.map((wa, i) => (
                 <p
@@ -83,7 +102,9 @@ const CreateClientPage = () => {
                 onChange={(e) => setAlertNo(e.target.value)}
                 value={alertNo}
                 type="text"
-                className="w-full lg:w-[300px] py-3 px-3 rounded-md outline-none border-2 border-black"
+                className={`${
+                  mode === "light" ? "bg-white" : "bg-gray-600 text-white"
+                } w-full lg:w-[300px] py-3 px-3 rounded-md outline-none border-2 border-black`}
                 placeholder="Add Alert No"
               />
               <div className="flex justify-end">
@@ -94,7 +115,7 @@ const CreateClientPage = () => {
                       setAlertNo("");
                     }
                   }}
-                  className="bg-black opacity-80 text-white px-5 py-1 cursor-pointer rounded-md"
+                  className="bg-gray-600 opacity-80 text-white px-5 py-1 cursor-pointer rounded-md"
                 >
                   Add
                 </p>

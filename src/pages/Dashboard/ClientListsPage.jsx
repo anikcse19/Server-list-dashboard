@@ -146,14 +146,22 @@ const ClientListsPage = () => {
   return (
     <Layout>
       <div>
-        <h1 className="font-bold text-xl font-serif">All Client List</h1>
+        <h1
+          className={`${
+            mode === "light" ? "text-black" : "text-white"
+          } text-xl font-bold font-serif`}
+        >
+          All Client List
+        </h1>
       </div>
       <div
         style={{
           boxShadow:
             "rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px",
         }}
-        className="w-full h-fit bg-white mt-10 py-3 rounded-md"
+        className={` w-full h-fit mt-10 py-3 rounded-md ${
+          mode === "light" ? "bg-white" : "bg-gray-800"
+        } `}
       >
         {/* search box */}
         <div className="m-2 md:m-5 flex items-center justify-between gap-x-2">
@@ -163,7 +171,9 @@ const ClientListsPage = () => {
               // value={searchEventName}
               type="text"
               placeholder="Search Client"
-              className="w-28 sm:w-52 px-3 py-2 text-sm rounded bg-blue-50 outline-none italic border-b-2 border-slate-600 focus:border-teal-500"
+              className={` ${
+                mode === "light" ? "bg-blue-50" : "bg-gray-600"
+              } "w-28 sm:w-52 px-3 py-2 text-sm rounded bg-blue-50 outline-none italic border-b-2 border-slate-600 focus:border-teal-500" `}
             />
           </div>
           <button
@@ -185,7 +195,7 @@ const ClientListsPage = () => {
               className={`sticky top-0 text-xs  uppercase ${
                 mode === "light"
                   ? "bg-blue-200 text-black"
-                  : "bg-black text-white"
+                  : "bg-gray-900 text-white"
               }   rounded-md`}
             >
               <tr>

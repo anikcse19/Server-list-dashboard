@@ -1,5 +1,5 @@
 // import { useState } from "react";
-import { FaAngleDown, FaUsers } from "react-icons/fa";
+import { FaAngleDown, FaAngleUp, FaUsers } from "react-icons/fa";
 import { TbMessage2Code } from "react-icons/tb";
 import { FaUsersRectangle } from "react-icons/fa6";
 import Cookies from "js-cookie";
@@ -8,6 +8,8 @@ import axios from "axios";
 import baseUrl from "../../../config";
 import useStore from "../../zustand/useStore";
 import { RiLogoutBoxRLine } from "react-icons/ri";
+import { MdOutlineLightMode } from "react-icons/md";
+import { MdOutlineDarkMode } from "react-icons/md";
 import { useState } from "react";
 
 const Sidebar = () => {
@@ -27,7 +29,7 @@ const Sidebar = () => {
   const token = Cookies.get("token");
   const role = Cookies.get("role");
 
-  const { isOpenSidebar } = useStore();
+  const { isOpenSidebar, mode, toggleMode } = useStore();
 
   const navs = [
     ...(parseInt(role) === 1
@@ -37,6 +39,7 @@ const Sidebar = () => {
             title: "Clients Message",
             icon: TbMessage2Code,
             link: "/dashboard/client-list-message",
+            label: ["/dashboard/client-list-message"],
           },
           {
             id: 1,
@@ -214,11 +217,37 @@ const Sidebar = () => {
       : []),
   ];
 
+  console.log(mode, "mode");
+
   return (
-    <div className="min-h-screen px-3 py-10 flex flex-col justify-between">
+    <div
+      className={`${
+        mode === "light" ? "bg-white" : "bg-gray-800"
+      } min-h-screen px-3 py-10 flex flex-col justify-between`}
+    >
       <div>
-        {" "}
-        <p className="text-gray-600">Menu</p>
+        <div className="flex items-center justify-between">
+          <p className="text-gray-600">Menu</p>
+          <div className="flex gap-x-4 bg-red-100 rounded-md">
+            <button
+              onClick={() => toggleMode()}
+              className={`p-2 transition-all duration-500 ease-in ${
+                mode === "light" && "shadow-md text-lg bg-red-300 rounded-md"
+              }`}
+            >
+              <MdOutlineLightMode />
+            </button>
+            <button
+              onClick={() => toggleMode()}
+              className={`p-2 transition-all duration-500 ease-in ${
+                mode === "dark" && "shadow-md text-lg bg-red-300 rounded-md"
+              }`}
+            >
+              <MdOutlineDarkMode />
+            </button>
+          </div>
+        </div>
+
         <div className="my-3 flex flex-col gap-y-3">
           {navs.map((nav) => (
             <div key={nav.id}>
@@ -228,26 +257,43 @@ const Sidebar = () => {
                 }}
                 className={` py-3 px-2 rounded-md cursor-pointer flex items-center justify-between  ${
                   nav?.label?.includes(pathname) &&
-                  "bg-blue-100 border-l-4 border-blue-700 text-blue-700"
+                  (mode === "light"
+                    ? "bg-blue-100 border-l-4 border-blue-700 text-blue-700"
+                    : "bg-gray-700 border-l-4 border-blue-700 text-blue-700")
                 }`}
               >
                 <div className="flex items-center gap-x-2">
                   {" "}
-                  <nav.icon className="text-xl" />
-                  {isOpenSidebar && <p>{nav.title}</p>}
+                  <nav.icon
+                    className={`"" text-xl ${
+                      mode === "light" ? "text-black" : "text-white"
+                    }`}
+                  />
+                  {isOpenSidebar && (
+                    <p
+                      className={mode === "light" ? "text-black" : "text-white"}
+                    >
+                      {nav.title}
+                    </p>
+                  )}
                 </div>
                 {nav.subMenu && (
                   <div>
                     {isOpenFirstSubmenu.state &&
                     isOpenFirstSubmenu.id === nav.id ? (
                       <FaAngleDown
-                        className="rotate-180"
+                        className={`"rotate-180 cursor-pointer" ${
+                          mode === "light" ? "text-black" : "text-white"
+                        }`}
                         onClick={() =>
                           setIsOpenFirstSubmenu({ state: false, id: "" })
                         }
                       />
                     ) : (
-                      <FaAngleDown
+                      <FaAngleUp
+                        className={`"rotate-180 cursor-pointer" ${
+                          mode === "light" ? "text-black" : "text-white"
+                        }`}
                         onClick={() =>
                           setIsOpenFirstSubmenu({ state: true, id: nav.id })
                         }
@@ -266,11 +312,17 @@ const Sidebar = () => {
                           navigate(menu1.link);
                         }}
                         className={`flex justify-between items-center py-2 cursor-pointer ${
-                          menu1?.label?.includes(pathname) && "text-blue-500"
+                          menu1?.label?.includes(pathname)
+                            ? mode === "light"
+                              ? "text-blue-500"
+                              : "text-blue-400"
+                            : mode === "dark"
+                            ? "text-black"
+                            : "text-white"
                         } `}
                       >
                         <div className="flex items-center gap-x-2">
-                          <menu1.icon className="text-xl" />
+                          <menu1.icon className={`"" text-xl`} />
                           {isOpenSidebar && <p>{menu1.title}</p>}
                         </div>
                         {menu1.subMenu && (
@@ -278,7 +330,9 @@ const Sidebar = () => {
                             {isOpenSecondSubmenu.state &&
                             isOpenSecondSubmenu.id === menu1.id ? (
                               <FaAngleDown
-                                className="rotate-180 cursor-pointer"
+                                className={`"rotate-180 cursor-pointer" ${
+                                  mode === "light" ? "text-black" : "text-white"
+                                }`}
                                 onClick={() =>
                                   setIsOpenSecondSubmenu({
                                     state: false,
@@ -287,8 +341,10 @@ const Sidebar = () => {
                                 }
                               />
                             ) : (
-                              <FaAngleDown
-                                className="cursor-pointer"
+                              <FaAngleUp
+                                className={`"rotate-180 cursor-pointer" ${
+                                  mode === "light" ? "text-black" : "text-white"
+                                }`}
                                 onClick={() =>
                                   setIsOpenSecondSubmenu({
                                     state: true,
@@ -310,12 +366,17 @@ const Sidebar = () => {
                                 navigate(menu2.link);
                               }}
                               className={`flex justify-between items-center py-2 cursor-pointer ${
-                                menu2?.label?.includes(pathname) &&
-                                "text-blue-700"
-                              }`}
+                                menu2?.label?.includes(pathname)
+                                  ? mode === "light"
+                                    ? "text-blue-500"
+                                    : "text-blue-400"
+                                  : mode === "light"
+                                  ? "text-black"
+                                  : "text-white"
+                              } `}
                             >
                               <div className="flex items-center gap-x-2">
-                                <menu2.icon className="text-xl" />
+                                <menu2.icon className={`"" text-xl `} />
                                 {isOpenSidebar && <p>{menu2.title}</p>}
                               </div>
                               {menu2.subMenu && (
@@ -323,7 +384,11 @@ const Sidebar = () => {
                                   {isOpenSecondSubmenu.state &&
                                   isOpenSecondSubmenu.id === menu2.id ? (
                                     <FaAngleDown
-                                      className="rotate-180 cursor-pointer"
+                                      className={`"rotate-180 cursor-pointer" ${
+                                        mode === "light"
+                                          ? "text-black"
+                                          : "text-white"
+                                      }`}
                                       onClick={() =>
                                         setIsOpenSecondSubmenu({
                                           state: false,
@@ -332,8 +397,12 @@ const Sidebar = () => {
                                       }
                                     />
                                   ) : (
-                                    <FaAngleDown
-                                      className="cursor-pointer"
+                                    <FaAngleUp
+                                      className={`"rotate-180 cursor-pointer" ${
+                                        mode === "light"
+                                          ? "text-black"
+                                          : "text-white"
+                                      }`}
                                       onClick={() =>
                                         setIsOpenSecondSubmenu({
                                           state: true,

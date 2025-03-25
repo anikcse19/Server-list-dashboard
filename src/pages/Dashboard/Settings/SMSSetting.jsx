@@ -8,6 +8,7 @@ import Layout from "../../../components/Layout/Layout";
 import baseUrl from "../../../../config";
 import SubClientSMSSettingModal from "../../../components/Modal/SubClientSMSSettingModal";
 import SubClientSMSDeleteModal from "../../../components/Modal/SubClientSMSDeleteModal";
+import useStore from "../../../zustand/useStore";
 
 const SMSSetting = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -26,8 +27,8 @@ const SMSSetting = () => {
   const ITEMS_PER_PAGE = 10;
 
   // const navigate = useNavigate();
-  // const { mode } = useStore();
-  const mode = "light";
+  const { mode } = useStore();
+  // const mode = "light";
 
   // get cookies value
   const token = Cookies.get("token");
@@ -105,7 +106,13 @@ const SMSSetting = () => {
   return (
     <Layout>
       <div>
-        <h1 className="text-xl font-bold">Sub Client Settings</h1>
+        <h1
+          className={`${
+            mode === "light" ? "text-black" : "text-white"
+          } text-xl font-bold font-serif`}
+        >
+          Sub Client Settings
+        </h1>
       </div>
       {/* body */}
       <div
@@ -113,7 +120,9 @@ const SMSSetting = () => {
           boxShadow:
             "rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px",
         }}
-        className="w-full min-h-96 h-fit bg-white mt-20 py-3 rounded-md"
+        className={` "w-full min-h-96 h-fit mt-10 py-3 rounded-md" ${
+          mode === "light" ? "bg-white" : "bg-gray-800"
+        } `}
       >
         <div className="flex items-center justify-between px-3">
           <div>
@@ -140,7 +149,9 @@ const SMSSetting = () => {
         <div className="px-3 my-2">
           <input
             onChange={handleSearch}
-            className="outline-none border-b-2 border-slate-600 bg-slate-100 rounded px-5 py-1 italic"
+            className={` "outline-none border-b-2 border-slate-600  rounded px-5 py-1 italic" ${
+              mode === "light" ? "bg-slate-100" : "bg-gray-600"
+            } `}
             type="text"
             name=""
             id=""
@@ -152,7 +163,11 @@ const SMSSetting = () => {
         <div className="relative overflow-x-auto max-h-screen overflow-y-auto my-5 w-[calc(100vw-32px)] lg:w-[calc(100vw-320px)]">
           <table className="w-full text-sm text-left rtl:text-right text-white  ">
             <thead
-              className={`sticky top-0 text-xs  uppercase ${"bg-red-100 text-black"}   rounded-md`}
+              className={`sticky top-0 text-xs  uppercase ${
+                mode === "light"
+                  ? "bg-blue-100 text-black"
+                  : "bg-gray-900 text-white"
+              }   rounded-md`}
             >
               <tr>
                 <th scope="col" className="px-6 py-3 text-left">

@@ -5,6 +5,7 @@ import axios from "axios";
 import baseUrl from "../../../config";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import useStore from "../../zustand/useStore";
 
 const CreateUserPage = () => {
   const [fullName, setFullName] = useState("");
@@ -14,6 +15,7 @@ const CreateUserPage = () => {
   const [adminRoleList, setAdminRoleList] = useState([]);
 
   const token = Cookies.get("token");
+  const { mode } = useStore();
   const navigate = useNavigate();
 
   const handleCreateUser = async () => {
@@ -78,49 +80,85 @@ const CreateUserPage = () => {
           style={{
             boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
           }}
-          className=" flex flex-col gap-y-5 border-2 border-black h-fit p-4 lg:p-10 rounded-md bg-white w-full lg:w-[500px]"
+          className={`${
+            mode === "light" ? "bg-white" : "bg-gray-900"
+          } flex flex-col gap-y-5 border-2 border-black h-fit p-4 lg:p-10 rounded-md w-full lg:w-[500px]  `}
         >
           <div className="flex justify-center">
-            <h1 className="font-bold">Create User</h1>
+            <h1
+              className={` ${
+                mode === "light" ? "text-black" : "text-white"
+              } font-bold`}
+            >
+              Create User
+            </h1>
           </div>
           <div className="flex flex-col gap-y-2 mt-5">
-            <label htmlFor="fullname">Fullname</label>
+            <label
+              className={mode === "light" ? "text-black" : "text-white"}
+              htmlFor="fullname"
+            >
+              Fullname
+            </label>
             <input
               onChange={(e) => setFullName(e.target.value)}
               value={fullName}
               type="text"
-              className="w-full lg:w-[90%] py-3 px-3 rounded-md outline-none border-2 border-black"
+              className={` ${
+                mode === "light" ? "bg-white" : "bg-gray-800 text-white"
+              } w-full lg:w-[90%] py-3 px-3 rounded-md outline-none border-2 border-black`}
             />
           </div>
 
           <div className="flex flex-col gap-y-2 ">
-            <label htmlFor="email">Email</label>
+            <label
+              className={mode === "light" ? "text-black" : "text-white"}
+              htmlFor="email"
+            >
+              Email
+            </label>
             <input
               onChange={(e) => setEmail(e.target.value)}
               value={email}
               type="email"
-              className="w-full lg:w-[90%] py-3 px-3 rounded-md outline-none border-2 border-black"
+              className={` ${
+                mode === "light" ? "bg-white" : "bg-gray-800 text-white"
+              } w-full lg:w-[90%] py-3 px-3 rounded-md outline-none border-2 border-black`}
             />
           </div>
 
           <div className="flex flex-col gap-y-2">
-            <label htmlFor="password">Password</label>
+            <label
+              className={mode === "light" ? "text-black" : "text-white"}
+              htmlFor="password"
+            >
+              Password
+            </label>
             <input
               onChange={(e) => setPassword(e.target.value)}
               value={password}
               type="password"
-              className="w-full lg:w-[90%] py-3 px-3 rounded-md outline-none border-2 border-black"
+              className={` ${
+                mode === "light" ? "bg-white" : "bg-gray-800 text-white"
+              } w-full lg:w-[90%] py-3 px-3 rounded-md outline-none border-2 border-black`}
             />
           </div>
 
           <div className="flex flex-col gap-y-2">
-            <label htmlFor="role">Role</label>
+            <label
+              className={mode === "light" ? "text-black" : "text-white"}
+              htmlFor="role"
+            >
+              Role
+            </label>
             <select
               onChange={(e) => setRole(e.target.value)}
               value={role}
               name=""
               id="role"
-              className="w-full lg:w-[90%] py-3 px-3 rounded-md outline-none border-2 border-black"
+              className={` ${
+                mode === "light" ? "bg-white" : "bg-gray-800 text-white"
+              } w-full lg:w-[90%] py-3 px-3 rounded-md outline-none border-2 border-black`}
             >
               <option value="">Select Role---</option>
               {Object.keys(adminRoleList).map((key) => (

@@ -27,11 +27,18 @@ const MobileSidebar = () => {
   const token = Cookies.get("token");
   const role = Cookies.get("role");
 
-  const { isOpenSidebar } = useStore();
+  const { isOpenSidebar, mode } = useStore();
 
   const navs = [
     ...(parseInt(role) === 1
       ? [
+          {
+            id: 41,
+            title: "Clients Message",
+            icon: TbMessage2Code,
+            link: "/dashboard/client-list-message",
+            label: ["/dashboard/client-list-message"],
+          },
           {
             id: 1,
             title: "User List",
@@ -151,16 +158,61 @@ const MobileSidebar = () => {
         ]
       : []),
 
-    {
-      id: 4,
-      title: "Clients Message",
-      icon: TbMessage2Code,
-      link: "/dashboard/client-list-message",
-    },
+    ...(parseInt(role) === 3
+      ? [
+          {
+            id: 101,
+            title: "Profile",
+            icon: FaUsers,
+            link: "/dashboard/client/configs",
+            label: ["/dashboard/client/configs"],
+          },
+          {
+            id: 102,
+            title: "Config",
+            icon: FaUsers,
+            label: [
+              "/dashboard/client/private-config",
+              "/dashboard/client/group-config",
+            ],
+            subMenu: [
+              {
+                id: 1,
+                title: "Telegram",
+                icon: FaUsers,
+                label: [
+                  "/dashboard/client/private-config",
+                  "/dashboard/client/group-config",
+                ],
+                subMenu: [
+                  {
+                    id: 1,
+                    title: "Private Config",
+                    icon: FaUsers,
+                    link: "/dashboard/client/private-config",
+                    label: ["/dashboard/client/private-config"],
+                  },
+                  {
+                    id: 2,
+                    title: "Group Config",
+                    icon: FaUsers,
+                    link: "/dashboard/client/group-config",
+                    label: ["/dashboard/client/group-config"],
+                  },
+                ],
+              },
+            ],
+          },
+        ]
+      : []),
   ];
 
   return (
-    <div className="min-h-screen px-3 py-10 flex flex-col justify-between">
+    <div
+      className={`${
+        mode === "light" ? "bg-white" : "bg-gray-800"
+      } min-h-screen px-3 py-10 flex flex-col justify-between`}
+    >
       <div>
         {" "}
         <p className="text-gray-600">Menu</p>
@@ -173,13 +225,25 @@ const MobileSidebar = () => {
                 }}
                 className={` py-3 px-2 rounded-md cursor-pointer flex items-center justify-between  ${
                   nav?.label?.includes(pathname) &&
-                  "bg-blue-100 border-l-4 border-blue-700 text-blue-700"
+                  (mode === "light"
+                    ? "bg-blue-100 border-l-4 border-blue-700 text-blue-700"
+                    : "bg-gray-700 border-l-4 border-blue-700 text-blue-700")
                 }`}
               >
                 <div className="flex items-center gap-x-2">
                   {" "}
-                  <nav.icon className="text-xl" />
-                  {isOpenSidebar && <p>{nav.title}</p>}
+                  <nav.icon
+                    className={` text-xl ${
+                      mode === "light" ? "text-black" : "text-white"
+                    }`}
+                  />
+                  {isOpenSidebar && (
+                    <p
+                      className={mode === "light" ? "text-black" : "text-white"}
+                    >
+                      {nav.title}
+                    </p>
+                  )}
                 </div>
                 {nav.subMenu && (
                   <div>
@@ -211,7 +275,13 @@ const MobileSidebar = () => {
                           navigate(menu1.link);
                         }}
                         className={`flex justify-between items-center py-2 cursor-pointer ${
-                          menu1?.label?.includes(pathname) && "text-blue-500"
+                          menu1?.label?.includes(pathname)
+                            ? mode === "light"
+                              ? "text-blue-500"
+                              : "text-blue-400"
+                            : mode === "light"
+                            ? "text-black"
+                            : "text-white"
                         } `}
                       >
                         <div className="flex items-center gap-x-2">
@@ -255,9 +325,14 @@ const MobileSidebar = () => {
                                 navigate(menu2.link);
                               }}
                               className={`flex justify-between items-center py-2 cursor-pointer ${
-                                menu2?.label?.includes(pathname) &&
-                                "text-blue-700"
-                              }`}
+                                menu1?.label?.includes(pathname)
+                                  ? mode === "light"
+                                    ? "text-blue-500"
+                                    : "text-blue-400"
+                                  : mode === "light"
+                                  ? "text-black"
+                                  : "text-white"
+                              } `}
                             >
                               <div className="flex items-center gap-x-2">
                                 <menu2.icon className="text-xl" />

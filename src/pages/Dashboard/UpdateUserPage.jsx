@@ -6,6 +6,7 @@ import baseUrl from "../../../config";
 import Cookies from "js-cookie";
 import { useNavigate, useParams } from "react-router-dom";
 import { RiDeleteBinFill } from "react-icons/ri";
+import useStore from "../../zustand/useStore";
 
 const UpdateUserPage = () => {
   const [fullName, setFullName] = useState("");
@@ -23,6 +24,7 @@ const UpdateUserPage = () => {
   const { id } = params;
 
   const token = Cookies.get("token");
+  const { mode } = useStore();
 
   const fetchClientsList = async () => {
     try {
@@ -144,28 +146,50 @@ const UpdateUserPage = () => {
           style={{
             boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
           }}
-          className=" flex flex-col gap-y-5 border-2 border-black h-fit p-10 rounded-md bg-white w-[500px]"
+          className={`${
+            mode === "light" ? "bg-white" : "bg-gray-900"
+          } flex flex-col gap-y-5 border-2 border-black h-fit p-10 rounded-md bg-white w-[500px]`}
         >
           <div className="flex justify-center">
-            <h1 className="font-bold">Update User</h1>
+            <h1
+              className={` ${
+                mode === "light" ? "text-black" : "text-white"
+              } font-bold`}
+            >
+              Update User
+            </h1>
           </div>
           <div className="flex flex-col gap-y-2 mt-5">
-            <label htmlFor="fullname">Fullname</label>
+            <label
+              className={mode === "light" ? "text-black" : "text-white"}
+              htmlFor="fullname"
+            >
+              Fullname
+            </label>
             <input
               onChange={(e) => setFullName(e.target.value)}
               value={fullName}
               type="text"
-              className="w-[90%] py-3 px-3 rounded-md outline-none border-2 border-black"
+              className={`${
+                mode === "light" ? "bg-white" : "bg-gray-700 text-white"
+              } w-[90%] py-3 px-3 rounded-md outline-none border-2 border-black`}
             />
           </div>
 
           <div className="flex flex-col gap-y-2 ">
-            <label htmlFor="email">Email</label>
+            <label
+              className={mode === "light" ? "text-black" : "text-white"}
+              htmlFor="email"
+            >
+              Email
+            </label>
             <input
               onChange={(e) => setEmail(e.target.value)}
               value={email}
               type="email"
-              className="w-[90%] py-3 px-3 rounded-md outline-none border-2 border-black"
+              className={`${
+                mode === "light" ? "bg-white" : "bg-gray-700 text-white"
+              } w-[90%] py-3 px-3 rounded-md outline-none border-2 border-black`}
             />
           </div>
 
@@ -181,7 +205,12 @@ const UpdateUserPage = () => {
 
           {(role === 1 || role === 2 || role === 3) && (
             <div className="flex flex-col gap-y-2">
-              <label htmlFor="server_ids">Client Ids</label>
+              <label
+                className={mode === "light" ? "text-black" : "text-white"}
+                htmlFor="server_ids"
+              >
+                Client Ids
+              </label>
               <div className="flex items-center flex-wrap gap-2">
                 {serverIds &&
                   serverIds.length > 0 &&
@@ -224,7 +253,9 @@ const UpdateUserPage = () => {
                 }}
                 name=""
                 id="server_ids"
-                className="w-[90%] py-3 px-3 rounded-md outline-none border-2 border-black"
+                className={`${
+                  mode === "light" ? "bg-white" : "bg-gray-700 text-white"
+                } w-[90%] py-3 px-3 rounded-md outline-none border-2 border-black`}
               >
                 <option value="">Select---</option>
                 {clientsList.map((client) => (
@@ -236,7 +267,12 @@ const UpdateUserPage = () => {
             </div>
           )}
           <div className="flex flex-col gap-y-2">
-            <label htmlFor="server_ids">Sub Client Ids</label>
+            <label
+              className={mode === "light" ? "text-black" : "text-white"}
+              htmlFor="server_ids"
+            >
+              Sub Client Ids
+            </label>
             <div className="flex items-center flex-wrap gap-2">
               {subClientIds &&
                 subClientIds.length > 0 &&
@@ -279,7 +315,9 @@ const UpdateUserPage = () => {
               }}
               name=""
               id="sub_client_ids"
-              className="w-[90%] py-3 px-3 rounded-md outline-none border-2 border-black"
+              className={`${
+                mode === "light" ? "bg-white" : "bg-gray-700 text-white"
+              } w-[90%] py-3 px-3 rounded-md outline-none border-2 border-black`}
             >
               <option value="">Select---</option>
               {subClientsList.map((subClient) => (
@@ -291,13 +329,20 @@ const UpdateUserPage = () => {
           </div>
 
           <div className="flex flex-col gap-y-2">
-            <label htmlFor="role">Role</label>
+            <label
+              className={mode === "light" ? "text-black" : "text-white"}
+              htmlFor="role"
+            >
+              Role
+            </label>
             <select
               onChange={(e) => setRole(e.target.value)}
               value={role}
               name=""
               id="role"
-              className="w-[90%] py-3 px-3 rounded-md outline-none border-2 border-black"
+              className={`${
+                mode === "light" ? "bg-white" : "bg-gray-700 text-white"
+              } w-[90%] py-3 px-3 rounded-md outline-none border-2 border-black`}
             >
               <option value="">Select Role---</option>
               {Object.keys(adminRoleList).map((key) => (

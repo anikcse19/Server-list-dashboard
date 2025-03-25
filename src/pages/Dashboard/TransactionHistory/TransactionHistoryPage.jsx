@@ -7,6 +7,7 @@ import baseUrl from "../../../../config";
 
 import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
+import useStore from "../../../zustand/useStore";
 
 const TransactionHistoryPage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -21,7 +22,8 @@ const TransactionHistoryPage = () => {
   const params = useParams();
   const { id } = params;
 
-  const mode = "light";
+  // const mode = "light";
+  const { mode } = useStore();
 
   // get cookies value
   const token = Cookies.get("token");
@@ -119,7 +121,13 @@ const TransactionHistoryPage = () => {
   return (
     <Layout>
       <div>
-        <h1 className="text-xl font-bold">Admin Transaction History</h1>
+        <h1
+          className={`${
+            mode === "light" ? "text-black" : "text-white"
+          } text-xl font-bold font-serif`}
+        >
+          Admin Transaction History
+        </h1>
       </div>
 
       <div className="mt-6">
@@ -137,7 +145,9 @@ const TransactionHistoryPage = () => {
           boxShadow:
             "rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px",
         }}
-        className="w-full min-h-96 h-fit bg-white mt-20 py-3 rounded-md"
+        className={` "w-full min-h-96 h-fit mt-10 py-3 rounded-md" ${
+          mode === "light" ? "bg-white" : "bg-gray-800"
+        } `}
       >
         <div className="flex items-center justify-between px-3">
           <div>
@@ -257,7 +267,11 @@ const TransactionHistoryPage = () => {
         <div className="relative overflow-x-auto max-h-screen overflow-y-auto my-5">
           <table className="w-full text-sm text-left rtl:text-right text-white  ">
             <thead
-              className={`sticky top-0 text-xs  uppercase ${"bg-red-100 text-black"}   rounded-md`}
+              className={`sticky top-0 text-xs  uppercase ${
+                mode === "light"
+                  ? "bg-blue-100 text-black"
+                  : "bg-gray-900 text-white"
+              }   rounded-md`}
             >
               <tr>
                 <th scope="col" className="px-6 py-3 text-left">

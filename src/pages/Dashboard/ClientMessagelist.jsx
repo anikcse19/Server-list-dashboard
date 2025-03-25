@@ -82,7 +82,7 @@ const ClientMessageListPage = () => {
             className={`sticky top-0 text-xs   ${
               mode === "light"
                 ? "bg-blue-300 text-black"
-                : "bg-black text-white"
+                : "bg-gray-800 text-white"
             } border-2 border-black rounded-md`}
           >
             <tr>
@@ -135,7 +135,7 @@ const ClientMessageListPage = () => {
                         : "bg-transparent text-white"
                       : mode === "light"
                       ? "bg-blue-100 text-black"
-                      : "bg-black text-white"
+                      : "bg-gray-800 text-white"
                   }  text-sm cursor-pointer transition-all duration-500 ease-in border-l-2 border-r-2   border-b-2 border-slate-700`}
                 >
                   <td className="px-6 py-4 text-left text-xs">{i + 1}</td>

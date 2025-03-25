@@ -4,12 +4,13 @@ import axios from "axios";
 import { Circles } from "react-loader-spinner";
 import Layout from "../../../components/Layout/Layout";
 import baseUrl from "../../../../config";
+import useStore from "../../../zustand/useStore";
 
 const ClientConfigPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [configList, setConfigList] = useState([]);
 
-  const mode = "light";
+  const { mode } = useStore();
   // get cookies value
   const token = Cookies.get("token");
 
@@ -43,7 +44,13 @@ const ClientConfigPage = () => {
   return (
     <Layout>
       <div>
-        <h1 className="text-xl font-bold">Client Config Profile</h1>
+        <h1
+          className={`${
+            mode === "light" ? "text-black" : "text-white"
+          } text-xl font-bold font-serif`}
+        >
+          Client Config Profile
+        </h1>
       </div>
       {/* body */}
       <div
@@ -51,7 +58,9 @@ const ClientConfigPage = () => {
           boxShadow:
             "rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px",
         }}
-        className="w-full min-h-96 h-fit bg-white mt-10 py-3 rounded-md"
+        className={` "w-full min-h-96 h-fit mt-10 py-3 rounded-md" ${
+          mode === "light" ? "bg-white" : "bg-gray-800"
+        } `}
       >
         <div className="flex flex-col xl:flex-row xl:items-center xl:justify-between px-3">
           <div>
@@ -65,7 +74,11 @@ const ClientConfigPage = () => {
         <div className="relative overflow-x-auto max-h-screen overflow-y-auto my-5 w-[calc(100vw-32px)] lg:w-[calc(100vw-320px)]">
           <table className="w-full text-sm text-left rtl:text-right text-white  ">
             <thead
-              className={`sticky top-0 text-xs  uppercase ${"bg-blue-100 text-black"}   rounded-md`}
+              className={`sticky top-0 text-xs  uppercase ${
+                mode === "light"
+                  ? "bg-blue-100 text-black"
+                  : "bg-gray-900 text-white"
+              }    rounded-md`}
             >
               <tr>
                 <th scope="col" className="px-6 py-3 text-left">

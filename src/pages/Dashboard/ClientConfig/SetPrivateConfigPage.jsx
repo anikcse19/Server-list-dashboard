@@ -5,6 +5,7 @@ import axios from "axios";
 import baseUrl from "../../../../config";
 import Layout from "../../../components/Layout/Layout";
 import SetPrivateConfigModal from "../../../components/Modal/SetPrivateConfigModal";
+import useStore from "../../../zustand/useStore";
 
 const SetPrivateConfigPage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -15,8 +16,7 @@ const SetPrivateConfigPage = () => {
     value: {},
   });
   // const navigate = useNavigate();
-  // const { mode } = useStore();
-  const mode = "light";
+  const { mode } = useStore();
 
   // get cookies value
   const token = Cookies.get("token");
@@ -51,7 +51,13 @@ const SetPrivateConfigPage = () => {
   return (
     <Layout>
       <div>
-        <h1 className="text-xl font-bold">Set Private Config</h1>
+        <h1
+          className={`${
+            mode === "light" ? "text-black" : "text-white"
+          } text-xl font-bold font-serif`}
+        >
+          Set Private Config
+        </h1>
       </div>
       {/* body */}
       <div
@@ -59,7 +65,9 @@ const SetPrivateConfigPage = () => {
           boxShadow:
             "rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px",
         }}
-        className="w-full min-h-96 h-fit bg-white mt-10 py-3 rounded-md"
+        className={` "w-full min-h-96 h-fit mt-10 py-3 rounded-md" ${
+          mode === "light" ? "bg-white" : "bg-gray-800"
+        } `}
       >
         <div className="flex flex-col xl:flex-row xl:items-center xl:justify-between px-3">
           <div>
@@ -73,7 +81,11 @@ const SetPrivateConfigPage = () => {
         <div className="relative overflow-x-auto max-h-screen overflow-y-auto my-5 w-[calc(100vw-32px)] lg:w-[calc(100vw-320px)]">
           <table className="w-full text-sm text-left rtl:text-right text-white  ">
             <thead
-              className={`sticky top-0 text-xs  uppercase ${"bg-blue-100 text-black"}   rounded-md`}
+              className={`sticky top-0 text-xs  uppercase  ${
+                mode === "light"
+                  ? "bg-blue-100 text-black"
+                  : "bg-gray-900 text-white"
+              }   rounded-md`}
             >
               <tr>
                 <th scope="col" className="px-6 py-3 text-left">

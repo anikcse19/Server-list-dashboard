@@ -63,7 +63,13 @@ const UsersListPage = () => {
   return (
     <Layout>
       <div>
-        <h1 className="text-xl font-bold font-serif">All Admin List</h1>
+        <h1
+          className={`${
+            mode === "light" ? "text-black" : "text-white"
+          } text-xl font-bold font-serif`}
+        >
+          All Admin List
+        </h1>
 
         <div className="my-5">
           <button
@@ -86,7 +92,7 @@ const UsersListPage = () => {
             className={`sticky top-0 text-xs  uppercase ${
               mode === "light"
                 ? "bg-blue-300 text-black"
-                : "bg-black text-white"
+                : "bg-gray-800 text-white"
             }  border-b-2 border-t-2 border-black rounded-md`}
           >
             <tr>
@@ -150,7 +156,7 @@ const UsersListPage = () => {
                         : "bg-transparent text-white"
                       : mode === "light"
                       ? "bg-blue-100 text-black"
-                      : "bg-black text-white"
+                      : "bg-gray-800 text-white"
                   }  text-sm cursor-pointer transition-all duration-500 ease-in  border-b-2 border-slate-700`}
                 >
                   <td className="px-2 py-2 text-left text-xs">{i + 1}</td>

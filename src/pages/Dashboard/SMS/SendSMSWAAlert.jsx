@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 // import { useNavigate } from "react-router-dom";
 import baseUrl from "../../../../config";
 import Layout from "../../../components/Layout/Layout";
+import useStore from "../../../zustand/useStore";
 
 const SendSMSWAAlert = () => {
   const [alertNo, setAlertNo] = useState("");
@@ -16,6 +17,7 @@ const SendSMSWAAlert = () => {
 
   const [adminList, setAdminList] = useState([]);
   const [selectedAdminId, setSelectedAdminId] = useState("");
+  const { mode } = useStore();
 
   const token = Cookies.get("token");
   // const navigate = useNavigate();
@@ -103,17 +105,29 @@ const SendSMSWAAlert = () => {
           style={{
             boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
           }}
-          className=" flex flex-col gap-y-5 border-2 border-black h-fit p-10 rounded-md bg-white"
+          className={` "flex flex-col gap-y-5 border-2 border-black h-fit p-10 rounded-md" ${
+            mode === "light" ? "bg-white" : "bg-gray-900"
+          } `}
         >
           <div className="flex justify-center">
-            <h1 className="font-bold">Set WA Alert</h1>
+            <h1
+              className={` 'font-bold' ${
+                mode === "light" ? "text-black" : "text-white"
+              }`}
+            >
+              Set WA Alert
+            </h1>
           </div>
           <div className="flex flex-col gap-y-2 mt-5">
             <select
               onChange={(e) => setSelectedAdminId(e.target.value)}
               value={selectedAdminId}
               type="text"
-              className="w-[300px] py-3 px-3 rounded-md outline-none border-2 border-black"
+              className={` "w-[300px] py-3 px-3 rounded-md outline-none border-2 border-black" ${
+                mode === "light"
+                  ? "bg-white text-black"
+                  : "bg-gray-800 text-white"
+              }`}
             >
               <option value="">Select admin wallet</option>
               {adminList?.map((admin) => (
@@ -128,7 +142,11 @@ const SendSMSWAAlert = () => {
               onChange={(e) => setSelectedClientId(e.target.value)}
               value={selectedClientId}
               type="text"
-              className="w-[300px] py-3 px-3 rounded-md outline-none border-2 border-black"
+              className={` "w-[300px] py-3 px-3 rounded-md outline-none border-2 border-black" ${
+                mode === "light"
+                  ? "bg-white text-black"
+                  : "bg-gray-800 text-white"
+              }`}
             >
               <option value="">Select sub client</option>
               {clientList?.map((client) => (
@@ -144,7 +162,11 @@ const SendSMSWAAlert = () => {
               onChange={(e) => setSelectedWaProfileId(e.target.value)}
               value={selectedWaProfileId}
               type="text"
-              className="w-[300px] py-3 px-3 rounded-md outline-none border-2 border-black"
+              className={` "w-[300px] py-3 px-3 rounded-md outline-none border-2 border-black" ${
+                mode === "light"
+                  ? "bg-white text-black"
+                  : "bg-gray-800 text-white"
+              }`}
             >
               <option value="">Select Whatsapp Profile</option>
               {waConfigList?.map((profile) => (
@@ -162,7 +184,11 @@ const SendSMSWAAlert = () => {
                 onChange={(e) => setAlertNo(e.target.value)}
                 value={alertNo}
                 type="text"
-                className="w-[300px] py-3 px-3 rounded-md outline-none border-2 border-black"
+                className={` "w-[300px] py-3 px-3 rounded-md outline-none border-2 border-black" ${
+                  mode === "light"
+                    ? "bg-white text-black"
+                    : "bg-gray-800 text-white"
+                }`}
                 placeholder="Add Alert No"
               />
               <div className="flex justify-end">
@@ -173,7 +199,7 @@ const SendSMSWAAlert = () => {
                       setAlertNo("");
                     }
                   }}
-                  className="bg-black opacity-80 text-white px-5 py-1 cursor-pointer rounded-md"
+                  className="bg-gray-700 opacity-80 text-white px-5 py-1 cursor-pointer rounded-md"
                 >
                   Add
                 </p>
