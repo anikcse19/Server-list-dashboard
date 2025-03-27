@@ -223,7 +223,7 @@ const Sidebar = () => {
     <div
       className={`${
         mode === "light" ? "bg-white" : "bg-gray-800"
-      } min-h-screen px-3 py-10 flex flex-col justify-between`}
+      } h-screen px-3 py-10 flex flex-col justify-between overflow-y-auto custom-scrollbar `}
     >
       <div>
         <div className="flex items-center justify-between">
@@ -317,12 +317,12 @@ const Sidebar = () => {
                               ? "text-blue-500"
                               : "text-blue-400"
                             : mode === "dark"
-                            ? "text-black"
-                            : "text-white"
+                            ? "text-white"
+                            : "text-black"
                         } `}
                       >
                         <div className="flex items-center gap-x-2">
-                          <menu1.icon className={`"" text-xl`} />
+                          <menu1.icon className={` text-xl`} />
                           {isOpenSidebar && <p>{menu1.title}</p>}
                         </div>
                         {menu1.subMenu && (

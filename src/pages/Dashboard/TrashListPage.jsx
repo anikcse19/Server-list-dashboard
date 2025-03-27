@@ -116,7 +116,7 @@ const TrashListPage = () => {
   return (
     <Layout>
       {/* users table */}
-      <div className="relative overflow-x-auto max-h-screen overflow-y-auto my-5">
+      <div className="relative overflow-x-auto max-h-screen overflow-y-auto custom-scrollbar my-5">
         <table className="w-full text-sm text-left rtl:text-right text-white  ">
           <thead
             className={`sticky top-0 text-xs  uppercase ${

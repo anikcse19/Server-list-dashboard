@@ -110,7 +110,7 @@ const GeneralConfigList = () => {
         </div>
 
         {/* table */}
-        <div className="relative overflow-x-auto max-h-screen overflow-y-auto my-5 w-[calc(100vw-32px)] lg:w-[calc(100vw-320px)]">
+        <div className="relative overflow-x-auto max-h-screen overflow-y-auto custom-scrollbar my-5 w-[calc(100vw-32px)] lg:w-[calc(100vw-320px)]">
           <table className="w-full text-sm text-left rtl:text-right text-white  ">
             <thead
               className={`sticky top-0 text-xs  uppercase ${

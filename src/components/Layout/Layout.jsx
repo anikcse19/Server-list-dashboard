@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 
-import { FaAngleLeft, FaAngleRight, FaWindowClose } from "react-icons/fa";
+import { FaWindowClose } from "react-icons/fa";
 import Sidebar from "./Sidebar";
 import useStore from "../../zustand/useStore";
 import { RiMenuUnfold2Fill } from "react-icons/ri";
@@ -9,7 +9,7 @@ import Cookies from "js-cookie";
 import MobileSidebar from "./MobileSidebar";
 
 const Layout = ({ children }) => {
-  const { isOpenSidebar, setIsOpenSidebar, mode } = useStore();
+  const { isOpenSidebar, mode } = useStore();
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
 
   const role = Cookies.get("role");
@@ -54,7 +54,7 @@ const Layout = ({ children }) => {
           />
         </button>
 
-        <div className="p-4 lg:p-10 w-full">{children}</div>
+        <div className="p-4 lg:p-10 w-full custom-scrollbar">{children}</div>
       </div>
 
       {/* mobile nav */}
