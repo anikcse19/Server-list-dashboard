@@ -137,8 +137,6 @@ const UpdateUserPage = () => {
     }
   };
 
-  console.log(role, "role");
-
   return (
     <Layout>
       <div className="w-full h-screen flex justify-center mt-20 ">

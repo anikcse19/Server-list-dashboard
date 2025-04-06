@@ -27,7 +27,10 @@ const ClientConfigPage = () => {
           }
         )
         .then((res) => {
-          setConfigList(res?.data?.data);
+          if (res?.data?.status) {
+            setConfigList(res?.data?.data);
+          }
+          setConfigList([]);
           // setDomainList(res?.data?.data?.configDomains);
         });
     } catch (error) {
@@ -119,7 +122,7 @@ const ClientConfigPage = () => {
                   </td>
                 </tr>
               ) : (
-                configList.map((config, i) => (
+                configList?.map((config, i) => (
                   <tr
                     key={config.id}
                     className={`${

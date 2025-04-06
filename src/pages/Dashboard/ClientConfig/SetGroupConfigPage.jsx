@@ -15,6 +15,8 @@ const SetGroupConfigPage = () => {
     state: false,
     value: {},
   });
+  const [showConfirmModal, setShowConfirmModal] = useState(false); // State for confirmation modal
+  const [selectedConfig, setSelectedConfig] = useState(null); // Store the selected config
   // const navigate = useNavigate();
   const { mode } = useStore();
 
@@ -48,6 +50,20 @@ const SetGroupConfigPage = () => {
     fetchSubClientList();
   }, []);
 
+  const handleConfirm = () => {
+    // If user confirms, proceed with the operation
+    setOpenSetConfigModal({
+      state: true,
+      value: selectedConfig,
+    });
+    setShowConfirmModal(false); // Close the confirmation modal
+  };
+
+  const handleCancel = () => {
+    // If user cancels, just close the confirmation modal
+    setShowConfirmModal(false);
+    setSelectedConfig(null);
+  };
   return (
     <Layout>
       <div>
@@ -140,12 +156,10 @@ const SetGroupConfigPage = () => {
 
                     <td className="px-6 py-4 text-center text-xs">
                       <button
-                        onClick={() =>
-                          setOpenSetConfigModal({
-                            state: true,
-                            value: config,
-                          })
-                        }
+                        onClick={() => {
+                          setSelectedConfig(config); // Store the selected config
+                          setShowConfirmModal(true); // Show the confirmation modal
+                        }}
                         className="bg-gray-500 px-2 py-0.5 rounded-md text-white"
                       >
                         Set Config
@@ -158,6 +172,31 @@ const SetGroupConfigPage = () => {
           </table>
         </div>
       </div>
+
+      {/* Confirmation Modal */}
+      {showConfirmModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white p-5 rounded-md shadow-md w-[90%] max-w-md">
+            <p className="text-lg font-bold mb-4">
+              Are you sure to set new config?
+            </p>
+            <div className="flex justify-end gap-3">
+              <button
+                onClick={handleCancel}
+                className="bg-gray-300 px-4 py-2 rounded-md"
+              >
+                No
+              </button>
+              <button
+                onClick={handleConfirm}
+                className="bg-blue-500 text-white px-4 py-2 rounded-md"
+              >
+                Yes
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* modal */}
       {openSetConfigModal.state && (

@@ -5,16 +5,11 @@ import Sidebar from "./Sidebar";
 import useStore from "../../zustand/useStore";
 import { RiMenuUnfold2Fill } from "react-icons/ri";
 import { useState } from "react";
-import Cookies from "js-cookie";
 import MobileSidebar from "./MobileSidebar";
 
 const Layout = ({ children }) => {
   const { isOpenSidebar, mode } = useStore();
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
-
-  const role = Cookies.get("role");
-
-  console.log(role, "role");
 
   return (
     <div className="w-full flex overflow-hidden">
@@ -50,7 +45,9 @@ const Layout = ({ children }) => {
           {" "}
           <RiMenuUnfold2Fill
             onClick={() => setIsMobileNavOpen(!isMobileNavOpen)}
-            className={` text-2xl font-bold m-3 lg:hidden z-20`}
+            className={`${
+              mode === "light" ? "text-black" : "text-white"
+            } text-2xl font-bold m-3 lg:hidden z-20`}
           />
         </button>
 
@@ -59,12 +56,15 @@ const Layout = ({ children }) => {
 
       {/* mobile nav */}
       <div
-        className={`absolute z-[1000] h-full w-64  transition-all duration-300 ease-in ${
+        className={`absolute z-[1000] h-full w-64  transition-all duration-300 ease-in block lg:hidden ${
           mode === "light" ? "bg-white" : "bg-gray-800"
         } ${isMobileNavOpen ? "left-0" : "-left-full"}`}
       >
-        <div className="flex fixed justify-end w-60 z-[2000] py-2 px-4">
-          <FaWindowClose onClick={() => setIsMobileNavOpen(false)} />
+        <div className="flex fixed justify-end w-60 z-[2000] py-2 cursor-pointer">
+          <FaWindowClose
+            className={mode === "light" ? "text-black" : "text-white"}
+            onClick={() => setIsMobileNavOpen(false)}
+          />
         </div>
         <div className="block lg:hidden w-64 h-full py-3 fixed">
           <MobileSidebar />

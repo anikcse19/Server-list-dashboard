@@ -17,16 +17,6 @@ const WhatsappConfigModal = ({ setOpenConfigModal }) => {
 
   // create all sms config
   const handleCreateWhatsappConfig = async () => {
-    console.log(
-      "check",
-      senderId,
-      senderName,
-      apiKey,
-      authKey,
-      apiLink,
-      qrCode
-    );
-
     const formData = new FormData();
     formData.append("sender_id", senderId);
     formData.append("sender_name", senderName);
@@ -36,8 +26,6 @@ const WhatsappConfigModal = ({ setOpenConfigModal }) => {
     if (qrCode) {
       formData.append("qr_code", qrCode);
     }
-
-    console.log("check", formData);
 
     try {
       await axios

@@ -217,8 +217,6 @@ const Sidebar = () => {
       : []),
   ];
 
-  console.log(mode, "mode");
-
   return (
     <div
       className={`${

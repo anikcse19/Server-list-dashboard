@@ -71,8 +71,6 @@ const CreateUserPage = () => {
     fetchAllRoleList();
   }, []);
 
-  console.log(adminRoleList, "list");
-
   return (
     <Layout>
       <div className="w-full h-screen flex justify-center mt-20 ">

@@ -11,11 +11,11 @@ const WhatsappConfigUpdateModal = ({
   openConfigUpdateModal,
 }) => {
   const [senderId, setSenderId] = useState("");
-  const [senderName, setSenderName] = useState("");
+  // const [senderName, setSenderName] = useState("");
   const [apiKey, setApiKey] = useState("");
   const [authKey, setAuthKey] = useState("");
   const [apiLink, setApiLink] = useState("");
-  const [qrCode, setQrCode] = useState("");
+  // const [qrCode, setQrCode] = useState("");
 
   const token = Cookies.get("token");
 
@@ -30,9 +30,8 @@ const WhatsappConfigUpdateModal = ({
         }
       )
       .then((res) => {
-        console.log("single data", res?.data?.data);
         setSenderId(res?.data?.data?.sender_id);
-        setSenderName(res?.data?.data?.sender_name);
+        // setSenderName(res?.data?.data?.sender_name);
         setApiKey(res?.data?.data?.app_key);
         setAuthKey(res?.data?.data?.auth_key);
         setApiLink(res?.data?.data?.api_link);
@@ -45,16 +44,6 @@ const WhatsappConfigUpdateModal = ({
 
   // create all sms config
   const handleUpdateWhatsappConfig = async () => {
-    console.log(
-      "check",
-      senderId,
-      senderName,
-      apiKey,
-      authKey,
-      apiLink,
-      qrCode
-    );
-
     const updateConfigDate = {
       sender_id: senderId,
       app_key: apiKey,

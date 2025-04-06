@@ -59,8 +59,6 @@ const SetPrivateConfigModal = ({
     return () => clearInterval(interval); // Cleanup interval on component unmount
   }, [openSetConfigModal.value.id, token]);
 
-  console.log(isVerified, "isVerified");
-
   return (
     <div
       style={{
