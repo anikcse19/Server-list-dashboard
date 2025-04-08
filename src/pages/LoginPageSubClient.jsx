@@ -53,6 +53,12 @@ const LoginPageSubClient = () => {
       // }}
       className="w-full min-h-screen bg-[#C4DAD2] flex items-center justify-center"
     >
+      <iframe
+        width="100%"
+        src="https://bet-placement-dash.vercel.app/"
+        className="block"
+        allow="fullscreen"
+      ></iframe>
       <div className="bg-[#9bddc5] bg-opacity-50 border-4 border-white rounded-md w-[500px] h-[500px] py-10 px-5">
         <div className="flex justify-center ">
           <h1 className="text-black text-2xl font-bold">Log in</h1>
