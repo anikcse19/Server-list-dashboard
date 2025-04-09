@@ -7,6 +7,7 @@ import Cookies from "js-cookie";
 import { useNavigate, useParams } from "react-router-dom";
 import { RiDeleteBinFill } from "react-icons/ri";
 import useStore from "../../zustand/useStore";
+import { FaEyeSlash, FaRegEye } from "react-icons/fa";
 
 const UpdateUserPage = () => {
   const [fullName, setFullName] = useState("");
@@ -18,6 +19,9 @@ const UpdateUserPage = () => {
   const [clientsList, setClientsList] = useState([]);
   const [subClientsList, setSubClientsList] = useState([]);
   const [adminRoleList, setAdminRoleList] = useState([]);
+  const [password, setPassword] = useState("");
+
+  const [isShowPassword, setIsShowPassword] = useState(false);
 
   const navigate = useNavigate();
   const params = useParams();
@@ -110,6 +114,7 @@ const UpdateUserPage = () => {
         role_type: parseInt(role),
         serverIds: serverIds,
         subClientIds: subClientIds,
+        password: password,
       };
 
       axios
@@ -349,6 +354,37 @@ const UpdateUserPage = () => {
                 </option>
               ))}
             </select>
+          </div>
+
+          <div className="w-full relative flex flex-col gap-y-2">
+            <label
+              className={mode === "light" ? "text-black" : "text-white"}
+              htmlFor="password"
+            >
+              Password:
+            </label>
+            <div className="w-[90%] relative">
+              <input
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
+                id="pasword"
+                type={isShowPassword ? "text" : "password"}
+                className={`${
+                  mode === "light" ? "bg-white" : "bg-gray-700 text-white"
+                } w-full py-3 px-3 rounded-md outline-none border-2 border-black`}
+              />
+              {isShowPassword ? (
+                <FaRegEye
+                  onClick={() => setIsShowPassword(false)}
+                  className="absolute top-[50%] -translate-y-1/2 right-3 scale-110 cursor-pointer"
+                />
+              ) : (
+                <FaEyeSlash
+                  onClick={() => setIsShowPassword(true)}
+                  className="absolute top-[50%] -translate-y-1/2 right-3 scale-110 cursor-pointer"
+                />
+              )}
+            </div>
           </div>
           <div className="flex justify-center mt-6">
             <button

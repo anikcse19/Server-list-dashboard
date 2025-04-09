@@ -24,6 +24,7 @@ const SubClientListsPage = () => {
   });
   const [clientId, setClientId] = useState("");
   const [domainName, setDomainName] = useState("");
+  const [clientStatus, setClientStatus] = useState("");
 
   const [clientList, setClientList] = useState([]);
 
@@ -87,6 +88,7 @@ const SubClientListsPage = () => {
       const updateSubClientData = {
         client_id: clientId,
         domain: domainName,
+        status: clientStatus,
       };
 
       axios
@@ -201,6 +203,9 @@ const SubClientListsPage = () => {
                 <th scope="col" className="px-6 py-3 text-left">
                   Created Date
                 </th>
+                <th scope="col" className="px-6 py-3 text-left">
+                  Status
+                </th>
                 {role === 1 && (
                   <th scope="col" className="px-6 py-3 text-center">
                     Action
@@ -252,6 +257,17 @@ const SubClientListsPage = () => {
                     <td className="px-6 py-4 text-left text-xs">
                       {formateDate(client?.created_at)}
                     </td>
+                    <td className="px-6 py-4 text-left text-xs">
+                      {client?.status === 1 ? (
+                        <p className="text-green-700 bg-green-100 px-2 py-0.5 rounded-md inline">
+                          Active
+                        </p>
+                      ) : (
+                        <p className="text-red-700 bg-red-100 px-2 py-0.5 rounded-md inline">
+                          Inactive
+                        </p>
+                      )}
+                    </td>
 
                     {role === 1 && (
                       <td className="px-6 py-4 text-left text-xs flex items-center gap-x-3 justify-center">
@@ -263,6 +279,7 @@ const SubClientListsPage = () => {
                             });
                             setClientId(client?.client_id);
                             setDomainName(client?.domain);
+                            setClientStatus(client?.status);
                           }}
                           className="bg-teal-200 hover:bg-teal-300 transition-all duration-100 ease-in text-green-800 px-5 py-2 rounded-md cursor-pointer"
                         >
@@ -384,6 +401,23 @@ const SubClientListsPage = () => {
                   placeholder="Enter Domain Name"
                 />
               </div>
+            </div>
+
+            <div className="flex flex-col gap-y-1">
+              <p>Status</p>
+              <select
+                name=""
+                id=""
+                onChange={(e) => {
+                  setClientStatus(e.target.value);
+                }}
+                value={clientStatus}
+                className="w-[300px] py-3 px-3 rounded-md outline-none border-2 border-black"
+              >
+                <option value="">Select --</option>
+                <option value="0">Inactive</option>
+                <option value="1">Active</option>
+              </select>
             </div>
             <div className="flex justify-center mt-6">
               <button
