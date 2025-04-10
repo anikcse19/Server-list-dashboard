@@ -15,6 +15,8 @@ import { useNavigate } from "react-router-dom";
 
 const ClientListsPage = () => {
   const [clientsList, setClientsList] = useState([]);
+  const [filterClientsList, setFilterClientsList] = useState([]);
+
   const [isLoading, setIsLoading] = useState(true);
   const [pageNo, setPagNo] = useState(1);
   const [pages, setPages] = useState([]);
@@ -57,6 +59,7 @@ const ClientListsPage = () => {
         .then((res) => {
           if (res?.data?.status) {
             setClientsList(res?.data?.data?.data);
+            setFilterClientsList(res?.data?.data?.data);
             setPages(res?.data?.data?.links);
             setLastPage(res?.data?.data?.last_page);
           }
@@ -143,6 +146,18 @@ const ClientListsPage = () => {
         console.error("Failed to copy text: ", err);
       });
   };
+
+  const handleSearch = (e) => {
+    const searchValue = e.target.value.toLowerCase();
+
+    const filteredSubC = clientsList.filter(
+      (client) =>
+        client?.server.toLowerCase().includes(searchValue) ||
+        client?.clientId.toLowerCase().includes(searchValue) ||
+        client?.clientSecret.toLowerCase().includes(searchValue)
+    );
+    setFilterClientsList(filteredSubC);
+  };
   return (
     <Layout>
       <div>
@@ -169,6 +184,7 @@ const ClientListsPage = () => {
             <input
               // onChange={(e) => setSearchEventName(e.target.value)}
               // value={searchEventName}
+              onChange={handleSearch}
               type="text"
               placeholder="Search Client"
               className={` ${
@@ -239,7 +255,7 @@ const ClientListsPage = () => {
                   </td>
                 </tr>
               ) : (
-                clientsList.map((client) => (
+                filterClientsList.map((client) => (
                   <tr
                     key={client.id}
                     className={`${

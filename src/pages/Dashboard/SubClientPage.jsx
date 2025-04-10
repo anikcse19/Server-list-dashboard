@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 
 const SubClientListsPage = () => {
   const [subClientsList, setSubClientsList] = useState([]);
+  const [filterSubClientsList, setFilterSubClientsList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState({
@@ -57,6 +58,7 @@ const SubClientListsPage = () => {
         .then((res) => {
           if (res?.data?.status) {
             setSubClientsList(res?.data?.data);
+            setFilterSubClientsList(res?.data?.data);
           }
         });
     } catch (error) {
@@ -115,6 +117,16 @@ const SubClientListsPage = () => {
     }
   };
 
+  const handleSearch = (e) => {
+    const searchValue = e.target.value.toLowerCase();
+
+    const filteredSubC = subClientsList.filter(
+      (subC) =>
+        subC?.domain.toLowerCase().includes(searchValue) ||
+        subC?.client.server.toLowerCase().includes(searchValue)
+    );
+    setFilterSubClientsList(filteredSubC);
+  };
   return (
     <Layout>
       <div>
@@ -142,6 +154,7 @@ const SubClientListsPage = () => {
               <input
                 // onChange={(e) => setSearchEventName(e.target.value)}
                 // value={searchEventName}
+                onChange={handleSearch}
                 type="text"
                 placeholder="Search Sub Client"
                 className={` ${
@@ -230,14 +243,14 @@ const SubClientListsPage = () => {
                     </div>
                   </td>
                 </tr>
-              ) : subClientsList?.length <= 0 ? (
+              ) : filterSubClientsList?.length <= 0 ? (
                 <tr className="text-center text-sm">
                   <td colSpan={12} align="center">
                     <p className="py-2 text-red-700">No data found.</p>
                   </td>
                 </tr>
               ) : (
-                subClientsList.map((client, i) => (
+                filterSubClientsList.map((client, i) => (
                   <tr
                     key={client.id}
                     className={`${

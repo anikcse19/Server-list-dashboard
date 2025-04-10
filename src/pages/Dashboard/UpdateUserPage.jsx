@@ -151,7 +151,7 @@ const UpdateUserPage = () => {
           }}
           className={`${
             mode === "light" ? "bg-white" : "bg-gray-900"
-          } flex flex-col gap-y-5 border-2 border-black h-fit p-10 rounded-md bg-white w-[500px]`}
+          } flex flex-col gap-y-5 border-2 border-black h-fit p-10 rounded-md w-[500px]`}
         >
           <div className="flex justify-center">
             <h1
