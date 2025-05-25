@@ -9,6 +9,7 @@ import baseUrl from "../../../../config";
 import SubClientSMSSettingModal from "../../../components/Modal/SubClientSMSSettingModal";
 import SubClientSMSDeleteModal from "../../../components/Modal/SubClientSMSDeleteModal";
 import useStore from "../../../zustand/useStore";
+import SubClientFBWASettingModal from "../../../components/Modal/SubClientFBWASettingModal";
 
 const SMSSetting = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -18,6 +19,7 @@ const SMSSetting = () => {
 
   // const [domainList, setDomainList] = useState([]);
   const [openConfigModal, setOpenConfigModal] = useState(false);
+  const [openFBWPModal, setOpenFBWAModal] = useState(false);
 
   const [openDeleteConfigModal, setOpenDeleteConfigModal] = useState({
     state: false,
@@ -142,6 +144,18 @@ const SMSSetting = () => {
               className="bg-teal-100 text-teal-700 px-5 py-1 rounded-md"
             >
               Create New
+            </button>
+            <button
+              style={{
+                boxShadow:
+                  "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px",
+              }}
+              onClick={() => {
+                setOpenFBWAModal(true);
+              }}
+              className="bg-teal-100 text-teal-700 px-5 py-1 rounded-md"
+            >
+              Create Fb & WA
             </button>
           </div>
         </div>
@@ -344,6 +358,15 @@ const SMSSetting = () => {
           <SubClientSMSSettingModal
             openConfigModal={openConfigModal}
             setOpenConfigModal={setOpenConfigModal}
+          />
+        </div>
+      )}
+
+      {openFBWPModal && (
+        <div className="fixed top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-full">
+          <SubClientFBWASettingModal
+            openConfigModal={openFBWPModal}
+            setOpenConfigModal={setOpenFBWAModal}
           />
         </div>
       )}
