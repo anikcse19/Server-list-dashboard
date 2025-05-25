@@ -153,7 +153,7 @@ const SMSSetting = () => {
               onClick={() => {
                 setOpenFBWAModal(true);
               }}
-              className="bg-teal-100 text-teal-700 px-5 py-1 rounded-md"
+              className="bg-rose-100 text-rose-700 px-5 py-1 rounded-md"
             >
               Create Fb & WA
             </button>
